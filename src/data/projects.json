@@ -1,11 +1,11 @@
 [
   {
     "slug": "poster-series",
-    "name": "Poster Series",
-    "client": "Conceptual Work",
-    "year": "2024",
+    "name": "Posterfolio",
+    "client": "Various Clients",
+    "year": "2023 - 2025",
     "role": "Poster Design",
-    "about": "Poster series exploring light, texture, and negative space for a fictional tour campaign. Focus on simple forms, controlled contrast, and a cinematic atmosphere.",
+    "about": "This is a poster folio featuring poster designs created for different clients and events, each tailored to unique themes and purposes.",
     "programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
     "thumbnail": "exhibition_poster.png",
     "images": ["exhibition_poster.png", "aaconcert_poster.png", "beau_tour_2025_poster.png", "galeria_na_namesti_poster.png", "reborn_poster.png"]
@@ -13,10 +13,10 @@
   {
     "slug": "logofolio",
     "name": "Logofolio",
-    "client": "Logofolio",
+    "client": "Various Clients",
     "year": "2023 - 2025",
     "role": "Logo Design",
-    "about": "These logos are collection of logos I have designed for various clients.",
+    "about": "This is a logofolio showcasing logos designed for various clients, each tailored to different brand identities and needs.",
     "programs": ["Figma", "Adobe Illustrator"],
     "thumbnail": "orbis_libri_logo.png",
     "images": ["orbis_libri_logo.png", "aac_logo_flat.png", "lightwork_logo.png", "aarunningclub_logo_concept.png", "aaclub_mvdesigner_logo.png", "aacommunity_mvdesigner_logo.png", "kiho_logo.png", "jym_coach_logo.png", "stelinhome_logo.png", "planterio_logo.png", "k+k_translations_logo.png", "k+k_translations_logo_typo.png"]
@@ -27,8 +27,8 @@
     "client": "Artistic Area Club",
     "year": "2024",
     "role": "Logo, Visual Identity, Poster Design, Content Creation",
-    "about": "Clean, minimal identity built around flowing shapes and carefully balanced curves. Focus on a tactile, reflective feel that works both in print and digital.",
-    "programs": ["Adobe Illustrator", "Adobe Photoshop", "Framer"],
+    "about": "Artistic Area Club is a creative collective of selected artists and designers who represent the brand’s core values, humility, freedom, and inspiration. It serves as the umbrella under which original designs, music, visuals, and creative projects are produced. In short, it’s an elite creative unit that shapes the brand’s identity and pushes the boundaries of creativity.",
+    "programs": ["Adobe Illustrator", "Adobe Photoshop", "Framer", "Figma", "Notion"],
     "thumbnail": "aac_logo_3d.png",
     "images": ["aac_logo_3d.png", "aac_show_photo.png", "aac_cover_concept.png", "aac_ben3dict.png", "aac_show_annoucment.png", "aac_show_annoucment_2.png", "aac_logo_flat.png", "aarunningclub_logo_concept.png", "aaconcert_poster.png", "aac_bc.png", "aacarabiner_product.png", "aac_show_artist.png", "aac_iba_o_umeni_cover.png", "aac_family.png", "aac_show_photo_3.png", "aac_playlist_cover.png"]
   },
@@ -38,7 +38,7 @@
     "client": "Conceptual Album Cover Series",
     "year": "2025",
     "role": "Artwork & Cover Design",
-    "about": "A series of abstract covers combining typographic rhythm with subtle grain and gradients. Built to work across multiple formats and devices.",
+    "about": "I designed album cover art in a dark style, with a custom logotype as the main symbol. The project also included vinyl design, maintaining strong visual consistency across all assets.",
     "programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
     "thumbnail": "ÆRv 1.png",
     "images": ["ÆRv 1.png", "ÆRv 2.png", "ÆRv 3.png", "ÆRv 5.png", "ÆRv 6.png"]
@@ -49,7 +49,7 @@
     "client": "Oravská Knižnica Antona Habovštiaka",
     "year": "2025",
     "role": "Graphic Design, Content Creation",
-    "about": "Monoline logomark designed as a continuous loop. The form is intentionally minimal while still retaining a strong, memorable silhouette.",
+    "about": "I was responsible for digital communication and visual content creation for a public library located in Dolný Kubín. My work focused primarily on producing static social media posts that highlighted important events and engaged the local community. Additionally, I designed posters, diplomas, and prepared various materials for print, ensuring all assets were consistent with the library’s visual identity. Through careful design and planning, I helped the library strengthen its brand, improve audience outreach, and present its activities in a clear and visually appealing way.",
     "programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
     "thumbnail": "oravska_kniznica.png",
     "images": ["oravska_kniznica.png", "orkn_post_1.png", "orkn_post_2.png", "orkn_post_3.png", "orkn_post_4.png", "orkn_post_5.png", "orkn_post_6.png", "orkn_post_7.png", "orkn_post_8.png", "orkn_poster.png"]
@@ -60,7 +60,7 @@
     "client": "Artistic Area Club",
     "year": "2025",
     "role": "Logo Design, Web, Content Creation",
-    "about": "Poster exploring rebirth and transformation through layered textures, grain, and bold typography. Built for both large-format print and digital use.",
+    "about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image. Additionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
     "programs": ["Adobe Illustrator", "Adobe Photoshop", "Notion"],
     "thumbnail": "stelinhome_web_mockup.png",
     "images": ["stelinhome_web_mockup.png", "stelinhome_logo.png"]
