@@ -6,6 +6,7 @@ import Layout from "../layouts/Layout.astro";
 
 // Import images directly
 import brokenMirror from "../assets/broken-mirror.jpg";
+import brokenMirror2 from "../assets/broken-mirror.jpg";
 
 // Optimize images for different sizes with responsive variants
 const optimizeImage = async (src: ImageMetadata) => {
@@ -21,18 +22,10 @@ const title = "About";
 
 const [
 	brokenMirrorOptimized,
-	tourPosterOptimized,
-	aervOptimized,
-	aec3Optimized,
-	orbisLibriOptimized,
-	rebornPosterOptimized,
+	brokenMirrorOptimized2,
 ] = await Promise.all([
 	optimizeImage(brokenMirror),
-	optimizeImage(tourPoster),
-	optimizeImage(aerv),
-	optimizeImage(aec3),
-	optimizeImage(orbisLibri),
-	optimizeImage(rebornPoster),
+	optimizeImage(brokenMirror2),
 ]);
 
 // Client-usable list of optimized images with responsive sources
@@ -46,44 +39,12 @@ const cycleImages = [
 		height: brokenMirrorOptimized.medium.attributes.height,
 	},
 	{
-		title: "tour_poster_photoshot_2024.png",
-		src: tourPosterOptimized.medium.src,
-		srcSet: `${tourPosterOptimized.small.src} 400w, ${tourPosterOptimized.medium.src} 800w, ${tourPosterOptimized.large.src} 1200w`,
+		title: "maithedesign.png",
+		src: brokenMirrorOptimized2.medium.src,
+		srcSet: `${brokenMirrorOptimized2.small.src} 400w, ${brokenMirrorOptimized2.medium.src} 800w, ${brokenMirrorOptimized2.large.src} 1200w`,
 		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: tourPosterOptimized.medium.attributes.width,
-		height: tourPosterOptimized.medium.attributes.height,
-	},
-	{
-		title: "aerv.png",
-		src: aervOptimized.medium.src,
-		srcSet: `${aervOptimized.small.src} 400w, ${aervOptimized.medium.src} 800w, ${aervOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: aervOptimized.medium.attributes.width,
-		height: aervOptimized.medium.attributes.height,
-	},
-	{
-		title: "aec3.png",
-		src: aec3Optimized.medium.src,
-		srcSet: `${aec3Optimized.small.src} 400w, ${aec3Optimized.medium.src} 800w, ${aec3Optimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: aec3Optimized.medium.attributes.width,
-		height: aec3Optimized.medium.attributes.height,
-	},
-	{
-		title: "orbis_libri_logo_blue.png",
-		src: orbisLibriOptimized.medium.src,
-		srcSet: `${orbisLibriOptimized.small.src} 400w, ${orbisLibriOptimized.medium.src} 800w, ${orbisLibriOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: orbisLibriOptimized.medium.attributes.width,
-		height: orbisLibriOptimized.medium.attributes.height,
-	},
-	{
-		title: "reborn_poster.png",
-		src: rebornPosterOptimized.medium.src,
-		srcSet: `${rebornPosterOptimized.small.src} 400w, ${rebornPosterOptimized.medium.src} 800w, ${rebornPosterOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: rebornPosterOptimized.medium.attributes.width,
-		height: rebornPosterOptimized.medium.attributes.height,
+		width: brokenMirrorOptimized2.medium.attributes.width,
+		height: brokenMirrorOptimized2.medium.attributes.height,
 	},
 ];
 ---
