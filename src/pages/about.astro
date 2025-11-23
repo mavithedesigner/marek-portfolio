@@ -4,13 +4,12 @@ import CycleImage from "../components/CycleImage";
 import Experience from "../components/Experience.astro";
 import Layout from "../layouts/Layout.astro";
 
-import tourPoster from "../assets/archive/1.png";
-import aerv from "../assets/archive/2.png";
-import aec3 from "../assets/archive/3.png";
-import orbisLibri from "../assets/archive/4.png";
-import rebornPoster from "../assets/archive/5.png";
 // Import images directly
-import brokenMirror from "../assets/broken-mirror.jpg";
+import brokenMirror from "../assets/archive/brokenmirror.png";
+import duo from "../assets/archive/duo.png";
+import marek1 from "../assets/archive/marek1.png";
+import portrait from "../assets/archive/portrait.png";
+
 
 // Optimize images for different sizes with responsive variants
 const optimizeImage = async (src: ImageMetadata) => {
@@ -25,70 +24,50 @@ const optimizeImage = async (src: ImageMetadata) => {
 const title = "About";
 
 const [
-	brokenMirrorOptimized,
-	tourPosterOptimized,
-	aervOptimized,
-	aec3Optimized,
-	orbisLibriOptimized,
-	rebornPosterOptimized,
+	brokenmirrorOptimized,
+	portraitOptimized,
+	duoOptimized,
+	marek1Optimized,
 ] = await Promise.all([
 	optimizeImage(brokenMirror),
-	optimizeImage(tourPoster),
-	optimizeImage(aerv),
-	optimizeImage(aec3),
-	optimizeImage(orbisLibri),
-	optimizeImage(rebornPoster),
+	optimizeImage(portrait),
+	optimizeImage(duo),
+	optimizeImage(marek1)
 ]);
 
 // Client-usable list of optimized images with responsive sources
 const cycleImages = [
 	{
-		title: "maithedesign.png",
-		src: brokenMirrorOptimized.medium.src,
-		srcSet: `${brokenMirrorOptimized.small.src} 400w, ${brokenMirrorOptimized.medium.src} 800w, ${brokenMirrorOptimized.large.src} 1200w`,
+		title: "gallery.png",
+		src: brokenmirrorOptimized.medium.src,
+		srcSet: `${brokenmirrorOptimized.small.src} 400w, ${brokenmirrorOptimized.medium.src} 800w, ${brokenmirrorOptimized.large.src} 1200w`,
 		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: brokenMirrorOptimized.medium.attributes.width,
-		height: brokenMirrorOptimized.medium.attributes.height,
+		width: brokenmirrorOptimized.medium.attributes.width,
+		height: brokenmirrorOptimized.medium.attributes.height,
 	},
 	{
-		title: "tour_poster_photoshot_2024.png",
-		src: tourPosterOptimized.medium.src,
-		srcSet: `${tourPosterOptimized.small.src} 400w, ${tourPosterOptimized.medium.src} 800w, ${tourPosterOptimized.large.src} 1200w`,
+		title: "portrait.png",
+		src: portraitOptimized.medium.src,
+		srcSet: `${portraitOptimized.small.src} 400w, ${portraitOptimized.medium.src} 800w, ${portraitOptimized.large.src} 1200w`,
 		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: tourPosterOptimized.medium.attributes.width,
-		height: tourPosterOptimized.medium.attributes.height,
+		width: portraitOptimized.medium.attributes.width,
+		height: portraitOptimized.medium.attributes.height,
 	},
 	{
-		title: "aerv.png",
-		src: aervOptimized.medium.src,
-		srcSet: `${aervOptimized.small.src} 400w, ${aervOptimized.medium.src} 800w, ${aervOptimized.large.src} 1200w`,
+		title: "duo.png",
+		src: duoOptimized.medium.src,
+		srcSet: `${duoOptimized.small.src} 400w, ${duoOptimized.medium.src} 800w, ${duoOptimized.large.src} 1200w`,
 		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: aervOptimized.medium.attributes.width,
-		height: aervOptimized.medium.attributes.height,
+		width: duoOptimized.medium.attributes.width,
+		height: duoOptimized.medium.attributes.height,
 	},
 	{
-		title: "aec3.png",
-		src: aec3Optimized.medium.src,
-		srcSet: `${aec3Optimized.small.src} 400w, ${aec3Optimized.medium.src} 800w, ${aec3Optimized.large.src} 1200w`,
+		title: "marek1.png",
+		src: marek1Optimized.medium.src,
+		srcSet: `${marek1Optimized.small.src} 400w, ${marek1Optimized.medium.src} 800w, ${marek1Optimized.large.src} 1200w`,
 		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: aec3Optimized.medium.attributes.width,
-		height: aec3Optimized.medium.attributes.height,
-	},
-	{
-		title: "orbis_libri_logo_blue.png",
-		src: orbisLibriOptimized.medium.src,
-		srcSet: `${orbisLibriOptimized.small.src} 400w, ${orbisLibriOptimized.medium.src} 800w, ${orbisLibriOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: orbisLibriOptimized.medium.attributes.width,
-		height: orbisLibriOptimized.medium.attributes.height,
-	},
-	{
-		title: "reborn_poster.png",
-		src: rebornPosterOptimized.medium.src,
-		srcSet: `${rebornPosterOptimized.small.src} 400w, ${rebornPosterOptimized.medium.src} 800w, ${rebornPosterOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: rebornPosterOptimized.medium.attributes.width,
-		height: rebornPosterOptimized.medium.attributes.height,
+		width: marek1Optimized.medium.attributes.width,
+		height: marek1Optimized.medium.attributes.height,
 	},
 ];
 ---
@@ -136,6 +115,7 @@ const cycleImages = [
 						<li>Figma</li>
 						<li>Adobe Illustrator</li>
 						<li>Adobe Photoshop</li>
+						<li>Adobe Premiere Pro</li>
 						<li>Framer</li>
 						<li>Notion</li>
 					</ul>
@@ -149,7 +129,7 @@ const cycleImages = [
 
 					<h2 class="text-base font-mono text-secondary-foreground mb-2">Contact</h2>
 					<a href="mailto:contact@marekvician.com" class="hover:underline">
-						contact@marekvician.com
+						contact@vican.design
 					</a>
 				</div>
 			</div>
