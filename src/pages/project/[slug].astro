@@ -4,129 +4,153 @@ import Layout from "../../layouts/Layout.astro";
 import { getProjects } from "../../lib/projects";
 
 export async function getStaticPaths() {
-	const projects = await getProjects();
+    const projects = await getProjects();
 
-	return projects.map((project, index) => ({
-		params: { slug: project.slug },
-		props: {
-			project,
-			index,
-			previous: index > 0 ? projects[index - 1] : null,
-			next: index < projects.length - 1 ? projects[index + 1] : null,
-		},
-	}));
+    return projects.map((project, index) => ({
+        params: { slug: project.slug },
+        props: {
+            project,
+            index,
+            previous: index > 0 ? projects[index - 1] : null,
+            next: index < projects.length - 1 ? projects[index + 1] : null,
+        },
+    }));
 }
 
 const { project, previous, next } = Astro.props;
 ---
 
 <Layout title={`${project.name} |`}>
-	<section class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-24 pb-16 md:pt-32 md:pb-24">
-		<div class="px-4 sm:px-6 lg:px-8">
-			<div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-10 lg:gap-16 xl:gap-24 items-start">
-				<!-- Left: Image / Gallery -->
-				<div class="relative">
-					<div>
-						<CycleImage
-							client:load
-							images={project.imageItems}
-							startIndex={0}
-							className="w-full h-auto select-none object-contain"
-							wrapperClassName="relative overflow-hidden cycle-image-container"
-							cursorClassName="cursor-default hover:cursor-e-resize"
-							showCounter={true}
-						/>
-					</div>
-				</div>
+    <section
+        class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-24 pb-16 md:pt-32 md:pb-24"
+    >
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-10 lg:gap-16 xl:gap-24 items-start"
+            >
+                <!-- Left: Image / Gallery -->
+                <div class="relative">
+                    <div>
+                        <CycleImage
+                            client:load
+                            images={project.imageItems}
+                            startIndex={0}
+                            className="w-full h-auto select-none object-contain"
+                            wrapperClassName="relative overflow-hidden cycle-image-container"
+                            cursorClassName="cursor-default hover:cursor-e-resize"
+                            showCounter={true}
+                        />
+                    </div>
+                </div>
 
-				<!-- Right: Project details -->
-				<div class="flex flex-col gap-8 text-sm md:text-[0.8125rem] leading-relaxed max-w-xl">
-					<div class="space-y-4">
-						<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-							Name
-						</div>
-						<div class="font-mono text-palette-brightest-white">
-							{project.name}
-						</div>
-					</div>
+                <!-- Right: Project details -->
+                <div
+                    class="flex flex-col gap-8 text-sm md:text-[0.8125rem] leading-relaxed max-w-xl"
+                >
+                    <div class="space-y-4">
+                        <div
+                            class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                        >
+                            Name
+                        </div>
+                        <div class="font-mono text-palette-brightest-white">
+                            {project.name}
+                        </div>
+                    </div>
 
-					<div class="space-y-4">
-						<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-							About
-						</div>
-						<p class="text-palette-brightest-white/80">
-							{project.about}
-						</p>
-					</div>
+                    <div class="space-y-4">
+                        <div
+                            class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                        >
+                            About
+                        </div>
+                        <p class="text-palette-brightest-white/80">
+                            {project.about}
+                        </p>
+                    </div>
 
-					<div class="grid grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-								Client
-							</div>
-							<div class="text-palette-brightest-white/80">
-								{project.client}
-							</div>
-						</div>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div
+                                class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                            >
+                                Client
+                            </div>
+                            <div class="text-palette-brightest-white/80">
+                                {project.client}
+                            </div>
+                        </div>
 
-						<div class="space-y-4">
-							<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-								Year
-							</div>
-							<div class="text-palette-brightest-white/80">
-								{project.year}
-							</div>
-						</div>
-					</div>
+                        <div class="space-y-4">
+                            <div
+                                class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                            >
+                                Year
+                            </div>
+                            <div class="text-palette-brightest-white/80">
+                                {project.year}
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="space-y-4">
-						<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-							Role
-						</div>
-						<div class="text-palette-brightest-white/80">
-							{project.role}
-						</div>
-					</div>
+                    <div class="space-y-4">
+                        <div
+                            class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                        >
+                            Role
+                        </div>
+                        <div class="text-palette-brightest-white/80">
+                            {project.role}
+                        </div>
+                    </div>
 
-					<div class="space-y-4">
-						<div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
-							Programs
-						</div>
-						<ul class="space-y-1 text-palette-brightest-white/80">
-							{project.programs.map((program) => (
-								<li>{program}</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			</div>
+                    <div class="space-y-4">
+                        <div
+                            class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                        >
+                            Programs
+                        </div>
+                        <ul class="space-y-1 text-palette-brightest-white/80">
+                            {
+                                project.programs.map((program) => (
+                                    <li>{program}</li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-			<!-- Previous / Next navigation -->
-			<div class="mt-16 md:mt-20 flex justify-between text-[0.7rem] font-mono text-palette-brightest-white/70">
-				{previous ? (
-					<a
-						href={`/project/${previous.slug}`}
-						class="hover:text-white transition-colors duration-200"
-					>
-						previous_project
-					</a>
-				) : (
-					<span class="opacity-40">previous_project</span>
-				)}
+            <!-- Previous / Next navigation -->
+            <div
+                class="mt-16 md:mt-20 flex justify-between text-sm font-mono text-palette-brightest-white/70"
+            >
+                {
+                    previous ? (
+                        <a
+                            href={`/project/${previous.slug}`}
+                            class="hover:text-white transition-colors duration-200"
+                        >
+                            previous_project
+                        </a>
+                    ) : (
+                        <span class="opacity-40">previous_project</span>
+                    )
+                }
 
-				{next ? (
-					<a
-						href={`/project/${next.slug}`}
-						class="hover:text-white transition-colors duration-200"
-					>
-						next_project
-					</a>
-				) : (
-					<span class="opacity-40">next_project</span>
-				)}
-			</div>
-		</div>
-	</section>
+                {
+                    next ? (
+                        <a
+                            href={`/project/${next.slug}`}
+                            class="hover:text-white transition-colors duration-200"
+                        >
+                            next_project
+                        </a>
+                    ) : (
+                        <span class="opacity-40">next_project</span>
+                    )
+                }
+            </div>
+        </div>
+    </section>
 </Layout>
-
-
