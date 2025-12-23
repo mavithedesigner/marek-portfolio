@@ -104,6 +104,19 @@ const { project, previous, next } = Astro.props;
                         </div>
                     </div>
 
+                    {project.collaborators && (
+                        <div class="space-y-4">
+                            <div
+                                class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+                            >
+                                Collaborators
+                            </div>
+                            <div class="text-palette-brightest-white/80">
+                                {project.collaborators}
+                            </div>
+                        </div>
+                    )}
+
                     <div class="space-y-4">
                         <div
                             class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"

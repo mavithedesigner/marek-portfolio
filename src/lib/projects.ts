@@ -17,6 +17,7 @@ type RawProject = {
 	programs: string[];
 	thumbnail: string;
 	images: string[];
+	collaborators?: string;
 };
 
 export type Project = RawProject & {
