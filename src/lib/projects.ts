@@ -32,9 +32,12 @@ async function toCycleImageItem(filename: string): Promise<CycleImageItem> {
 	}
 
 	const promise = (async () => {
-		const entry = Object.entries(imageModules).find(([path]) =>
-			path.endsWith(`/archive/${filename}`),
-		);
+		const entry = Object.entries(imageModules).find(([path]) => {
+			// Extract filename from path and compare
+			const normalizedPath = path.replace(/\\/g, '/');
+			const pathFilename = normalizedPath.split('/').pop();
+			return pathFilename === filename || normalizedPath.endsWith(`/archive/${filename}`);
+		});
 
 		if (!entry) {
 			throw new Error(

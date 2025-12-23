@@ -5,6 +5,7 @@ import Experience from "../components/Experience.astro";
 import Layout from "../layouts/Layout.astro";
 
 // Import images directly
+import marek_designer from "../assets/marek_designer.png";
 import brokenMirror from "../assets/archive/brokenmirror.png";
 import duo from "../assets/archive/duo.png";
 import marek1 from "../assets/archive/marek1.png";
@@ -22,13 +23,15 @@ const optimizeImage = async (src: ImageMetadata) => {
 
 const title = "About";
 
-const [
-	brokenmirrorOptimized,
+const [	
+marek_designerOptimized,
+brokenmirrorOptimized,
 	portraitOptimized,
 	duoOptimized,
 	marek1Optimized,
 ] = await Promise.all([
-	optimizeImage(brokenMirror),
+	optimizeImage(marek_designer),
+optimizeImage(brokenMirror),
 	optimizeImage(portrait),
 	optimizeImage(duo),
 	optimizeImage(marek1),
@@ -36,6 +39,14 @@ const [
 
 // Client-usable list of optimized images with responsive sources
 const cycleImages = [
+	{
+		title: "marek_designer.png",
+		src: marek_designerOptimized.medium.src,
+		srcSet: `${marek_designerOptimized.small.src} 400w, ${marek_designerOptimized.medium.src} 800w, ${marek_designerOptimized.large.src} 1200w`,
+		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
+		width: marek_designerOptimized.medium.attributes.width,
+		height: marek_designerOptimized.medium.attributes.height,
+	},	
 	{
 		title: "gallery.png",
 		src: brokenmirrorOptimized.medium.src,
