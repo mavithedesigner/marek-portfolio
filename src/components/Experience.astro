@@ -41,63 +41,89 @@ const experiences = [
 ];
 ---
 
-<section class="w-full max-w-7xl mx-auto text-palette-brightest-white py-16 mt-36">
-	<div class="container mx-auto px-4">
-		<div class="max-w-2xl mx-auto lg:max-w-none">
-			<div class="divide-y divide-white/10">
-				{experiences.map((item) => (
-					<div class="py-8 lg:py-5">
-						{/* Mobile Layout */}
-						<div class="lg:hidden space-y-2">
-							<div class="flex items-baseline gap-2">
-								<h3 class="text-xl md:text-lg font-medium font-body! md:font-normal">
-									{item.company === "Oravská knižnica Antona Habovštiaka" ? "Oravská knižnica" : item.company}
-								</h3>
-								{item.employmentType && (
-									<span class="text-sm text-secondary-foreground">{item.employmentType}</span>
-								)}
-							</div>
-							<div class="flex justify-between items-baseline gap-4">
-								<p class="text-base">{item.role}</p>
-								<p class="text-base text-right">{item.location}</p>
-							</div>
-							<div class="flex justify-between items-baseline gap-4">
-								<p class="text-sm text-secondary-foreground">{item.start} - {item.end}</p>
-								{item.workplaceType && (
-									<p class="text-sm text-secondary-foreground text-right">{item.workplaceType}</p>
-								)}
-							</div>
-						</div>
+<section
+    class="w-full max-w-7xl mx-auto text-palette-brightest-white py-16 mt-36"
+>
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto lg:max-w-none">
+            <div class="divide-y divide-white/10">
+                {
+                    experiences.map((item) => (
+                        <div class="py-8 lg:py-5">
+                            {/* Mobile Layout */}
+                            <div class="lg:hidden space-y-2">
+                                <div class="flex items-baseline gap-2">
+                                    <h3 class="text-xl md:text-lg font-medium font-body! md:font-normal">
+                                        {item.company ===
+                                        "Oravská knižnica Antona Habovštiaka"
+                                            ? "Oravská knižnica"
+                                            : item.company}
+                                    </h3>
+                                    {item.employmentType && (
+                                        <span class="text-sm text-secondary-foreground">
+                                            {item.employmentType}
+                                        </span>
+                                    )}
+                                </div>
+                                <div class="flex justify-between items-baseline gap-4">
+                                    <p class="text-base">{item.role}</p>
+                                    <p class="text-base text-right">
+                                        {item.location}
+                                    </p>
+                                </div>
+                                <div class="flex justify-between items-baseline gap-4">
+                                    <p class="text-sm text-secondary-foreground">
+                                        {item.start} - {item.end}
+                                    </p>
+                                    {item.workplaceType && (
+                                        <p class="text-sm text-secondary-foreground text-right">
+                                            {item.workplaceType}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
 
-						{/* Desktop Layout */}
-						<div class="hidden lg:grid lg:grid-cols-3 gap-6">
-							<div>
-								<p class="text-lg">{item.role}</p>
-								<p class="text-sm text-secondary-foreground">{item.start} - {item.end}</p>
-							</div>
-							<div>
-								<p class="text-base">{item.company}</p>
-								{item.employmentType && (
-									<p class="text-sm text-secondary-foreground">{item.employmentType}</p>
-								)}
-							</div>
-							<div>
-								<p class="text-base">{item.location}</p>
-								{item.workplaceType && (
-									<p class="text-sm text-secondary-foreground">{item.workplaceType}</p>
-								)}
-							</div>
-						</div>
-					</div>
-				))}
-			</div>
-			{showMore && (
-				<div class="flex justify-center pt-20">
-					<a href="/about" class="text-base font-mono text-palette-brightest-white hover:text-white hover:underline transition-colors duration-300">more_about_me</a>
-				</div>
-			)}
-		</div>
-	</div>
+                            {/* Desktop Layout */}
+                            <div class="hidden lg:grid lg:grid-cols-3 gap-6">
+                                <div>
+                                    <p class="text-lg">{item.role}</p>
+                                    <p class="text-sm text-secondary-foreground">
+                                        {item.start} - {item.end}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-base">{item.company}</p>
+                                    {item.employmentType && (
+                                        <p class="text-sm text-secondary-foreground">
+                                            {item.employmentType}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <p class="text-base">{item.location}</p>
+                                    {item.workplaceType && (
+                                        <p class="text-sm text-secondary-foreground">
+                                            {item.workplaceType}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+            {
+                showMore && (
+                    <div class="flex justify-center pt-20">
+                        <a
+                            href="/about"
+                            class="text-sm font-mono text-palette-brightest-white hover:text-white hover:underline transition-colors duration-300"
+                        >
+                            more_about_me
+                        </a>
+                    </div>
+                )
+            }
+        </div>
+    </div>
 </section>
-
-
