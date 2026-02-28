@@ -1,6 +1,6 @@
 "use client";
 
-import { type Variants, motion } from "motion/react";
+import { AnimatePresence, type Variants, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import { cn } from "../lib/utils";
@@ -40,9 +40,9 @@ const Typewriter = ({
 		animate: {
 			opacity: 1,
 			transition: {
-				duration: 0.01,
+				duration: 0.5,
+				ease: "easeInOut",
 				repeat: Number.POSITIVE_INFINITY,
-				repeatDelay: 0.4,
 				repeatType: "reverse",
 			},
 		},
@@ -112,7 +112,26 @@ const Typewriter = ({
 
 	return (
 		<div className={`inline whitespace-pre-wrap tracking-tight ${className}`}>
-			<span>{displayText}</span>
+			<AnimatePresence mode="popLayout">
+				{displayText.split("").map((char, index) => {
+					const charKey = `${currentTextIndex}-${index}`;
+					return (
+						<motion.span
+							key={charKey}
+							className="inline-block"
+							initial={{ opacity: 0, y: 4, filter: "blur(8px)" }}
+							animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+							exit={{ opacity: 0, y: -4, filter: "blur(8px)" }}
+							transition={{
+								duration: 0.35,
+								ease: [0.25, 0.1, 0.25, 1],
+							}}
+						>
+							{char}
+						</motion.span>
+					);
+				})}
+			</AnimatePresence>
 			{showCursor && (
 				<motion.span
 					variants={cursorAnimationVariants}
