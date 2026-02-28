@@ -135,7 +135,7 @@ export default function CycleImage(props: CycleImageProps) {
 					}}
 				/>
 			</div>
-			{total > 1 && (
+			{total > 1 && showCounter && (
 				<div className="flex items-center justify-start gap-1.5 mt-2 md:hidden">
 					{images.map((_, i) => (
 						<button

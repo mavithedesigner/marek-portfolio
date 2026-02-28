@@ -2,125 +2,125 @@
 
 /* Register font families */
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-Regular.otf") format("opentype");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-Regular.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-Medium.otf") format("opentype");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-Medium.otf") format("opentype");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-SemiBold.otf") format("opentype");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-SemiBold.otf") format("opentype");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-Bold.otf") format("opentype");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-Bold.otf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-ExtraBold.otf") format("opentype");
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-ExtraBold.otf") format("opentype");
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-Black.otf") format("opentype");
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-Black.otf") format("opentype");
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "Orbiter";
-    src: url("/fonts/Orbiter/POIOrbiterTrial-Italic.otf") format("opentype");
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
+	font-family: "Orbiter";
+	src: url("/fonts/Orbiter/POIOrbiterTrial-Italic.otf") format("opentype");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "HabenGrotesk";
-    src: url("/fonts/HabenGrotesk/HabenGrotesk-Light.woff") format("woff");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+	font-family: "HabenGrotesk";
+	src: url("/fonts/HabenGrotesk/HabenGrotesk-Light.woff") format("woff");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "HabenGrotesk";
-    src: url("/fonts/HabenGrotesk/HabenGrotesk-Regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+	font-family: "HabenGrotesk";
+	src: url("/fonts/HabenGrotesk/HabenGrotesk-Regular.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "HabenGrotesk";
-    src: url("/fonts/HabenGrotesk/HabenGrotesk-Medium.woff") format("woff");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+	font-family: "HabenGrotesk";
+	src: url("/fonts/HabenGrotesk/HabenGrotesk-Medium.woff") format("woff");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "HabenGrotesk";
-    src: url("/fonts/HabenGrotesk/HabenGrotesk-Demi.woff") format("woff");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+	font-family: "HabenGrotesk";
+	src: url("/fonts/HabenGrotesk/HabenGrotesk-Demi.woff") format("woff");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-    font-family: "HabenGrotesk";
-    src: url("/fonts/HabenGrotesk/HabenGrotesk-Bold.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+	font-family: "HabenGrotesk";
+	src: url("/fonts/HabenGrotesk/HabenGrotesk-Bold.woff") format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
-    /*
+	/*
    * ================================================================================
    * RAW COLOR PALETTE
    * These are the base colors extracted from your design system images.
    * They are referenced by the semantic color variables below.
    * ================================================================================
    */
-    --color-palette-pure-black: #000000;
-    --color-background-dark: #121212;
-    --color-palette-deep-dark-1: #020004; /* From 'Lightning White' series, e.g., for borders */
-    --color-palette-deep-dark-2: #06000f; /* From 'Lightning White' series, e.g., for muted bg */
-    --color-palette-deep-dark-3: #0b0019; /* From 'Lightning White' series, e.g., for secondary bg */
-    --color-palette-off-black-bg: #100024; /* From 'Background Black - Secondary', e.g., for cards */
+	--color-palette-pure-black: #000000;
+	--color-background-dark: #121212;
+	--color-palette-deep-dark-1: #020004; /* From 'Lightning White' series, e.g., for borders */
+	--color-palette-deep-dark-2: #06000f; /* From 'Lightning White' series, e.g., for muted bg */
+	--color-palette-deep-dark-3: #0b0019; /* From 'Lightning White' series, e.g., for secondary bg */
+	--color-palette-off-black-bg: #100024; /* From 'Background Black - Secondary', e.g., for cards */
 
-    --color-palette-brightest-white: #f2eee9; /* From 'Lightning White' series, e.g., for primary elements */
-    --color-palette-light-grey: #e8e6ea; /* From 'Lightning White' series, e.g., for main text */
+	--color-palette-brightest-white: #f2eee9; /* From 'Lightning White' series, e.g., for primary elements */
+	--color-palette-light-grey: #e8e6ea; /* From 'Lightning White' series, e.g., for main text */
 
-    --color-palette-mid-grey-text: #989693; /* From 'Secondary text', e.g., for secondary/muted text */
-    --color-palette-purple-grey: #584d66; /* From 'Lightning White' series, e.g., for muted accent text */
+	--color-palette-mid-grey-text: #989693; /* From 'Secondary text', e.g., for secondary/muted text */
+	--color-palette-purple-grey: #584d66; /* From 'Lightning White' series, e.g., for muted accent text */
 
-    --color-palette-pink-accent: #df99a7; /* From 'Lightning White' series, e.g., for accents */
+	--color-palette-pink-accent: #df99a7; /* From 'Lightning White' series, e.g., for accents */
 
-    /*
+	/*
    * ================================================================================
    * SEMANTIC COLOR VARIABLES (shadcn/ui inspired)
    * Define the purpose of colors in the UI. Tailwind CSS v4 generates utilities
@@ -128,71 +128,64 @@
    * ================================================================================
    */
 
-    /* Base */
-    --color-background: var(--color-background-dark);
-    --color-foreground: var(--color-palette-light-grey);
+	/* Base */
+	--color-background: var(--color-background-dark);
+	--color-foreground: var(--color-palette-light-grey);
 
-    /* Cards & Popovers */
-    --color-card: var(--color-palette-off-black-bg);
-    --color-card-foreground: var(--color-palette-light-grey);
+	/* Cards & Popovers */
+	--color-card: var(--color-palette-off-black-bg);
+	--color-card-foreground: var(--color-palette-light-grey);
 
-    --color-popover: var(--color-palette-off-black-bg);
-    --color-popover-foreground: var(--color-palette-light-grey);
+	--color-popover: var(--color-palette-off-black-bg);
+	--color-popover-foreground: var(--color-palette-light-grey);
 
-    /* Primary (for main interactive elements, buttons, highlights) */
-    --color-primary: var(--color-palette-brightest-white);
-    --color-primary-foreground: var(
-        --color-palette-pure-black
-    ); /* Text on primary elements */
+	/* Primary (for main interactive elements, buttons, highlights) */
+	--color-primary: var(--color-palette-brightest-white);
+	--color-primary-foreground: var(--color-palette-pure-black); /* Text on primary elements */
 
-    /* Secondary (for less prominent elements) */
-    --color-secondary: var(--color-palette-deep-dark-3);
-    --color-secondary-foreground: var(--color-palette-mid-grey-text);
+	/* Secondary (for less prominent elements) */
+	--color-secondary: var(--color-palette-deep-dark-3);
+	--color-secondary-foreground: var(--color-palette-mid-grey-text);
 
-    /* Muted (for subdued text or elements) */
-    --color-muted: var(--color-palette-deep-dark-2);
-    --color-muted-foreground: var(--color-palette-purple-grey);
+	/* Muted (for subdued text or elements) */
+	--color-muted: var(--color-palette-deep-dark-2);
+	--color-muted-foreground: var(--color-palette-purple-grey);
 
-    /* Accent (for elements that need to stand out) */
-    --color-accent: var(--color-palette-pink-accent);
-    --color-accent-foreground: var(--color-palette-pure-black);
+	/* Accent (for elements that need to stand out) */
+	--color-accent: var(--color-palette-pink-accent);
+	--color-accent-foreground: var(--color-palette-pure-black);
 
-    /* Other UI elements */
-    --color-border: var(--color-palette-deep-dark-1);
-    --color-input: var(
-        --color-palette-deep-dark-1
-    ); /* Can be same as border or adjusted */
-    --color-ring: var(
-        --color-palette-brightest-white
-    ); /* Focus rings, often primary or accent based */
+	/* Other UI elements */
+	--color-border: var(--color-palette-deep-dark-1);
+	--color-input: var(--color-palette-deep-dark-1); /* Can be same as border or adjusted */
+	--color-ring: var(--color-palette-brightest-white); /* Focus rings, often primary or accent based */
 
-    /*
+	/*
    * ================================================================================
    * FONT FAMILIES (for Tailwind)
    * Define font stacks that Tailwind can use
    * ================================================================================
    */
-    --font-sans:
-        system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    --font-body: "DM Sans", sans-serif;
-    --font-heading: "DM Sans", sans-serif;
+	--font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	--font-body: "DM Sans", sans-serif;
+	--font-heading: "DM Sans", sans-serif;
 
-    /*
+	/*
    * ================================================================================
    * BORDER RADIUS (shadcn/ui inspired)
    * Defines standard border radius values. Tailwind generates utilities like rounded-sm.
    * ================================================================================
    */
-    --radius-xs: 0.125rem; /* 2px */
-    --radius-sm: 0.25rem; /* 4px */
-    --radius-md: 0.375rem; /* 6px */
-    --radius-lg: 0.5rem; /* 8px */
-    --radius-xl: 0.75rem; /* 12px */
-    --radius-2xl: 1rem; /* 16px */
-    --radius-full: 9999px;
+	--radius-xs: 0.125rem; /* 2px */
+	--radius-sm: 0.25rem; /* 4px */
+	--radius-md: 0.375rem; /* 6px */
+	--radius-lg: 0.5rem; /* 8px */
+	--radius-xl: 0.75rem; /* 12px */
+	--radius-2xl: 1rem; /* 16px */
+	--radius-full: 9999px;
 
-    /*
+	/*
    * NOTE: Font sizes, spacing, and other theme aspects can also be defined here.
    * For example:
    * --text-base: 1rem;
@@ -210,19 +203,19 @@
  * ================================================================================
  */
 body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh; /* Ensure body takes at least full viewport height */
-    /* Add any other global styles or resets here if necessary */
+	@apply bg-background text-foreground;
+	font-family: var(--font-body);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	min-height: 100vh; /* Ensure body takes at least full viewport height */
+	/* Add any other global styles or resets here if necessary */
 }
 
 /* Fallback smooth scrolling for anchor jumps when JS is disabled */
 @media (prefers-reduced-motion: no-preference) {
-    html:focus-within {
-        scroll-behavior: smooth;
-    }
+	html:focus-within {
+		scroll-behavior: smooth;
+	}
 }
 
 h1,
@@ -231,7 +224,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-heading);
+	font-family: var(--font-heading);
 }
 
 /* ================================================================================
@@ -240,49 +233,49 @@ h6 {
 
 /* Hide default cursor globally */
 * {
-    cursor: none !important;
+	cursor: none !important;
 }
 
 /* Custom cursor - main plus icon */
 .custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-    will-change: transform;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 24px;
+	height: 24px;
+	pointer-events: none;
+	z-index: 9999;
+	transform: translate(-50%, -50%);
+	mix-blend-mode: difference;
+	will-change: transform;
 }
 
 /* Cursor follower - smooth trail effect */
 .custom-cursor-follower {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    mix-blend-mode: difference;
-    will-change: transform;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 40px;
+	pointer-events: none;
+	z-index: 9998;
+	transform: translate(-50%, -50%);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+	mix-blend-mode: difference;
+	will-change: transform;
 }
 
 /* Hide custom cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
-    .custom-cursor,
-    .custom-cursor-follower {
-        display: none;
-    }
+	.custom-cursor,
+	.custom-cursor-follower {
+		display: none;
+	}
 
-    * {
-        cursor: auto !important;
-    }
+	* {
+		cursor: auto !important;
+	}
 }
 
 /* ================================================================================
@@ -290,20 +283,25 @@ h6 {
  * ================================================================================ */
 
 .image-counter {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9997;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    white-space: nowrap;
-    will-change: transform, opacity;
+	position: fixed;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	z-index: 9997;
+	transform: translate(-50%, -50%);
+	font-family: var(--font-body);
+	font-size: 0.75rem;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	white-space: nowrap;
+	display: none;
+
+	@media (min-width: 768px) {
+		display: block;
+	}
+	will-change: transform, opacity;
 }
