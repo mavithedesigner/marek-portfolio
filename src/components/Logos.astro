@@ -1,0 +1,182 @@
+---
+import { Image } from "astro:assets";
+import aacLogo from "../assets/logos/aac-logo.png";
+import cabanaLogo from "../assets/logos/cabana-logo.png";
+import maturujLogo from "../assets/logos/maturuj-logo.png";
+import oravskaLogo from "../assets/logos/oravska-logo.png";
+import orbisLogo from "../assets/logos/orbis-logo.png";
+import propodnikaveLogo from "../assets/logos/propodnikave-logo.png";
+import skyroLogo from "../assets/logos/skyro-logo.png";
+import wezeoLogo from "../assets/logos/wezeo-logo.png";
+
+const logos = [
+	{
+		name: "Oravská knižnica Antona Habovštiaka",
+		src: oravskaLogo,
+		url: "https://oravskakniznica.sk/",
+	},
+	{
+		name: "Wezeo",
+		src: wezeoLogo,
+		url: "https://www.wezeo.com/",
+		sizeClass: "logo-sm",
+	},
+	{
+		name: "Skyro",
+		src: skyroLogo,
+		url: "https://skyro.ai/domov",
+	},
+	{
+		name: "Pro Podnikavé",
+		src: propodnikaveLogo,
+		url: "https://www.propodnikave.cz/",
+	},
+	{
+		name: "Artistic Area Club",
+		src: aacLogo,
+		url: "https://www.instagram.com/artisticareaclub/?hl=sk",
+	},
+	{
+		name: "Orbis Libri",
+		src: orbisLogo,
+		url: "https://oravskakniznica.sk/o-kniznici/viac-informacii/oz-orbis-libri/",
+	},
+	{
+		name: "Maturuj.com",
+		src: maturujLogo,
+		url: "https://www.maturuj.com/",
+	},
+	{
+		name: "Cabana Coffee",
+		src: cabanaLogo,
+		url: "https://www.instagram.com/cabana_coffee_/",
+	},
+];
+---
+
+<section class="logos-section w-full max-w-7xl mx-auto py-40 sm:py-56 overflow-hidden">
+	<div class="container mx-auto px-4">
+		<div class="relative">
+			<div
+				aria-hidden="true"
+				class="absolute inset-0 pointer-events-none"
+			>
+				<div class="line-h" style="top: 0%"></div>
+				<div class="line-h sm:hidden" style="top: 25%"></div>
+				<div class="line-h" style="top: 50%"></div>
+				<div class="line-h sm:hidden" style="top: 75%"></div>
+				<div class="line-h" style="top: 100%"></div>
+
+				<div class="line-v" style="left: 0%"></div>
+				<div class="line-v hidden sm:block" style="left: 25%"></div>
+				<div class="line-v" style="left: 50%"></div>
+				<div class="line-v hidden sm:block" style="left: 75%"></div>
+				<div class="line-v" style="left: 100%"></div>
+			</div>
+
+			<div class="grid grid-cols-2 sm:grid-cols-4 relative">
+				{
+					logos.map((logo) => (
+						<a
+							href={logo.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={logo.name}
+							class="logo-cell flex items-center justify-center aspect-[3/2] sm:aspect-[2/1] p-5 sm:p-8"
+						>
+							<Image
+								src={logo.src}
+								alt={logo.name}
+								class:list={["logo-img", logo.sizeClass]}
+								loading="lazy"
+							/>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.line-h {
+		position: absolute;
+		left: -5rem;
+		right: -5rem;
+		height: 1px;
+		background-color: #2a2a2a;
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent 0%,
+			#000 25%,
+			#000 75%,
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			to right,
+			transparent 0%,
+			#000 25%,
+			#000 75%,
+			transparent 100%
+		);
+	}
+
+	.line-v {
+		position: absolute;
+		top: -6rem;
+		bottom: -6rem;
+		width: 1px;
+		background-color: #2a2a2a;
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 22%,
+			#000 78%,
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 22%,
+			#000 78%,
+			transparent 100%
+		);
+	}
+
+	@media (min-width: 640px) {
+		.line-h {
+			left: -9rem;
+			right: -9rem;
+		}
+		.line-v {
+			top: -9rem;
+			bottom: -9rem;
+		}
+	}
+
+	.logo-img {
+		max-height: 32px;
+		max-width: 70%;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		filter: brightness(0) invert(1);
+		opacity: 1;
+	}
+
+	.logo-img.logo-sm {
+		max-height: 24px;
+		max-width: 45%;
+	}
+
+	@media (min-width: 640px) {
+		.logo-img {
+			max-height: 48px;
+			max-width: 60%;
+		}
+		.logo-img.logo-sm {
+			max-height: 32px;
+			max-width: 38%;
+		}
+	}
+</style>

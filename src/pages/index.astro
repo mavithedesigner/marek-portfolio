@@ -2,6 +2,7 @@
 import ArchivePreview from "../components/ArchivePreview.astro";
 import Contact from "../components/Contact.astro";
 import Experience from "../components/Experience.astro";
+import Logos from "../components/Logos.astro";
 import WritingHeading from "../components/WritingHeading.astro";
 import Layout from "../layouts/Layout.astro";
 ---
@@ -11,6 +12,7 @@ import Layout from "../layouts/Layout.astro";
 		<WritingHeading />
 	</div>
 	<ArchivePreview />
-	<Experience />
+	<Logos />
+	<Experience topMargin={false} />
 	<Contact />
 </Layout>
