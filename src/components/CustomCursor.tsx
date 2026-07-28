@@ -26,6 +26,13 @@ export default function CustomCursor() {
 	return (
 		<>
 			{/* Main cursor - white plus */}
+			{/*
+				Motion writes its own `transform` here, which overrides the
+				translate(-50%, -50%) in the stylesheet. Without the inner
+				wrapper the crosshair is drawn from its top-left corner, so it
+				sits ~12px below and right of the real pointer — which made
+				links look like they had an offset hit area.
+			*/}
 			<motion.div
 				className="custom-cursor"
 				style={{
@@ -33,20 +40,22 @@ export default function CustomCursor() {
 					y: cursorYSpring,
 				}}
 			>
-				<svg
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						d="M12 2V22M2 12H22"
-						stroke="white"
-						strokeWidth="2"
-						strokeLinecap="round"
-					/>
-				</svg>
+				<span className="block -translate-x-1/2 -translate-y-1/2">
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M12 2V22M2 12H22"
+							stroke="white"
+							strokeWidth="2"
+							strokeLinecap="round"
+						/>
+					</svg>
+				</span>
 			</motion.div>
 		</>
 	);

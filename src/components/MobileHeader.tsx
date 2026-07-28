@@ -44,10 +44,10 @@ export default function MobileHeader() {
 		},
 	};
 
+	// Contact is rendered separately as a CTA chip, matching the desktop header.
 	const menuLinks = [
 		{ href: "/archive", text: "Archive" },
 		{ href: "/about", text: "About" },
-		{ href: "/contact", text: "Contact" },
 	];
 
 	return (
@@ -55,7 +55,7 @@ export default function MobileHeader() {
 			{/* Mobile Header - fixed height to prevent layout shift */}
 			<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 bg-transparent">
 				<a href="/" className="z-50">
-					<img src={logo.src} alt="Logo" className="w-8 h-8" />
+					<img src={logo.src} alt="Logo" className="site-logo w-8 h-8" />
 				</a>
 
 				<button
@@ -91,13 +91,22 @@ export default function MobileHeader() {
 								<motion.a
 									key={link.href}
 									href={link.href}
-									className="text-xl font-normal text-secondary-foreground first-letter:text-palette-brightest-white hover:text-gray-300 transition-colors"
+									className="text-xl font-normal text-secondary-foreground first-letter:text-palette-brightest-white hover:opacity-60 transition-opacity"
 									onClick={() => setIsMenuOpen(false)}
 									variants={linkVariants}
 								>
 									{link.text}
 								</motion.a>
 							))}
+
+							<motion.a
+								href="/contact"
+								className="rounded-none bg-palette-brightest-white/15 px-4 py-2 text-xl font-normal text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35"
+								onClick={() => setIsMenuOpen(false)}
+								variants={linkVariants}
+							>
+								Contact
+							</motion.a>
 						</nav>
 					</motion.div>
 				)}

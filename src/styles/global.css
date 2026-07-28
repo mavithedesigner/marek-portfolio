@@ -211,9 +211,15 @@ body {
 	/* Add any other global styles or resets here if necessary */
 }
 
-/* Fallback smooth scrolling for anchor jumps when JS is disabled */
+/* Fallback smooth scrolling for anchor jumps when JS is disabled.
+ *
+ * This kicks in the moment anything on the page is focused (`:focus-within`),
+ * which used to mean that clicking any button switched native smooth scrolling
+ * on underneath Lenis. The two then fought over every frame Lenis wrote, so the
+ * page appeared to drift on its own. Lenis marks the root with `.lenis-smooth`
+ * while it is driving, so the fallback is now excluded in that case. */
 @media (prefers-reduced-motion: no-preference) {
-	html:focus-within {
+	html:not(.lenis-smooth):focus-within {
 		scroll-behavior: smooth;
 	}
 }
@@ -304,4 +310,88 @@ h6 {
 		display: block;
 	}
 	will-change: transform, opacity;
+}
+
+/* ================================================================================
+ * PROJECT GALLERY (project detail only)
+ * ================================================================================ */
+
+.no-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+/* ================================================================================
+ * PROJECT PREVIEWS (home + archive)
+ * ================================================================================ */
+
+/* Cap the thumbnail height on phones so the caption, year and tagline stay in
+   the same viewport as the image instead of being pushed below the fold. */
+@media (max-width: 767px) {
+	.project-preview .cycle-image-container > div {
+		max-height: 60svh;
+	}
+
+	.project-preview .cycle-image-container img {
+		object-position: left top;
+	}
+}
+
+/* ================================================================================
+ * LIGHT MODE
+ * ================================================================================
+ *
+ * The whole site is built on the raw palette variables above (plus Tailwind's own
+ * --color-white / --color-black for the /xx opacity utilities), so flipping the
+ * theme only means re-pointing those few variables. Every `text-palette-*`,
+ * `bg-white/10`, `divide-white/10` etc. follows automatically.
+ */
+
+html[data-theme="light"] {
+	color-scheme: light;
+
+	/* Tailwind primitives — flips every white//black opacity utility at once */
+	--color-white: #121212;
+	--color-black: #f2eee9;
+
+	/* Surfaces */
+	--color-background-dark: #f2eee9;
+	--color-palette-pure-black: #f2eee9;
+	--color-palette-off-black-bg: #e7e2db;
+
+	/* Text */
+	--color-palette-brightest-white: #121212;
+	--color-palette-light-grey: #1c1c1c;
+	--color-palette-mid-grey-text: #6f6c67;
+	--color-palette-purple-grey: #8a8681;
+
+	/* Lines */
+	--color-palette-deep-dark-1: #d6d0c8;
+	--color-palette-deep-dark-2: #e7e2db;
+	--color-palette-deep-dark-3: #ded8d0;
+}
+
+html[data-theme="light"] .noise-overlay {
+	opacity: 0.35;
+}
+
+/* The logo is a flat light-coloured SVG, so it needs inverting on a light page. */
+html[data-theme="light"] .site-logo {
+	filter: invert(1);
+}
+
+body {
+	transition:
+		background-color 250ms ease,
+		color 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body {
+		transition: none;
+	}
 }

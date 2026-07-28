@@ -2,11 +2,17 @@
 	{
 		"slug": "wezeo",
 		"name": "WEZEO Rebranding",
+		"tagline": "Rebrand clarifying what the team stands for.",
+		"website": "https://www.wezeo.com/",
 		"client": "WEZEO",
 		"year": "2025",
 		"role": "Logo Design, Content Creation, Art Director",
 		"about": "Led WEZEO's strategic rebrand together with another designer, redefining how the team communicates its purpose and values. The goal was not to create a prettier logo but to clarify what build different truly means. By shaping the brand's messaging, visual direction, and internal system, we built a scalable identity that reflects how WEZEO designs, collaborates, and grows as a team. The result is a coherent brand ecosystem that connects design thinking with everyday practice, clear, purposeful, and rooted in craft.",
-		"programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator",
+			"Adobe Photoshop"
+		],
 		"thumbnail": "wezeo_logo.png",
 		"images": [
 			"wezeo_design.png",
@@ -17,16 +23,21 @@
 			"wezeo_design-1.png",
 			"wezeo_graphic.png",
 			"wezeo_illustrations.png"
-		]
+		],
+		"collaborators": "Dávid Drímal"
 	},
 	{
 		"slug": "propodnikave",
 		"name": "Pro podnikavé Redesign",
+		"tagline": "A web-only platform rebuilt mobile-first.",
+		"website": "https://www.propodnikave.cz/",
 		"client": "Pro podnikavé",
 		"year": "2025",
 		"role": "UX/UI Design",
 		"about": "Co-led design direction for ProPodnikavé's platform and app redesign, turning a slow, web-only experience into a mobile-first tool that fits how small entrepreneurs actually work day to day. I focused on rebuilding the information architecture, simplifying navigation, and refining core flows so users could quickly find key resources on both web and mobile. Together with the product and development teams, we defined a clear design system and interaction patterns that work consistently across devices, driving a 40% increase in returning users and making the app a reliable part of their daily routine.",
-		"programs": ["Figma"],
+		"programs": [
+			"Figma"
+		],
 		"thumbnail": "propodnikave_app.png",
 		"images": [
 			"propodnikave_app.png",
@@ -35,16 +46,23 @@
 			"propodnikave_web.png",
 			"propodnikave_testresult.png",
 			"propodnikave_web2.png"
-		]
+		],
+		"collaborators": "Richard Egyed"
 	},
 	{
 		"slug": "bicyklaren",
 		"name": "Bicykľáreň",
+		"tagline": "Bike rental brand, naming to art direction.",
+		"website": "https://bicyklaren.sk/",
 		"client": "Bicykľáreň",
 		"year": "2026",
 		"role": "Logo Design, Content Creation, Art Director",
 		"about": "I created the Bicykľáreň brand from the ground up, from naming and logo to art direction, as a sub-brand of Tilia Resort that still feels like part of one team. We kept the resort's colors and typeface while giving Bicykľáreň its own, more personal voice. The handwritten wordmark drawn in one continuous stroke suggests smooth riding and an easy, straightforward rental process, without extra visual clichés like a bike icon. To keep the brand clear for visitors, we added the functional descriptor Bicykľáreň – Bike Rental as a flexible secondary lockup.",
-		"programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator",
+			"Adobe Photoshop"
+		],
 		"thumbnail": "bicyklaren_cap_front.png",
 		"images": [
 			"bicyklaren_cap_front.png",
@@ -54,17 +72,23 @@
 			"bicyklaren_businesscards.png",
 			"bicyklaren_illustrations.png",
 			"bicyklaren_brand_manual.png"
-		]
+		],
+		"collaborators": "vican.studio"
 	},
 	{
 		"slug": "cabana",
 		"name": "Cabana coffee & bakery",
+		"tagline": "Café identity built to scale into a bakery.",
 		"client": "Cabana",
 		"year": "2025",
 		"collaborators": "Dávid Drímal",
 		"role": "Logo Design, Content Creation",
 		"about": "I developed a rebrand for a café that aimed to refresh its visual identity and scale its business by expanding into a bakery. The main challenge was a tight 24-hour deadline to deliver a complete solution, but despite the time pressure, the project was successfully completed and the outcome proved worth the effort. The new logo became a core element of their brand and is now used consistently across their communication, with both the client and customers responding positively to the fresh, authentic visual direction.",
-		"programs": ["Adobe Illustrator", "Adobe Photoshop", "Figma"],
+		"programs": [
+			"Adobe Illustrator",
+			"Adobe Photoshop",
+			"Figma"
+		],
 		"thumbnail": "cabana_tshirt.png",
 		"images": [
 			"cabana_tshirt.png",
@@ -78,12 +102,18 @@
 	{
 		"slug": "stelinhome",
 		"name": "Stelinhome",
-		"client": "Stelinhome",
+		"tagline": "Guesthouse site built around the owner’s dog.",
 		"website": "https://stelinhome.com/",
+		"client": "Stelinhome",
 		"year": "2025",
 		"role": "Logo Design, Web, Content Creation",
 		"about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image. Additionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
-		"programs": ["Adobe Illustrator", "Adobe Photoshop", "Notion", "Framer"],
+		"programs": [
+			"Adobe Illustrator",
+			"Adobe Photoshop",
+			"Notion",
+			"Framer"
+		],
 		"thumbnail": "stelinhome_web1.png",
 		"images": [
 			"stelinhome_web1.png",
@@ -97,6 +127,7 @@
 	{
 		"slug": "artistic-area-club",
 		"name": "Artistic Area Club",
+		"tagline": "Identity for a creative collective of artists.",
 		"client": "Artistic Area Club",
 		"year": "2024",
 		"role": "Logo, Visual Identity, Poster Design, Content Creation",
@@ -131,11 +162,15 @@
 	{
 		"slug": "logofolio",
 		"name": "Logofolio",
+		"tagline": "Logos shaped around different brand identities.",
 		"client": "Various Clients",
 		"year": "2023 - 2025",
 		"role": "Logo Design",
 		"about": "This is a logofolio showcasing logos designed for various clients, each tailored to different brand identities and needs.",
-		"programs": ["Figma", "Adobe Illustrator"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator"
+		],
 		"thumbnail": "orbis_libri_logo.png",
 		"images": [
 			"orbis_libri_logo.png",
@@ -155,11 +190,16 @@
 	{
 		"slug": "poster-series",
 		"name": "Posterfolio",
+		"tagline": "Posters for a range of clients and events.",
 		"client": "Various Clients",
 		"year": "2023 - 2025",
 		"role": "Poster Design",
 		"about": "This is a poster folio featuring poster designs created for different clients and events, each tailored to unique themes and purposes.",
-		"programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator",
+			"Adobe Photoshop"
+		],
 		"thumbnail": "exhibition_poster.png",
 		"images": [
 			"exhibition_poster.png",
@@ -172,22 +212,38 @@
 	{
 		"slug": "aerv-cover-series",
 		"name": "ÆRv Cover Series",
+		"tagline": "Album artwork anchored by a custom logotype.",
 		"client": "Conceptual Album Cover Series",
 		"year": "2025",
 		"role": "Artwork & Cover Design",
 		"about": "I designed album cover art in a dark style, with a custom logotype as the main symbol. The project also included vinyl design, maintaining strong visual consistency across all assets.",
-		"programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator",
+			"Adobe Photoshop"
+		],
 		"thumbnail": "ÆRv 1.png",
-		"images": ["ÆRv 1.png", "ÆRv 2.png", "ÆRv 3.png", "ÆRv 5.png", "ÆRv 6.png"]
+		"images": [
+			"ÆRv 1.png",
+			"ÆRv 2.png",
+			"ÆRv 3.png",
+			"ÆRv 5.png",
+			"ÆRv 6.png"
+		]
 	},
 	{
 		"slug": "oravska-kniznica",
 		"name": "Oravska Kniznica",
+		"tagline": "Digital and print design for a public library.",
 		"client": "Oravská Knižnica Antona Habovštiaka",
 		"year": "2025",
 		"role": "Graphic Design, Content Creation",
 		"about": "I was responsible for digital communication and visual content creation for a public library located in Dolný Kubín. My work focused primarily on producing static social media posts that highlighted important events and engaged the local community. Additionally, I designed posters, diplomas, and prepared various materials for print, ensuring all assets were consistent with the library's visual identity. Through careful design and planning, I helped the library strengthen its brand, improve audience outreach, and present its activities in a clear and visually appealing way.",
-		"programs": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+		"programs": [
+			"Figma",
+			"Adobe Illustrator",
+			"Adobe Photoshop"
+		],
 		"thumbnail": "oravska_kniznica.png",
 		"images": [
 			"oravska_kniznica.png",

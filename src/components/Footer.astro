@@ -4,50 +4,61 @@ const leftLinks = [
 		href: "https://www.instagram.com/artisticareaclub/?hl=sk",
 		text: "Artistic Area Club",
 	},
-	{
-		href: "https://www.instagram.com/artisticareacommunity/?hl=sk",
-		text: "Artistic Area Community",
-	},
 ];
 
-const centerLinks = [
+const pages = [
 	{ href: "/archive", text: "Archive" },
 	{ href: "/about", text: "About" },
 	{ href: "/contact", text: "Contact" },
 ];
 
-const rightLinks = [
+const socials = [
 	{ href: "https://www.instagram.com/mavi.aac/?hl=sk", text: "Instagram" },
 	{ href: "https://sk.pinterest.com/mavithedesigner/", text: "Pinterest" },
 	{ href: "https://www.behance.net/marekvic", text: "Behance" },
 	{ href: "https://www.linkedin.com/in/vicandesign/", text: "Linkedin" },
 ];
 
+const email = "contact@vican.design";
 const year = new Date().getFullYear();
+
+const labelClass = "text-secondary-foreground mb-1";
 ---
 
 <footer class="w-full mt-44">
 	<div class="w-full max-w-7xl mx-auto px-4">
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-8">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 py-8">
 			<ul>
 				{leftLinks.map((l) => (
-					<li><a href={l.href} class="hover:underline">{l.text}</a></li>
-				))}	
-			</ul>
-			<ul>
-				{centerLinks.map((l) => (
-					<li><a href={l.href} class="hover:underline inline-block text-secondary-foreground first-letter:text-palette-brightest-white">{l.text}</a></li>
-				))}
-			</ul>
-			<ul>
-				{rightLinks.map((l) => (
 					<li><a href={l.href} class="hover:underline" target="_blank" rel="noreferrer noopener">{l.text}</a></li>
 				))}
 			</ul>
+
+			<div>
+				<p class={labelClass}>Pages</p>
+				<ul>
+					{pages.map((l) => (
+						<li><a href={l.href} class="hover:underline">{l.text}</a></li>
+					))}
+				</ul>
+			</div>
+
+			<div>
+				<p class={labelClass}>Socials</p>
+				<ul>
+					{socials.map((l) => (
+						<li><a href={l.href} class="hover:underline" target="_blank" rel="noreferrer noopener">{l.text}</a></li>
+					))}
+				</ul>
+			</div>
+
+			<div>
+				<p class={labelClass}>Get in touch</p>
+				<a href={`mailto:${email}`} class="hover:underline">{email}</a>
+			</div>
 		</div>
+
 		<div class="h-px bg-white/10"></div>
 		<p class="text-center text-palette-brightest-white pt-4 pb-12">ARTISTICAREACLUB © {year} All Rights Reserved</p>
 	</div>
 </footer>
-
-

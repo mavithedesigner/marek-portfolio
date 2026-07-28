@@ -1,0 +1,45 @@
+---
+// Only the mode word is interactive — the leading copy is plain text.
+---
+
+<p class="text-sm text-secondary-foreground">
+	set website to <button
+		type="button"
+		id="theme-toggle"
+		class="text-palette-brightest-white hover:underline focus:outline-none focus-visible:underline"
+	>light_mode</button>
+</p>
+
+<script>
+	// The label always names the mode you'd switch TO.
+	function syncLabel(button: HTMLButtonElement) {
+		const isLight = document.documentElement.dataset.theme === "light";
+		button.textContent = isLight ? "dark_mode" : "light_mode";
+	}
+
+	function setupThemeToggle() {
+		const button = document.getElementById("theme-toggle") as HTMLButtonElement | null;
+		if (!button || button.dataset.bound === "true") return;
+		button.dataset.bound = "true";
+
+		syncLabel(button);
+
+		button.addEventListener("click", () => {
+			const next =
+				document.documentElement.dataset.theme === "light" ? "dark" : "light";
+			document.documentElement.dataset.theme = next;
+			try {
+				localStorage.setItem("theme", next);
+			} catch (_) {
+				/* private mode — theme just won't persist */
+			}
+			syncLabel(button);
+			// Dropping focus stops the browser trying to keep the button in view.
+			button.blur();
+		});
+	}
+
+	setupThemeToggle();
+	// View transitions swap the page, so re-bind after every navigation.
+	document.addEventListener("astro:page-load", setupThemeToggle);
+</script>

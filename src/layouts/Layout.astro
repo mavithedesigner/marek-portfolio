@@ -20,6 +20,32 @@ const { title, ...props } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
+		<script is:inline>
+			// Applied before first paint so switching themes never flashes.
+			// View transitions replace <html>, so the theme has to be re-applied
+			// after every swap — otherwise navigating resets the page to dark.
+			(function () {
+				function applyStoredTheme() {
+					try {
+						const stored = localStorage.getItem("theme");
+						if (stored === "light" || stored === "dark") {
+							document.documentElement.dataset.theme = stored;
+						} else {
+							delete document.documentElement.dataset.theme;
+						}
+					} catch (_) {
+						/* private mode — fall back to dark */
+					}
+				}
+
+				applyStoredTheme();
+
+				if (!window.__themeSwapBound) {
+					window.__themeSwapBound = true;
+					document.addEventListener("astro:after-swap", applyStoredTheme);
+				}
+			})();
+		</script>
 		<title>{title} Marek Vican</title>
 		<meta name="description" content="Marek is a designer based in Bratislava, Slovakia. He creates visual identities, website design, applications, and marketing materials, striving to combine creative solutions that are functional, aesthetically pleasing, and inspiring." />
 		<ViewTransitions />
@@ -45,6 +71,10 @@ const { title, ...props } = Astro.props;
 				duration: prefersReducedMotion ? 0 : 1,
 				smoothWheel: !prefersReducedMotion,
 			});
+
+			// Exposed so the project gallery can keep page scroll and the
+			// horizontal strip in sync when the strip is swiped directly.
+			(window as any).__lenis = lenis;
 
 			function raf(time: number) {
 				lenis.raf(time);

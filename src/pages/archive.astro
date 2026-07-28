@@ -13,7 +13,7 @@ const projects = await getProjects();
         {projects.map((project) => (
           <a
             href={`/project/${project.slug}`}
-            class="relative group max-w-2xl mx-auto w-full block"
+            class="project-preview relative group max-w-2xl mx-auto w-full block"
           >
             <CycleImage
               client:load
@@ -22,6 +22,10 @@ const projects = await getProjects();
               className="w-full h-auto select-none object-contain"
               disableClick={true}
             />
+            <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
+              <span class="truncate">{project.tagline}</span>
+              <span class="shrink-0">{project.year}</span>
+            </div>
           </a>
         ))}
       </div>

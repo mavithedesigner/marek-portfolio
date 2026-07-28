@@ -2,23 +2,37 @@
 import { Image } from "astro:assets";
 import logo from "../assets/logo.svg";
 
+// Contact is pulled out of the centre group and rendered as a CTA chip on the right.
 const links = [
 	{ href: "/archive", text: "Archive" },
 	{ href: "/about", text: "About" },
-	{ href: "/contact", text: "Contact" },
 ];
 ---
-<header class="w-full py-[2.125rem] max-w-7xl mx-auto items-center justify-between hidden md:flex">
+<!--
+  3-column grid so the nav stays optically centred now that a CTA sits on the right.
+  px-4 matches the `container mx-auto px-4` used by every page section, so the logo
+  lines up with the body content instead of sitting a few px further out.
+-->
+<header
+  class="sticky top-0 z-40 w-full py-6 px-4 max-w-7xl mx-auto items-center hidden md:grid grid-cols-[1fr_auto_1fr] bg-background/85 backdrop-blur-sm"
+>
   <div>
-    <a href="/" class="inline-block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md">
-      <Image src={logo} alt="Logo" width={40} height={40} />
+    <a href="/" class="inline-block focus:outline-none focus-visible:opacity-70">
+      <Image src={logo} alt="Logo" width={40} height={40} class="site-logo" />
     </a>
   </div>
-  <nav class="flex-1 flex justify-center">
+  <nav class="flex justify-center">
     <ul class="flex space-x-6">
       {links.map((link) => (
-          <li><a href={link.href} class="hover:text-gray-300 text-palette-brightest-white font-normal focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md transition-colors">{link.text}</a></li>
+          <!-- opacity rather than a fixed grey so the hover reads in both themes -->
+          <li><a href={link.href} class="text-palette-brightest-white font-normal hover:opacity-60 focus:outline-none focus-visible:underline transition-opacity">{link.text}</a></li>
       ))}
     </ul>
   </nav>
-</header> 
+  <a
+    href="/contact"
+    class="justify-self-end rounded-none bg-palette-brightest-white/15 px-3 py-1.5 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
+  >
+    Contact
+  </a>
+</header>

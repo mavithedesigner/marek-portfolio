@@ -62,19 +62,20 @@ const logos = [
 				class="absolute inset-0 pointer-events-none"
 			>
 				<div class="line-h" style="top: 0%"></div>
-				<div class="line-h sm:hidden" style="top: 25%"></div>
+				<div class="line-h lg:hidden" style="top: 25%"></div>
 				<div class="line-h" style="top: 50%"></div>
-				<div class="line-h sm:hidden" style="top: 75%"></div>
+				<div class="line-h lg:hidden" style="top: 75%"></div>
 				<div class="line-h" style="top: 100%"></div>
 
 				<div class="line-v" style="left: 0%"></div>
-				<div class="line-v hidden sm:block" style="left: 25%"></div>
+				<div class="line-v hidden lg:block" style="left: 25%"></div>
 				<div class="line-v" style="left: 50%"></div>
-				<div class="line-v hidden sm:block" style="left: 75%"></div>
+				<div class="line-v hidden lg:block" style="left: 75%"></div>
 				<div class="line-v" style="left: 100%"></div>
 			</div>
 
-			<div class="grid grid-cols-2 sm:grid-cols-4 relative">
+			<!-- Four across only from lg; on tablet that made the cells (and logos) tiny -->
+			<div class="grid grid-cols-2 lg:grid-cols-4 relative">
 				{
 					logos.map((logo) => (
 						<a
@@ -82,7 +83,7 @@ const logos = [
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={logo.name}
-							class="logo-cell flex items-center justify-center aspect-[3/2] sm:aspect-[2/1] p-5 sm:p-8"
+							class="logo-cell flex items-center justify-center aspect-[3/2] lg:aspect-[2/1] p-5 sm:p-8"
 						>
 							<Image
 								src={logo.src}
@@ -104,7 +105,8 @@ const logos = [
 		left: -5rem;
 		right: -5rem;
 		height: 1px;
-		background-color: #2a2a2a;
+		/* Same token as the Experience dividers, so it tracks the theme */
+		background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
 		-webkit-mask-image: linear-gradient(
 			to right,
 			transparent 0%,
@@ -126,7 +128,8 @@ const logos = [
 		top: -6rem;
 		bottom: -6rem;
 		width: 1px;
-		background-color: #2a2a2a;
+		/* Same token as the Experience dividers, so it tracks the theme */
+		background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
 		-webkit-mask-image: linear-gradient(
 			to bottom,
 			transparent 0%,
@@ -160,8 +163,14 @@ const logos = [
 		width: auto;
 		height: auto;
 		object-fit: contain;
+		/* Logos are supplied in mixed colours — flatten them to a single tone */
 		filter: brightness(0) invert(1);
 		opacity: 1;
+	}
+
+	/* On a light page the same logos need to be black instead of white */
+	:global(html[data-theme="light"]) .logo-img {
+		filter: brightness(0);
 	}
 
 	.logo-img.logo-sm {
@@ -169,7 +178,19 @@ const logos = [
 		max-width: 45%;
 	}
 
+	/* Tablet keeps the 2-column grid, so the cells are wide enough for larger marks */
 	@media (min-width: 640px) {
+		.logo-img {
+			max-height: 56px;
+			max-width: 55%;
+		}
+		.logo-img.logo-sm {
+			max-height: 38px;
+			max-width: 34%;
+		}
+	}
+
+	@media (min-width: 1024px) {
 		.logo-img {
 			max-height: 48px;
 			max-width: 60%;

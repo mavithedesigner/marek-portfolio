@@ -10,6 +10,9 @@ const imageModules = import.meta.glob("../assets/archive/*.{png,jpg,jpeg}", {
 type RawProject = {
 	slug: string;
 	name: string;
+	/** One-line summary shown under the thumbnail on home and archive. */
+	tagline: string;
+	website?: string;
 	client: string;
 	year: string;
 	role: string;

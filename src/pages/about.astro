@@ -1,14 +1,13 @@
 ---
 import { getImage } from "astro:assets";
-import CycleImage from "../components/CycleImage";
 import Experience from "../components/Experience.astro";
 import Layout from "../layouts/Layout.astro";
+import ProjectGallery from "../components/ProjectGallery";
 
 // Import images directly
 import marek_designer from "../assets/marek_designer.png";
 import brokenMirror from "../assets/archive/brokenmirror.png";
-import duo from "../assets/archive/duo.png";
-import marek1 from "../assets/archive/marek1.png";
+import marek_photography from "../assets/archive/marek_photography.png";
 import portrait from "../assets/archive/portrait.png";
 
 // Optimize images for different sizes with responsive variants
@@ -21,145 +20,129 @@ const optimizeImage = async (src: ImageMetadata) => {
 	return { small, medium, large };
 };
 
-const title = "About";
+const galleryImages = await Promise.all(
+	[
+		{ title: "marek_photography.png", src: marek_photography },
+		{ title: "marek_designer.png", src: marek_designer },
+		{ title: "gallery.png", src: brokenMirror },
+		{ title: "portrait.png", src: portrait },
+	].map(async ({ title, src }) => {
+		const { small, medium, large } = await optimizeImage(src);
+		return {
+			title,
+			src: medium.src,
+			srcSet: `${small.src} 400w, ${medium.src} 800w, ${large.src} 1200w`,
+			sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
+			width: medium.attributes.width,
+			height: medium.attributes.height,
+		};
+	}),
+);
 
-const [	
-marek_designerOptimized,
-brokenmirrorOptimized,
-	portraitOptimized,
-	duoOptimized,
-	marek1Optimized,
-] = await Promise.all([
-	optimizeImage(marek_designer),
-optimizeImage(brokenMirror),
-	optimizeImage(portrait),
-	optimizeImage(duo),
-	optimizeImage(marek1),
-]);
-
-// Client-usable list of optimized images with responsive sources
-const cycleImages = [
-	{
-		title: "marek_designer.png",
-		src: marek_designerOptimized.medium.src,
-		srcSet: `${marek_designerOptimized.small.src} 400w, ${marek_designerOptimized.medium.src} 800w, ${marek_designerOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: marek_designerOptimized.medium.attributes.width,
-		height: marek_designerOptimized.medium.attributes.height,
-	},	
-	{
-		title: "gallery.png",
-		src: brokenmirrorOptimized.medium.src,
-		srcSet: `${brokenmirrorOptimized.small.src} 400w, ${brokenmirrorOptimized.medium.src} 800w, ${brokenmirrorOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: brokenmirrorOptimized.medium.attributes.width,
-		height: brokenmirrorOptimized.medium.attributes.height,
-	},
-	{
-		title: "portrait.png",
-		src: portraitOptimized.medium.src,
-		srcSet: `${portraitOptimized.small.src} 400w, ${portraitOptimized.medium.src} 800w, ${portraitOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: portraitOptimized.medium.attributes.width,
-		height: portraitOptimized.medium.attributes.height,
-	},
-	{
-		title: "duo.png",
-		src: duoOptimized.medium.src,
-		srcSet: `${duoOptimized.small.src} 400w, ${duoOptimized.medium.src} 800w, ${duoOptimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: duoOptimized.medium.attributes.width,
-		height: duoOptimized.medium.attributes.height,
-	},
-	{
-		title: "marek1.png",
-		src: marek1Optimized.medium.src,
-		srcSet: `${marek1Optimized.small.src} 400w, ${marek1Optimized.medium.src} 800w, ${marek1Optimized.large.src} 1200w`,
-		sizes: "(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px",
-		width: marek1Optimized.medium.attributes.width,
-		height: marek1Optimized.medium.attributes.height,
-	},
+// Content lives here once, so the mobile and desktop layouts can't drift apart.
+const aboutParagraphs = [
+	"I’m Marek, a curious multidisciplinary designer from Orava, Slovakia, working across visual identity, web design, and digital products.",
+	"I like to build projects as a “founder of myself”, but only around ideas that serve people and create a more creative world, from digital services to local initiatives and educational platforms.",
+	"My goal is to create a creative world around me and stand behind projects whose purpose has a real impact, whether they are digital services, local initiatives, or educational platforms.",
 ];
+
+const howIWork = [
+	"Research & analysis first",
+	"Understanding the client deeply",
+	"Long-term thinking",
+	"Clear and thoughtful design",
+	"Founder mindset",
+	"Collaboration across disciplines",
+];
+
+const programs = [
+	"Figma",
+	"Adobe Illustrator",
+	"Adobe Photoshop",
+	"Adobe Premiere Pro",
+	"Framer",
+	"Notion",
+];
+
+const location = "Based in Bratislava, Slovakia";
+const email = "contact@vican.design";
+
+const labelClass = "text-base font-mono text-secondary-foreground";
 ---
 
 <Layout title="About |">
-	<div class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-16 min-h-screen">
+	<!-- Mobile mirrors the project detail: showcase first, copy underneath -->
+	<div class="flex flex-col">
+	<div class="order-2 lg:order-1 w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-16">
 		<div class="container mx-auto px-4">
-		<!-- Hero Section -->
-		<div class="mb-32">
-			<!-- Mobile: Table-like two-column layout, Desktop: 3-column grid layout -->
-			<div class="max-w-2xl mx-auto lg:max-w-none">
-			<!-- Mobile: Single two-column grid for all sections -->
-			<!-- Desktop: Three columns with stacked content -->
-			<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-8 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-0">
-				<!-- About Column -->
-				<h1 class="text-base font-mono text-secondary-foreground whitespace-nowrap self-start lg:hidden">About</h1>
-				<div class="space-y-6 lg:col-span-1">
-					<h1 class="hidden lg:block text-base font-mono text-secondary-foreground mb-2">About</h1>
-					<p class="leading-relaxed">
-						As a multidisciplinary designer, I focus on various aspects of visual creation, from graphic design to digital and interactive projects.
-					</p>
-					<p class="leading-relaxed">
-						I create visual identities, website design, applications, and marketing materials, striving to combine creative solutions that are functional, aesthetically pleasing, and inspiring.
-					</p>
-					<p class="leading-relaxed">
-						My approach allows me to integrate different design disciplines, ensuring my projects are both effective and visually impactful.
-					</p>
+			<!-- Mobile: every section gets its own label column, including Programs and Contact -->
+			<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-10 lg:hidden">
+				<h1 class={`${labelClass} whitespace-nowrap self-start`}>About</h1>
+				<div class="space-y-6">
+					{aboutParagraphs.map((text) => <p class="leading-relaxed">{text}</p>)}
 				</div>
 
-				<!-- Capabilities & Programs Column -->
-				<h2 class="text-base font-mono text-secondary-foreground whitespace-nowrap self-start lg:hidden">Capabilities</h2>
-				<div class="lg:col-span-1">
-					<h2 class="hidden lg:block text-base font-mono text-secondary-foreground mb-2">Capabilities</h2>
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>How I work</h2>
+				<ul>
+					{howIWork.map((item) => <li>{item}</li>)}
+				</ul>
+
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Programs</h2>
+				<ul>
+					{programs.map((item) => <li>{item}</li>)}
+				</ul>
+
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Location</h2>
+				<p>{location}</p>
+
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Contact</h2>
+				<a href={`mailto:${email}`} class="hover:underline justify-self-start">{email}</a>
+			</div>
+
+			<!-- Desktop: three columns, secondary sections stacked under their siblings -->
+			<div class="hidden lg:grid lg:grid-cols-3 lg:gap-x-16 lg:items-start">
+				<div class="space-y-6">
+					<h1 class={`${labelClass} mb-2`}>About</h1>
+					{aboutParagraphs.map((text) => <p class="leading-relaxed">{text}</p>)}
+				</div>
+
+				<div>
+					<h2 class={`${labelClass} mb-2`}>How I work</h2>
 					<ul>
-						<li>Visual communication</li>
-						<li>Digital design</li>
-						<li>User-centered design</li>
-						<li>Collaborative creativity</li>
-						<li>Project management</li>
-						<li>Cross-disciplinary approach</li>
+						{howIWork.map((item) => <li>{item}</li>)}
 					</ul>
 
-					<h2 class="text-base font-mono text-secondary-foreground mt-12 mb-2">Programs</h2>
+					<h2 class={`${labelClass} mt-12 mb-2`}>Programs</h2>
 					<ul>
-						<li>Figma</li>
-						<li>Adobe Illustrator</li>
-						<li>Adobe Photoshop</li>
-						<li>Adobe Premiere Pro</li>
-						<li>Framer</li>
-						<li>Notion</li>
+						{programs.map((item) => <li>{item}</li>)}
 					</ul>
 				</div>
 
-				<!-- Location & Contact Column -->
-				<h2 class="text-base font-mono text-secondary-foreground whitespace-nowrap self-start lg:hidden">Location</h2>
-				<div class="lg:col-span-1">
-					<h2 class="hidden lg:block text-base font-mono text-secondary-foreground mb-2">Location</h2>
-					<p class="mb-12">Based in Bratislava, Slovakia</p>
+				<div>
+					<h2 class={`${labelClass} mb-2`}>Location</h2>
+					<p class="mb-12">{location}</p>
 
-					<h2 class="text-base font-mono text-secondary-foreground mb-2">Contact</h2>
-					<a href="mailto:contact@marekvician.com" class="hover:underline">
-						contact@vican.design
-					</a>
-				</div>
-			</div>
-			</div>
-		</div>
-
-			<!-- Image Section -->
-			<div class="flex justify-center mb-16">
-				<div class="w-full max-w-md">
-					<CycleImage 
-						client:load 
-						images={cycleImages}
-						startIndex={0}
-						wrapperClassName="relative overflow-hidden"
-						className="w-full h-auto select-none"
-						showCounter={true}
-					/>
+					<h2 class={`${labelClass} mb-2`}>Contact</h2>
+					<a href={`mailto:${email}`} class="hover:underline">{email}</a>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Same scroll-driven showcase as the project detail pages -->
+	<div class="order-1 lg:order-2 w-full max-w-7xl mx-auto [--header-h:4rem] md:[--header-h:5.5rem]">
+		<div class="container mx-auto px-4">
+			<div data-pin-track class="relative min-w-0">
+				<div
+					data-pin-sticky
+					class="sticky top-[var(--header-h)] flex flex-col justify-start pt-2 lg:min-h-[calc(100svh-var(--header-h))]"
+				>
+					<ProjectGallery client:load images={galleryImages} />
+				</div>
+			</div>
+		</div>
+	</div>
+
 	</div>
 
 	<!-- Experience Section -->
