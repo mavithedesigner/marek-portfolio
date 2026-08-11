@@ -16,8 +16,7 @@
 			"aacarabiner_hand.png",
 			"aacarabiner_packaging.png",
 			"aacarabiner_card.png",
-			"aacarabiner_cards.png",
-			"aacarabiner_product.png"
+			"aacarabiner_cards.png"
 		],
 		"collaborators": "Ján Šefárik / Tech Bear"
 	},
@@ -240,7 +239,7 @@
 		"name": "Posterfolio",
 		"tagline": "Posters for a range of clients and events.",
 		"client": "Various Clients",
-		"year": "2023 - 2025",
+		"year": "2023 - 2026",
 		"role": "Poster Design",
 		"about": "This is a poster folio featuring poster designs created for different clients and events, each tailored to unique themes and purposes.",
 		"programs": [
@@ -250,6 +249,7 @@
 		],
 		"thumbnail": "exhibition_poster.png",
 		"images": [
+			"aaconcert_pinkwhale_poster.png",
 			"exhibition_poster.png",
 			"aaconcert_poster.png",
 			"beau_tour_2025_poster.png",
