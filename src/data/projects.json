@@ -22,6 +22,31 @@
 		"collaborators": "Ján Šefárik / Tech Bear"
 	},
 	{
+		"slug": "maturuj",
+		"name": "maturuj.com",
+		"tagline": "Exam prep app, from idea to running business.",
+		"website": "https://maturuj.com/",
+		"client": "maturuj.com",
+		"year": "2025",
+		"role": "PX, UX/UI Design",
+		"about": "maturuj.com began as a final school project with an unusual brief: build something worth keeping after graduation, a real product we could sell. Together with Adam Demian we went through the entire cycle, from the first idea and project planning to development, testing, and launch. The app prepares students for the Slovak school-leaving exam through personalised AI feedback. It holds digitised SJL and English exam papers, exercises covering the topics students struggle with most, and an assistant that explains why an answer is right instead of only marking it wrong. It answers a problem most students know well, they drown in endless notes while the education system moves slowly, so the exam becomes something to survive rather than learn from. I led the design side, tone of voice, branding and logo, the UX/UI of the app, and the sales materials. It is live, bootstrapped, and running as a working business.",
+		"programs": [
+			"Figma",
+			"Notion"
+		],
+		"thumbnail": "maturuj_overview.png",
+		"images": [
+			"maturuj_history.png",
+			"maturuj_tests.png",
+			"maturuj_exercises.png",
+			"maturuj_ai_feedback.png",
+			"maturuj_overview.png",
+			"maturuj_mobile.png",
+			"maturuj_logo_grid.png"
+		],
+		"collaborators": "Adam Demian"
+	},
+	{
 		"slug": "wezeo",
 		"name": "WEZEO Rebranding",
 		"tagline": "Rebrand clarifying what the team stands for.",
