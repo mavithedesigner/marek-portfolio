@@ -25,7 +25,8 @@
 		"slug": "maturuj",
 		"name": "maturuj.com",
 		"tagline": "Exam prep app, from idea to running business.",
-		"website": "https://maturuj.com/",
+		"website": "https://maturuj.framer.website/",
+		"websiteLabel": "maturuj.com",
 		"client": "maturuj.com",
 		"year": "2025",
 		"role": "PX, UX/UI Design",
@@ -34,13 +35,13 @@
 			"Figma",
 			"Notion"
 		],
-		"thumbnail": "maturuj_overview.png",
+		"thumbnail": "maturuj_dashboard.png",
 		"images": [
-			"maturuj_history.png",
+			"maturuj_dashboard.png",
 			"maturuj_tests.png",
 			"maturuj_exercises.png",
 			"maturuj_ai_feedback.png",
-			"maturuj_overview.png",
+			"maturuj_brand.png",
 			"maturuj_mobile.png",
 			"maturuj_logo_grid.png"
 		],

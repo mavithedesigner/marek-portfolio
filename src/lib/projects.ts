@@ -13,6 +13,8 @@ type RawProject = {
 	/** One-line summary shown under the thumbnail on home and archive. */
 	tagline: string;
 	website?: string;
+	/** Optional override for the link text shown next to "Website". */
+	websiteLabel?: string;
 	client: string;
 	year: string;
 	role: string;

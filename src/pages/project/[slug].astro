@@ -80,10 +80,11 @@ const { project, previous, next } = Astro.props;
                                     rel="noreferrer noopener"
                                     class="text-palette-brightest-white hover:underline underline-offset-4"
                                 >
-                                    {project.website
-                                        .replace(/^https?:\/\//, "")
-                                        .replace(/^www\./, "")
-                                        .replace(/\/$/, "")}
+                                    {project.websiteLabel ??
+                                        project.website
+                                            .replace(/^https?:\/\//, "")
+                                            .replace(/^www\./, "")
+                                            .replace(/\/$/, "")}
                                 </a>
                             </div>
                         )}
