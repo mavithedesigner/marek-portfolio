@@ -1,5 +1,27 @@
 [
 	{
+		"slug": "aacarabiner",
+		"name": "AACarabiner",
+		"tagline": "AAC's first product, prototype to shelf.",
+		"client": "Artistic Area Club",
+		"year": "2026",
+		"role": "Product Design, Art Direction",
+		"about": "AACarabiner is the first physical product released under Artistic Area Club, designed together with Ján Šefárik. The idea came from a simple observation: the club lived entirely online, and we wanted something people could actually carry, an object for those who are into underground culture but still expect style and function from what they use. We shaped it as a carabiner, 3D printed from nylon, with an organic silhouette pulled straight from AAC's visual language. From there it turned into a long loop of prototyping, printing a version, handing it to people, then coming back weeks later to ask what held up, what got in the way, and what they stopped using. Every round of feedback reshaped the geometry until the piece carried keys the way it should and survived everyday wear. What started as an internal experiment ended as a finished product on sale, and a way for the community to carry the brand with them.",
+		"programs": [
+			"Figma",
+			"Adobe Illustrator"
+		],
+		"thumbnail": "aacarabiner_hand.png",
+		"images": [
+			"aacarabiner_hand.png",
+			"aacarabiner_packaging.png",
+			"aacarabiner_card.png",
+			"aacarabiner_cards.png",
+			"aacarabiner_product.png"
+		],
+		"collaborators": "Ján Šefárik / Tech Bear"
+	},
+	{
 		"slug": "wezeo",
 		"name": "WEZEO Rebranding",
 		"tagline": "Rebrand clarifying what the team stands for.",
