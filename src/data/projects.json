@@ -1,24 +1,30 @@
 [
 	{
-		"slug": "aacarabiner",
-		"name": "AACarabiner",
-		"tagline": "AAC's first product, prototype to shelf.",
-		"client": "Artistic Area Club",
+		"slug": "bicyklaren",
+		"name": "Bicykľáreň",
+		"tagline": "Bike rental brand, naming to art direction.",
+		"website": "https://bicyklaren.sk/",
+		"client": "Bicykľáreň",
 		"year": "2026",
-		"role": "Product Design, Art Direction",
-		"about": "AACarabiner is the first physical product released under Artistic Area Club, designed together with Ján Šefárik. The idea came from a simple observation: the club lived entirely online, and we wanted something people could actually carry, an object for those who are into underground culture but still expect style and function from what they use. We shaped it as a carabiner, 3D printed from nylon, with an organic silhouette pulled straight from AAC's visual language. From there it turned into a long loop of prototyping, printing a version, handing it to people, then coming back weeks later to ask what held up, what got in the way, and what they stopped using. Every round of feedback reshaped the geometry until the piece carried keys the way it should and survived everyday wear. What started as an internal experiment ended as a finished product on sale, and a way for the community to carry the brand with them.",
+		"role": "Logo Design, Content Creation, Art Director, PX, UX/UI Designer, Web Designer",
+		"about": "I created the Bicykľáreň brand from the ground up, from naming and logo to art direction, as a sub-brand of Tilia Resort that still feels like part of one team. We kept the resort's colors and typeface while giving Bicykľáreň its own, more personal voice. The handwritten wordmark drawn in one continuous stroke suggests smooth riding and an easy, straightforward rental process, without extra visual clichés like a bike icon. To keep the brand clear for visitors, we added the functional descriptor Bicykľáreň – Bike Rental as a flexible secondary lockup. Beyond the identity, I designed and built the entire website from scratch, together with a full reservation system that runs the rental end to end, from browsing available bikes and picking dates to confirming a booking. Mapping that flow meant working out how the rental actually operates on the ground, so the product side stays as effortless as the wordmark promises.",
 		"programs": [
 			"Figma",
-			"Adobe Illustrator"
+			"Adobe Illustrator",
+			"Adobe Photoshop",
+			"Framer"
 		],
-		"thumbnail": "aacarabiner_hand.png",
+		"thumbnail": "bicyklaren_cap_front.png",
 		"images": [
-			"aacarabiner_hand.png",
-			"aacarabiner_packaging.png",
-			"aacarabiner_card.png",
-			"aacarabiner_cards.png"
+			"bicyklaren_cap_front.png",
+			"bicyklaren_cap_back.png",
+			"bicyklaren_logo.png",
+			"bicyklaren_showcase.png",
+			"bicyklaren_businesscards.png",
+			"bicyklaren_illustrations.png",
+			"bicyklaren_brand_manual.png"
 		],
-		"collaborators": "Ján Šefárik / Tech Bear"
+		"collaborators": "vican.studio"
 	},
 	{
 		"slug": "maturuj",
@@ -41,6 +47,7 @@
 			"maturuj_exercises.png",
 			"maturuj_ai_feedback.png",
 			"maturuj_brand.png",
+			"maturuj_visual.png",
 			"maturuj_mobile.png",
 			"maturuj_logo_grid.png"
 		],
@@ -97,30 +104,29 @@
 		"collaborators": "Richard Egyed"
 	},
 	{
-		"slug": "bicyklaren",
-		"name": "Bicykľáreň",
-		"tagline": "Bike rental brand, naming to art direction.",
-		"website": "https://bicyklaren.sk/",
-		"client": "Bicykľáreň",
-		"year": "2026",
-		"role": "Logo Design, Content Creation, Art Director",
-		"about": "I created the Bicykľáreň brand from the ground up, from naming and logo to art direction, as a sub-brand of Tilia Resort that still feels like part of one team. We kept the resort's colors and typeface while giving Bicykľáreň its own, more personal voice. The handwritten wordmark drawn in one continuous stroke suggests smooth riding and an easy, straightforward rental process, without extra visual clichés like a bike icon. To keep the brand clear for visitors, we added the functional descriptor Bicykľáreň – Bike Rental as a flexible secondary lockup.",
+		"slug": "stelinhome",
+		"name": "Stelinhome",
+		"tagline": "Guesthouse site built around the owner’s dog.",
+		"website": "https://stelinhome.com/",
+		"client": "Stelinhome",
+		"year": "2025",
+		"role": "Logo Design, Web, Content Creation",
+		"about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image. Additionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
 		"programs": [
-			"Figma",
 			"Adobe Illustrator",
-			"Adobe Photoshop"
+			"Adobe Photoshop",
+			"Notion",
+			"Framer"
 		],
-		"thumbnail": "bicyklaren_cap_front.png",
+		"thumbnail": "stelinhome_web1.png",
 		"images": [
-			"bicyklaren_cap_front.png",
-			"bicyklaren_cap_back.png",
-			"bicyklaren_logo.png",
-			"bicyklaren_showcase.png",
-			"bicyklaren_businesscards.png",
-			"bicyklaren_illustrations.png",
-			"bicyklaren_brand_manual.png"
-		],
-		"collaborators": "vican.studio"
+			"stelinhome_web1.png",
+			"stelinhome_web2.png",
+			"stelinhome_manual.png",
+			"stelinhome_logo_sz.png",
+			"stelinhome_socialmedia.png",
+			"stelinhome_logo.png"
+		]
 	},
 	{
 		"slug": "cabana",
@@ -147,29 +153,25 @@
 		]
 	},
 	{
-		"slug": "stelinhome",
-		"name": "Stelinhome",
-		"tagline": "Guesthouse site built around the owner’s dog.",
-		"website": "https://stelinhome.com/",
-		"client": "Stelinhome",
-		"year": "2025",
-		"role": "Logo Design, Web, Content Creation",
-		"about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image. Additionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
+		"slug": "aacarabiner",
+		"name": "AACarabiner",
+		"tagline": "AAC's first product, prototype to shelf.",
+		"client": "Artistic Area Club",
+		"year": "2026",
+		"role": "Product Design, Art Direction",
+		"about": "AACarabiner is the first physical product released under Artistic Area Club, designed together with Ján Šefárik. The idea came from a simple observation: the club lived entirely online, and we wanted something people could actually carry, an object for those who are into underground culture but still expect style and function from what they use. We shaped it as a carabiner, 3D printed from nylon, with an organic silhouette pulled straight from AAC's visual language. From there it turned into a long loop of prototyping, printing a version, handing it to people, then coming back weeks later to ask what held up, what got in the way, and what they stopped using. Every round of feedback reshaped the geometry until the piece carried keys the way it should and survived everyday wear. What started as an internal experiment ended as a finished product on sale, and a way for the community to carry the brand with them.",
 		"programs": [
-			"Adobe Illustrator",
-			"Adobe Photoshop",
-			"Notion",
-			"Framer"
+			"Figma",
+			"Adobe Illustrator"
 		],
-		"thumbnail": "stelinhome_web1.png",
+		"thumbnail": "aacarabiner_hand.png",
 		"images": [
-			"stelinhome_web1.png",
-			"stelinhome_web2.png",
-			"stelinhome_manual.png",
-			"stelinhome_logo_sz.png",
-			"stelinhome_socialmedia.png",
-			"stelinhome_logo.png"
-		]
+			"aacarabiner_hand.png",
+			"aacarabiner_packaging.png",
+			"aacarabiner_card.png",
+			"aacarabiner_cards.png"
+		],
+		"collaborators": "Ján Šefárik / Tech Bear"
 	},
 	{
 		"slug": "artistic-area-club",
