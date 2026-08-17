@@ -181,7 +181,7 @@
 		"client": "Artistic Area Club",
 		"year": "2024 - 2026",
 		"role": "Logo, Visual Identity, Web, Poster Design, Content Creation",
-		"about": "Artistic Area Club is a collective of selected artists and designers built on humility, freedom, and inspiration. The club needed a brand that reads as an underground open space rather than a closed circle, something creators would want to stand inside. I built the identity around one idea: different liquid materials poured together until they merge into a single form. That logic drives the logo, where the AAC letters run into each other as liquid typography, and it stands in for what the club actually does, separate people flowing into one thing. The club also needed the events to survive the night they happen, so I designed the website as a gallery and a timeline of everything AAC has made, with photos visitors can download on the spot. Each event carries its own visual language and none of it repeats, because the constant across every night is not a style but the people who create it together.",
+		"about": "Artistic Area Club is a group of artists and designers. The club needed a brand that felt open, somewhere people could walk in and make something, not a closed circle you have to be invited into. The logo came from liquids poured into each other until they set as one shape. The letters AAC are built the same way, running together instead of standing apart. I also designed the website. It works as a timeline and a portfolio of what the club has done so far, event by event, with photos anyone can download. Every event keeps a few fixed elements so it still reads as AAC, but the rest of the visual changes each time. That is deliberate. The events are made by the people who show up, and they are the ones who give the brand its shape.",
 		"programs": [
 			"Adobe Illustrator",
 			"Adobe Photoshop",
@@ -191,6 +191,7 @@
 		],
 		"thumbnail": "aac_logo_3d.png",
 		"images": [
+			"aac_logo_3d.png",
 			"aac_concert03_poster.png",
 			"aac_concert02_live.png",
 			"aac_concert03_merch.png",
@@ -199,7 +200,6 @@
 			"aac_artist_mywa.png",
 			"aac_concert02_sdcard.png",
 			"aac_concert03_carabiner.png",
-			"aac_logo_3d.png",
 			"aac_show_photo.png",
 			"aac_cover_concept.png",
 			"aac_ben3dict.png",
