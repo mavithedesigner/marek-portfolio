@@ -1,6 +1,7 @@
 ---
 import { getProjects } from "../lib/projects";
 import CycleImage from "./CycleImage";
+import ProjectTags from "./ProjectTags.astro";
 
 const projects = await getProjects();
 const previewProjects = projects.slice(0, 6);
@@ -17,7 +18,7 @@ const previewProjects = projects.slice(0, 6);
                 previewProjects.map((project) => (
                     <a
                         href={`/project/${project.slug}`}
-                        class="project-preview relative w-full block"
+                        class="project-preview project-card relative w-full block"
                     >
                         <CycleImage
                             client:load
@@ -25,9 +26,13 @@ const previewProjects = projects.slice(0, 6);
                             startIndex={0}
                             disableClick={true}
                         />
-                        <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
-                            <span class="truncate">{project.tagline}</span>
-                            <span class="shrink-0">{project.year}</span>
+                        <!-- relative: the discipline chips hang off the bottom of this row -->
+                        <div class="relative">
+                            <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
+                                <span class="truncate">{project.tagline}</span>
+                                <span class="shrink-0">{project.year}</span>
+                            </div>
+                            <ProjectTags tags={project.tags} />
                         </div>
                     </a>
                 ))

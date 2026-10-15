@@ -3,12 +3,12 @@
  * The single place where "get in touch" is defined.
  *
  * Three equal routes, because people arrive at different stages:
- *  - decided          -> email
- *  - interested, unsure how to brief -> book a call
- *  - still checking you out          -> LinkedIn
+ *  - decided                          -> email
+ *  - interested, unsure how to brief   -> book a call
+ *  - still checking you out            -> LinkedIn
  *
- * Used at the end of every project, on the contact page and on the home page,
- * so the offer is identical wherever someone stops reading.
+ * Each tile has a small monospace panel that plays on hover. It is decorative
+ * (aria-hidden) and purely CSS, so it costs nothing and never blocks the link.
  */
 interface Props {
 	heading?: string;
@@ -29,82 +29,338 @@ const email = "contact@vican.design";
 const mailto = `mailto:${email}?subject=${encodeURIComponent("Project enquiry")}`;
 const calLink = "https://cal.com/vican.design/15min";
 const linkedin = "https://www.linkedin.com/in/vicandesign/";
-
-const labelClass =
-	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
-const tileClass =
-	"group flex h-full flex-col justify-between gap-6 border border-palette-brightest-white/20 p-5 transition-colors hover:border-palette-brightest-white/60 focus-within:border-palette-brightest-white/60";
-const actionClass =
-	"inline-flex items-center gap-2 text-palette-brightest-white underline-offset-4 group-hover:underline";
 ---
 
 <section
-	class={`${variant === "full" ? "w-full max-w-7xl mx-auto mt-32 mb-16" : ""} ${className}`}
+	class={`cta ${variant === "full" ? "w-full max-w-7xl mx-auto mt-32 mb-16" : ""} ${className}`}
 	aria-labelledby="cta-heading"
 >
 	<div class={variant === "full" ? "container mx-auto px-4" : ""}>
-		<h2 id="cta-heading" class={labelClass}>{heading}</h2>
+		<h2
+			id="cta-heading"
+			class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
+		>
+			{heading}
+		</h2>
 		<p class="mt-3 max-w-xl text-palette-brightest-white/80">{intro}</p>
 
 		<div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
 			<!-- 1. Email — for people who already know what they want -->
-			<div class={tileClass}>
+			<div class="cta-tile">
 				<div>
-					<div class="text-palette-brightest-white">Write me an email</div>
-					<p class="mt-2 text-sm text-palette-brightest-white/60">
+					<div class="cta-title">Write me an email</div>
+					<p class="cta-sub">
 						Tell me what you’re working on. A few sentences are enough to start.
 					</p>
 				</div>
-				<div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-					<a href={mailto} class={actionClass}>Open email →</a>
-					<button
-						type="button"
-						data-copy-email={email}
-						class="text-palette-brightest-white/60 underline-offset-4 hover:text-palette-brightest-white hover:underline"
+
+				<div class="cta-anim" aria-hidden="true">
+					<span class="line l1" style="--n: 25ch">&gt; to: contact@vican.design</span>
+					<span class="line l2" style="--n: 25ch">&gt; subject: Project enquiry</span>
+					<span class="line l3" style="--n: 24ch"
+						>&gt; hi marek, we’re building<span class="caret">▌</span></span
 					>
+				</div>
+
+				<div class="cta-actions">
+					<a href={mailto} class="cta-link">Open email →</a>
+					<button type="button" data-copy-email={email} class="cta-ghost">
 						Copy address
 					</button>
 				</div>
 			</div>
 
 			<!-- 2. Call — the lowest-effort route, and the one that was missing -->
-			<div class={tileClass}>
+			<div class="cta-tile">
 				<div>
-					<div class="text-palette-brightest-white">Book a call</div>
-					<p class="mt-2 text-sm text-palette-brightest-white/60">
-						15 minutes, no strings. Pick a slot that suits you.
-					</p>
+					<div class="cta-title">Book a call</div>
+					<p class="cta-sub">15 minutes, no strings. Pick a slot that suits you.</p>
 				</div>
-				<a
-					href={calLink}
-					target="_blank"
-					rel="noreferrer noopener"
-					class={`${actionClass} text-sm`}
-				>
-					Pick a time →
-				</a>
+
+				<div class="cta-anim" aria-hidden="true">
+					<span class="line l1" style="--n: 21ch">&gt; checking calendar…</span>
+					<span class="line l2 bar">
+						<span class="bar-track">[<span class="bar-fill">■■■■■■■■■■■■</span
+							><span class="bar-rest">············</span>]</span
+						>
+					</span>
+					<span class="line l3" style="--n: 22ch">&gt; 15 min slot — free</span>
+				</div>
+
+				<div class="cta-actions">
+					<a href={calLink} target="_blank" rel="noreferrer noopener" class="cta-link">
+						Pick a time →
+					</a>
+				</div>
 			</div>
 
 			<!-- 3. LinkedIn — for people who want to check you out first -->
-			<div class={tileClass}>
+			<div class="cta-tile">
 				<div>
-					<div class="text-palette-brightest-white">Reach out on LinkedIn</div>
-					<p class="mt-2 text-sm text-palette-brightest-white/60">
-						Rather look me up first? That’s fine — I’m there too.
-					</p>
+					<div class="cta-title">Reach out on LinkedIn</div>
+					<p class="cta-sub">Rather look me up first? That’s fine — I’m there too.</p>
 				</div>
-				<a
-					href={linkedin}
-					target="_blank"
-					rel="noreferrer noopener"
-					class={`${actionClass} text-sm`}
-				>
-					Open profile →
-				</a>
+
+				<div class="cta-anim" aria-hidden="true">
+					<span class="line l1" style="--n: 15ch">&gt; connecting…</span>
+					<span class="line l2 wire">
+						<span class="wire-a">you ○</span><span class="wire-line">────────────</span
+						><span class="wire-b">○ marek</span>
+					</span>
+					<span class="line l3" style="--n: 20ch">&gt; one message away</span>
+				</div>
+
+				<div class="cta-actions">
+					<a href={linkedin} target="_blank" rel="noreferrer noopener" class="cta-link">
+						Open profile →
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<style>
+	.cta-tile {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		height: 100%;
+		padding: 1.25rem;
+		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 20%, transparent);
+		transition: border-color 0.3s ease;
+	}
+
+	.cta-tile:hover,
+	.cta-tile:focus-within {
+		border-color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.cta-title {
+		color: var(--color-palette-brightest-white);
+	}
+
+	.cta-sub {
+		margin-top: 0.5rem;
+		font-size: 0.875rem;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25rem 1.25rem;
+		margin-top: auto;
+		font-size: 0.875rem;
+	}
+
+	.cta-link {
+		color: var(--color-palette-brightest-white);
+		text-underline-offset: 4px;
+	}
+
+	.cta-tile:hover .cta-link {
+		text-decoration: underline;
+	}
+
+	.cta-ghost {
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+		text-underline-offset: 4px;
+		transition: color 0.2s ease;
+	}
+
+	.cta-ghost:hover {
+		color: var(--color-palette-brightest-white);
+		text-decoration: underline;
+	}
+
+	/* ---------------------------------------------------------------- *
+	 * The hover panel. Fixed height so tiles never jump when it appears.
+	 * ---------------------------------------------------------------- */
+	.cta-anim {
+		font-family: "DejaVu Sans Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.7rem;
+		line-height: 1.7;
+		height: calc(0.7rem * 1.7 * 3);
+		overflow: hidden;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+
+	.cta-tile:hover .cta-anim,
+	.cta-tile:focus-within .cta-anim {
+		opacity: 1;
+	}
+
+	.line {
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 0;
+	}
+
+	/* Typing: reveal the line character by character. */
+	@keyframes type {
+		to {
+			width: var(--n);
+		}
+	}
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.cta-tile:hover .l1,
+	.cta-tile:focus-within .l1 {
+		animation: type 0.5s steps(22) forwards;
+	}
+
+	.cta-tile:hover .l2,
+	.cta-tile:focus-within .l2 {
+		animation: type 0.5s steps(22) 0.45s forwards;
+	}
+
+	.cta-tile:hover .l3,
+	.cta-tile:focus-within .l3 {
+		animation: type 0.6s steps(24) 0.9s forwards;
+	}
+
+	.caret {
+		animation: blink 1s steps(1) infinite;
+	}
+
+	/* Tile 2: a progress bar that fills, then the slot is "found". */
+	.bar,
+	.wire {
+		width: auto;
+	}
+
+	.bar-track {
+		display: inline-flex;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 40%, transparent);
+	}
+
+	.bar-fill,
+	.bar-rest {
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		vertical-align: bottom;
+	}
+
+	.bar-fill {
+		width: 0;
+		color: var(--color-palette-brightest-white);
+	}
+
+	.bar-rest {
+		width: 12ch;
+	}
+
+	@keyframes fill {
+		to {
+			width: 12ch;
+		}
+	}
+
+	@keyframes drain {
+		to {
+			width: 0;
+		}
+	}
+
+	.cta-tile:hover .bar-fill,
+	.cta-tile:focus-within .bar-fill {
+		animation: fill 0.9s steps(12) 0.35s forwards;
+	}
+
+	.cta-tile:hover .bar-rest,
+	.cta-tile:focus-within .bar-rest {
+		animation: drain 0.9s steps(12) 0.35s forwards;
+	}
+
+	/* Tile 2 and 3 reveal their middle row without the typing effect. */
+	.cta-tile:hover .l2.bar,
+	.cta-tile:hover .l2.wire,
+	.cta-tile:focus-within .l2.bar,
+	.cta-tile:focus-within .l2.wire {
+		animation: none;
+		width: auto;
+	}
+
+	/* Tile 3: the connection draws itself between the two nodes. */
+	.wire-line {
+		display: inline-block;
+		width: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		vertical-align: bottom;
+		color: var(--color-palette-brightest-white);
+	}
+
+	@keyframes draw {
+		to {
+			width: 12ch;
+		}
+	}
+
+	.cta-tile:hover .wire-line,
+	.cta-tile:focus-within .wire-line {
+		animation: draw 0.7s steps(12) 0.35s forwards;
+	}
+
+	.wire-b {
+		opacity: 0;
+		transition: opacity 0.2s ease 1s;
+	}
+
+	.cta-tile:hover .wire-b,
+	.cta-tile:focus-within .wire-b {
+		opacity: 1;
+	}
+
+	/* No motion: show the finished state straight away. */
+	@media (prefers-reduced-motion: reduce) {
+		.line {
+			width: auto;
+		}
+
+		.cta-tile:hover .l1,
+		.cta-tile:hover .l2,
+		.cta-tile:hover .l3,
+		.cta-tile:focus-within .l1,
+		.cta-tile:focus-within .l2,
+		.cta-tile:focus-within .l3,
+		.cta-tile:hover .bar-fill,
+		.cta-tile:hover .bar-rest,
+		.cta-tile:hover .wire-line,
+		.cta-tile:focus-within .bar-fill,
+		.cta-tile:focus-within .bar-rest,
+		.cta-tile:focus-within .wire-line {
+			animation: none;
+		}
+
+		.bar-fill,
+		.wire-line {
+			width: 12ch;
+		}
+
+		.bar-rest {
+			width: 0;
+		}
+
+		.caret,
+		.wire-b {
+			animation: none;
+			opacity: 1;
+			transition: none;
+		}
+	}
+</style>
 
 <script>
 	// Copy-to-clipboard is a convenience only: the mailto link next to it always

@@ -1,5 +1,6 @@
 ---
 import CycleImage from "../components/CycleImage";
+import ProjectTags from "../components/ProjectTags.astro";
 import Layout from "../layouts/Layout.astro";
 import { getProjects, getProjectTags } from "../lib/projects";
 
@@ -53,27 +54,21 @@ const tags = await getProjectTags();
             class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
             data-tags={project.tags.join("|")}
           >
-            <div class="relative overflow-hidden">
-              <CycleImage
-                client:load
-                images={project.imageItems}
-                startIndex={0}
-                className="w-full h-auto select-none object-contain"
-                disableClick={true}
-              />
+            <CycleImage
+              client:load
+              images={project.imageItems}
+              startIndex={0}
+              className="w-full h-auto select-none object-contain"
+              disableClick={true}
+            />
 
-              {project.tags.length > 0 && (
-                <ul class="tag-strip" aria-hidden="true">
-                  {project.tags.map((tag) => (
-                    <li>{tag}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
-              <span class="truncate">{project.tagline}</span>
-              <span class="shrink-0">{project.year}</span>
+            <!-- relative: the chips hang off the bottom of this row -->
+            <div class="relative">
+              <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
+                <span class="truncate">{project.tagline}</span>
+                <span class="shrink-0">{project.year}</span>
+              </div>
+              <ProjectTags tags={project.tags} />
             </div>
           </a>
         ))}
@@ -129,56 +124,6 @@ const tags = await getProjectTags();
 		color: var(--color-background);
 	}
 
-	/*
-	 * Discipline chips ride up from under the image on hover.
-	 * pointer-events: none keeps the whole card clickable.
-	 */
-	.tag-strip {
-		position: absolute;
-		inset-inline: 0;
-		bottom: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		padding: 0.75rem;
-		margin: 0;
-		list-style: none;
-		pointer-events: none;
-		background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0));
-	}
-
-	.tag-strip li {
-		border: 1px solid rgb(255 255 255 / 0.55);
-		background: rgb(0 0 0 / 0.35);
-		backdrop-filter: blur(2px);
-		padding: 0.2rem 0.6rem;
-		font-size: 0.75rem;
-		line-height: 1.4;
-		color: #fff;
-	}
-
-	/* Only animate where hovering is actually possible; on touch they just sit there. */
-	@media (hover: hover) {
-		.tag-strip {
-			transform: translateY(100%);
-			opacity: 0;
-			transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
-		}
-
-		.project-card:hover .tag-strip,
-		.project-card:focus-visible .tag-strip {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.tag-strip {
-			transition: opacity 0.2s ease;
-			transform: none;
-		}
-	}
-
 	.project-card[hidden] {
 		display: none;
 	}
@@ -214,10 +159,38 @@ const tags = await getProjectTags();
 			}
 
 			if (empty) empty.hidden = visible > 0;
+
+			/*
+			 * Filtering shortens the page. Lenis keeps its own scroll value and
+			 * would smoothly glide to the new maximum, which reads as the page
+			 * scrolling by itself. Re-measure and pin the scroll where it is.
+			 */
+			const lenis = (window as any).__lenis;
+			const current = window.scrollY;
+
+			requestAnimationFrame(() => {
+				lenis?.resize?.();
+
+				const max = Math.max(
+					0,
+					document.documentElement.scrollHeight - window.innerHeight,
+				);
+				const target = Math.min(current, max);
+
+				if (lenis?.scrollTo) {
+					lenis.scrollTo(target, { immediate: true, force: true });
+				} else {
+					window.scrollTo({ top: target, behavior: "auto" });
+				}
+			});
 		}
 
 		for (const button of buttons) {
-			button.addEventListener("click", () => apply(button.dataset.filter ?? "all"));
+			button.addEventListener("click", (event) => {
+				// Stop the browser from scrolling the freshly focused button into view.
+				event.preventDefault();
+				apply(button.dataset.filter ?? "all");
+			});
 		}
 	}
 

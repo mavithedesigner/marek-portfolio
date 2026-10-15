@@ -1,0 +1,94 @@
+---
+/**
+ * Discipline chips for a project card.
+ *
+ * They sit just under the project description and ride up from below on hover,
+ * so the grid stays quiet until you actually look at something. Absolutely
+ * positioned on purpose — showing them must never reflow the grid.
+ *
+ * The parent card needs `class="project-card"` and `position: relative`.
+ */
+interface Props {
+	tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+{
+	tags.length > 0 && (
+		<ul class="tag-strip" aria-hidden="true">
+			{tags.map((tag) => (
+				<li>{tag}</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	.tag-strip {
+		position: absolute;
+		top: 100%;
+		inset-inline: 0;
+		margin: 0.6rem 0 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		list-style: none;
+		pointer-events: none;
+	}
+
+	.tag-strip li {
+		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+		padding: 0.2rem 0.6rem;
+		font-size: 0.75rem;
+		line-height: 1.4;
+		color: var(--color-palette-brightest-white);
+		white-space: nowrap;
+	}
+
+	/* Only animate where hovering exists; on touch the chips simply sit there. */
+	@media (hover: hover) {
+		.tag-strip {
+			transform: translateY(0.6rem);
+			opacity: 0;
+			transition:
+				transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+				opacity 0.25s ease;
+		}
+
+		.tag-strip li {
+			transform: translateY(0.4rem);
+			transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+		/* Chips stagger in, so it reads as one movement rather than a block. */
+		.tag-strip li:nth-child(2) {
+			transition-delay: 0.05s;
+		}
+
+		.tag-strip li:nth-child(3) {
+			transition-delay: 0.1s;
+		}
+
+		:global(.project-card):hover .tag-strip,
+		:global(.project-card):focus-visible .tag-strip {
+			transform: translateY(0);
+			opacity: 1;
+		}
+
+		:global(.project-card):hover .tag-strip li,
+		:global(.project-card):focus-visible .tag-strip li {
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tag-strip,
+		.tag-strip li {
+			transform: none;
+			transition: opacity 0.2s ease;
+		}
+	}
+</style>

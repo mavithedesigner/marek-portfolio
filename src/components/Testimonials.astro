@@ -8,6 +8,7 @@
  * a placeholder on the live site.
  */
 import rawTestimonials from "../data/testimonials.json";
+import sampleTestimonials from "../data/testimonials.sample.json";
 
 type Testimonial = {
 	published: boolean;
@@ -29,10 +30,23 @@ interface Props {
 
 const { heading = "What clients say", limit = 3, project } = Astro.props;
 
-const testimonials = (rawTestimonials as Testimonial[])
-	.filter((item) => item.published && item.quote.trim().length > 0)
-	.filter((item) => (project ? item.project === project : true))
-	.slice(0, limit);
+const usable = (list: Testimonial[]) =>
+	list
+		.filter((item) => item.published && item.quote.trim().length > 0)
+		.filter((item) => (project ? item.project === project : true));
+
+const real = usable(rawTestimonials as Testimonial[]);
+
+/*
+ * Nothing real yet? Show the invented ones — but only while developing, so you
+ * can see the layout. A production build never renders them, which means made-up
+ * quotes can't reach the live site by accident.
+ */
+const isPreview = real.length === 0 && import.meta.env.DEV;
+const testimonials = (isPreview ? usable(sampleTestimonials as Testimonial[]) : real).slice(
+	0,
+	limit,
+);
 
 const labelClass =
 	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
@@ -44,6 +58,11 @@ const labelClass =
 			<div class="container mx-auto px-4">
 				<h2 id="testimonials-heading" class={labelClass}>
 					{heading}
+					{isPreview && (
+						<span class="ml-3 border border-palette-brightest-white/40 px-2 py-0.5 normal-case tracking-normal text-palette-brightest-white/80">
+							preview only — invented quotes, hidden in production
+						</span>
+					)}
 				</h2>
 
 				<div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
