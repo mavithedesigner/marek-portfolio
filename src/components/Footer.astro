@@ -12,11 +12,13 @@ const pages = [
 	{ href: "/contact", text: "Contact" },
 ];
 
+// LinkedIn first: for a prospective client it's the most natural first contact,
+// not the fourth item under Pinterest.
 const socials = [
-	{ href: "https://www.instagram.com/vican.design.aac/", text: "Instagram" },
-	{ href: "https://sk.pinterest.com/mavithedesigner/", text: "Pinterest" },
-	{ href: "https://www.behance.net/marekvic", text: "Behance" },
 	{ href: "https://www.linkedin.com/in/vicandesign/", text: "Linkedin" },
+	{ href: "https://www.instagram.com/vican.design.aac/", text: "Instagram" },
+	{ href: "https://www.behance.net/marekvic", text: "Behance" },
+	{ href: "https://sk.pinterest.com/mavithedesigner/", text: "Pinterest" },
 ];
 
 const email = "contact@vican.design";
@@ -55,6 +57,14 @@ const labelClass = "text-secondary-foreground mb-1";
 			<div>
 				<p class={labelClass}>Get in touch</p>
 				<a href={`mailto:${email}`} class="hover:underline">{email}</a>
+				<a
+					href="https://cal.com/vican.design/15min"
+					target="_blank"
+					rel="noreferrer noopener"
+					class="mt-1 block hover:underline"
+				>
+					Book a 15-min call
+				</a>
 			</div>
 		</div>
 

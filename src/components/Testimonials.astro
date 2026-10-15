@@ -1,0 +1,75 @@
+---
+/**
+ * Client quotes.
+ *
+ * The section renders nothing until at least one entry in
+ * `src/data/testimonials.json` has `published: true` and a non-empty quote —
+ * so an empty or half-collected list can sit in the repo without ever showing
+ * a placeholder on the live site.
+ */
+import rawTestimonials from "../data/testimonials.json";
+
+type Testimonial = {
+	published: boolean;
+	quote: string;
+	name: string;
+	role?: string;
+	company?: string;
+	/** Optional project slug, so the quote can link to the case it came from. */
+	project?: string;
+};
+
+interface Props {
+	heading?: string;
+	/** Show at most this many. Three reads best in a row. */
+	limit?: number;
+	/** Only quotes attached to this project slug. */
+	project?: string;
+}
+
+const { heading = "What clients say", limit = 3, project } = Astro.props;
+
+const testimonials = (rawTestimonials as Testimonial[])
+	.filter((item) => item.published && item.quote.trim().length > 0)
+	.filter((item) => (project ? item.project === project : true))
+	.slice(0, limit);
+
+const labelClass =
+	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
+---
+
+{
+	testimonials.length > 0 && (
+		<section class="w-full max-w-7xl mx-auto mt-28" aria-labelledby="testimonials-heading">
+			<div class="container mx-auto px-4">
+				<h2 id="testimonials-heading" class={labelClass}>
+					{heading}
+				</h2>
+
+				<div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+					{testimonials.map((item) => (
+						<figure class="flex h-full flex-col justify-between gap-6 border border-palette-brightest-white/20 p-5">
+							<blockquote class="text-palette-brightest-white/90 leading-relaxed">
+								“{item.quote}”
+							</blockquote>
+							<figcaption class="text-sm">
+								<div class="text-palette-brightest-white">{item.name}</div>
+								<div class="text-palette-brightest-white/60">
+									{[item.role, item.company].filter(Boolean).join(", ")}
+								</div>
+								{item.project && (
+									<a
+										href={`/project/${item.project}`}
+										class="mt-2 inline-block text-palette-brightest-white/60 underline-offset-4 hover:text-palette-brightest-white hover:underline"
+									>
+										See the project →
+									</a>
+								)}
+							</figcaption>
+						</figure>
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}

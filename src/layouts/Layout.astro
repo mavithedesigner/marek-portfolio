@@ -1,13 +1,40 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import { getImage } from "astro:assets";
 import "../styles/global.css";
+import ogSource from "../assets/archive/aac_logo_3d.png";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import MobileHeader from "../components/MobileHeader";
 import CustomCursor from "../components/CustomCursor";
 import ImageCounter from "../components/ImageCounter";
 
-const { title, ...props } = Astro.props;
+// 1200×630 is what LinkedIn, WhatsApp and Slack expect from a link preview.
+const ogFallback = await getImage({
+	src: ogSource,
+	width: 1200,
+	height: 630,
+	fit: "cover",
+	format: "jpg",
+});
+
+const defaultDescription =
+	"Marek is a designer based in Bratislava, Slovakia. He creates visual identities, website design, applications, and marketing materials, striving to combine creative solutions that are functional, aesthetically pleasing, and inspiring.";
+
+const {
+	title,
+	// Each page can describe itself; search results and link previews stop
+	// looking identical across the whole site.
+	description = defaultDescription,
+	// Relative path to the preview image; falls back to the shared one.
+	image = ogFallback.src,
+	...props
+} = Astro.props;
+
+// Absolute URLs — social platforms reject relative ones.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const ogImage = new URL(image, Astro.site ?? Astro.url);
+const fullTitle = `${title ?? ""} Marek Vican`.trim();
 ---
 
 <!doctype html>
@@ -46,9 +73,31 @@ const { title, ...props } = Astro.props;
 				}
 			})();
 		</script>
-		<title>{title} Marek Vican</title>
-		<meta name="description" content="Marek is a designer based in Bratislava, Slovakia. He creates visual identities, website design, applications, and marketing materials, striving to combine creative solutions that are functional, aesthetically pleasing, and inspiring." />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical.href} />
+
+		<!-- Link previews: without these a shared URL shows as bare text. -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Marek Vican" />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical.href} />
+		<meta property="og:image" content={ogImage.href} />
+		<meta property="og:locale" content="en_GB" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage.href} />
+
 		<ViewTransitions />
+
+		<!--
+			Vercel Web Analytics. Needs to be switched on once in the Vercel
+			dashboard (Project → Analytics); until then the script 404s harmlessly.
+			No cookies, no consent banner.
+		-->
+		<script is:inline defer src="/_vercel/insights/script.js"></script>
 	</head>
 	<body>
 		<div class="noise-overlay" aria-hidden="true"></div>

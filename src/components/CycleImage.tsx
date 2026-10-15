@@ -3,7 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { updateImageCounter } from "./ImageCounter";
 
 export type CycleImageItem = {
+	/** Filename — shown as the visible caption. */
 	title: string;
+	/** Human description for screen readers; falls back to the caption. */
+	alt?: string;
 	src: string;
 	srcSet?: string;
 	sizes?: string;
@@ -116,7 +119,7 @@ export default function CycleImage(props: CycleImageProps) {
 					src={current.src}
 					srcSet={current.srcSet}
 					sizes={current.sizes}
-					alt={current.title}
+					alt={current.alt ?? current.title}
 					loading="lazy"
 					decoding="async"
 					width={current.width}

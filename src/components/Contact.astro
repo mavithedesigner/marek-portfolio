@@ -1,12 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import background from "../assets/contact.png";
+import CallToAction from "./CallToAction.astro";
 
 const {
-	email = "contact@vican.design",
 	imageSrc = background,
-	imageAlt = "theline",
+	imageAlt = "Abstract line artwork",
 	imageCaption = "theline.png",
+	// One honest line about availability removes the "is it even worth writing?" doubt.
+	availability = "Currently taking on new projects.",
 } = Astro.props;
 ---
 
@@ -15,9 +17,11 @@ const {
 		<div class="flex flex-col md:flex-row gap-12 items-start md:items-center justify-between">
 			<div class="w-full md:w-auto text-left">
 				<h2 class="text-base font-mono text-secondary-foreground">Contact</h2>
-				<a href={`mailto:${email}`} class="mt-4 inline-block text-base md:text-lg hover:underline">
-					{email}
-				</a>
+				<p class="mt-4 max-w-sm text-lg text-palette-brightest-white">
+					Have a project in mind? There are three ways to reach me — pick
+					whichever suits you.
+				</p>
+				<p class="mt-3 text-sm text-palette-brightest-white/60">{availability}</p>
 			</div>
 
 			<div>
@@ -29,7 +33,7 @@ const {
 				</div>
 			</div>
 		</div>
+
+		<CallToAction variant="inline" class="mt-16" heading="Get in touch" />
 	</div>
 </section>
-
-

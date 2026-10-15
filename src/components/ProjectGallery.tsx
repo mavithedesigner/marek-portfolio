@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type GalleryImage = {
+	/** Filename — shown as the visible caption. */
 	title: string;
+	/** Human description for screen readers; falls back to the caption. */
+	alt?: string;
 	src: string;
 	srcSet?: string;
 	sizes?: string;
@@ -228,7 +231,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 									src={image.src}
 									srcSet={image.srcSet}
 									sizes={image.sizes}
-									alt={image.title}
+									alt={image.alt ?? image.title}
 									width={image.width}
 									height={image.height}
 									loading={i < 3 ? "eager" : "lazy"}

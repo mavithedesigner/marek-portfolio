@@ -1,27 +1,76 @@
 ---
 import CycleImage from "../components/CycleImage";
 import Layout from "../layouts/Layout.astro";
-import { getProjects } from "../lib/projects";
+import { getProjects, getProjectTags } from "../lib/projects";
 
 const projects = await getProjects();
+const tags = await getProjectTags();
 ---
 
-<Layout title="Archive |">
+<Layout
+  title="Archive |"
+  description="Selected work by Marek Vicáň — visual identity, naming, UX/UI, web and art direction for brands, products and local initiatives."
+>
   <section class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-36">
     <div class="container mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 px-4">
+      <!--
+        Twelve projects is enough that someone looking for one discipline has to
+        wade through the rest. Filtering is client-side: every project stays in
+        the HTML, so the page still works without JavaScript.
+      -->
+      <div class="px-4">
+        <div
+          class="flex flex-wrap items-center gap-2"
+          role="group"
+          aria-label="Filter projects by discipline"
+          data-archive-filters
+        >
+          <button
+            type="button"
+            data-filter="all"
+            aria-pressed="true"
+            class="filter-chip"
+          >
+            All
+          </button>
+          {tags.map((tag) => (
+            <button
+              type="button"
+              data-filter={tag}
+              aria-pressed="false"
+              class="filter-chip"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 px-4 mt-10" data-archive-grid>
         {projects.map((project) => (
           <a
             href={`/project/${project.slug}`}
-            class="project-preview relative group max-w-2xl mx-auto w-full block"
+            class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
+            data-tags={project.tags.join("|")}
           >
-            <CycleImage
-              client:load
-              images={project.imageItems}
-              startIndex={0}
-              className="w-full h-auto select-none object-contain"
-              disableClick={true}
-            />
+            <div class="relative overflow-hidden">
+              <CycleImage
+                client:load
+                images={project.imageItems}
+                startIndex={0}
+                className="w-full h-auto select-none object-contain"
+                disableClick={true}
+              />
+
+              {project.tags.length > 0 && (
+                <ul class="tag-strip" aria-hidden="true">
+                  {project.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
             <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
               <span class="truncate">{project.tagline}</span>
               <span class="shrink-0">{project.year}</span>
@@ -29,6 +78,10 @@ const projects = await getProjects();
           </a>
         ))}
       </div>
+
+      <p class="px-4 mt-10 text-secondary-foreground" data-archive-empty hidden>
+        Nothing in this discipline yet.
+      </p>
     </div>
   </section>
 </Layout>
@@ -39,13 +92,13 @@ const projects = await getProjects();
 		contain: layout style paint;
 		will-change: contents;
 	}
-	
+
 	/* Smooth image transitions */
 	img {
 		transition: opacity 0.2s ease-in-out;
 		will-change: contents;
 	}
-	
+
 	/* Prevent scroll jumping and touch behaviors */
 	img[tabindex] {
 		user-select: none;
@@ -56,16 +109,118 @@ const projects = await getProjects();
 		-webkit-tap-highlight-color: transparent;
 		touch-action: manipulation;
 	}
-	
-	/* Prevent any layout shifting during image cycling */
-	.cycle-image-container img {
-		transform: translateZ(0); /* Force hardware acceleration */
-		-webkit-backface-visibility: hidden;
-		backface-visibility: hidden;
+
+	.filter-chip {
+		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 30%, transparent);
+		padding: 0.3rem 0.75rem;
+		font-size: 0.8rem;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
+		transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 	}
-	
-	/* Ensure grid doesn't reflow */
-	.grid {
-		isolation: isolate;
+
+	.filter-chip:hover {
+		color: var(--color-palette-brightest-white);
+		border-color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
 	}
-</style> 
+
+	.filter-chip[aria-pressed="true"] {
+		background: var(--color-palette-brightest-white);
+		border-color: var(--color-palette-brightest-white);
+		color: var(--color-background);
+	}
+
+	/*
+	 * Discipline chips ride up from under the image on hover.
+	 * pointer-events: none keeps the whole card clickable.
+	 */
+	.tag-strip {
+		position: absolute;
+		inset-inline: 0;
+		bottom: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		margin: 0;
+		list-style: none;
+		pointer-events: none;
+		background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0));
+	}
+
+	.tag-strip li {
+		border: 1px solid rgb(255 255 255 / 0.55);
+		background: rgb(0 0 0 / 0.35);
+		backdrop-filter: blur(2px);
+		padding: 0.2rem 0.6rem;
+		font-size: 0.75rem;
+		line-height: 1.4;
+		color: #fff;
+	}
+
+	/* Only animate where hovering is actually possible; on touch they just sit there. */
+	@media (hover: hover) {
+		.tag-strip {
+			transform: translateY(100%);
+			opacity: 0;
+			transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+		}
+
+		.project-card:hover .tag-strip,
+		.project-card:focus-visible .tag-strip {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tag-strip {
+			transition: opacity 0.2s ease;
+			transform: none;
+		}
+	}
+
+	.project-card[hidden] {
+		display: none;
+	}
+</style>
+
+<script>
+	function bindArchiveFilters() {
+		const filterBar = document.querySelector<HTMLElement>("[data-archive-filters]");
+		const grid = document.querySelector<HTMLElement>("[data-archive-grid]");
+		const empty = document.querySelector<HTMLElement>("[data-archive-empty]");
+
+		if (!filterBar || !grid || filterBar.dataset.bound === "true") return;
+		filterBar.dataset.bound = "true";
+
+		const buttons = [...filterBar.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+		const cards = [...grid.querySelectorAll<HTMLElement>(".project-card")];
+
+		function apply(filter: string) {
+			let visible = 0;
+
+			for (const card of cards) {
+				const tags = (card.dataset.tags ?? "").split("|").filter(Boolean);
+				const show = filter === "all" || tags.includes(filter);
+				card.hidden = !show;
+				if (show) visible++;
+			}
+
+			for (const button of buttons) {
+				button.setAttribute(
+					"aria-pressed",
+					String(button.dataset.filter === filter),
+				);
+			}
+
+			if (empty) empty.hidden = visible > 0;
+		}
+
+		for (const button of buttons) {
+			button.addEventListener("click", () => apply(button.dataset.filter ?? "all"));
+		}
+	}
+
+	bindArchiveFilters();
+	document.addEventListener("astro:after-swap", bindArchiveFilters);
+</script>

@@ -1,7 +1,9 @@
 ---
+import CallToAction from "../../components/CallToAction.astro";
 import ProjectGallery from "../../components/ProjectGallery";
+import Testimonials from "../../components/Testimonials.astro";
 import Layout from "../../layouts/Layout.astro";
-import { getProjects } from "../../lib/projects";
+import { getOgImage, getProjects } from "../../lib/projects";
 
 export async function getStaticPaths() {
     const projects = await getProjects();
@@ -18,9 +20,15 @@ export async function getStaticPaths() {
 }
 
 const { project, previous, next } = Astro.props;
+
+const ogImage = await getOgImage(project.thumbnail);
 ---
 
-<Layout title={`${project.name} |`}>
+<Layout
+    title={`${project.name} |`}
+    description={`${project.tagline} ${project.name} — ${project.role}, ${project.year}.`}
+    image={ogImage}
+>
     <!--
         `--header-h` keeps the pinned showcase tucked under the sticky header so
         the navigation stays visible for the whole scroll.
@@ -90,6 +98,17 @@ const { project, previous, next } = Astro.props;
                         )}
                     </div>
 
+                    {project.outcome && (
+                        <div class="space-y-2 border-l-2 border-palette-brightest-white/40 pl-4">
+                            <div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
+                                Outcome
+                            </div>
+                            <p class="text-palette-brightest-white">
+                                {project.outcome}
+                            </p>
+                        </div>
+                    )}
+
                     <div class="space-y-2">
                         <div
                             class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
@@ -100,6 +119,21 @@ const { project, previous, next } = Astro.props;
                             {project.about}
                         </p>
                     </div>
+
+                    {project.tags.length > 0 && (
+                        <div class="space-y-2">
+                            <div class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
+                                Disciplines
+                            </div>
+                            <ul class="flex flex-wrap gap-2">
+                                {project.tags.map((tag) => (
+                                    <li class="border border-palette-brightest-white/30 px-2.5 py-1 text-sm text-palette-brightest-white/80">
+                                        {tag}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     <div class="grid grid-cols-2 gap-8">
                         <div class="space-y-2">
@@ -163,39 +197,90 @@ const { project, previous, next } = Astro.props;
                             }
                         </ul>
                     </div>
-                    <!-- Inside the pinned column so it's reachable in the first
-                         viewport; mt-auto drops it to the bottom on desktop. -->
-                    <div
-                        class="mt-6 flex justify-between text-sm font-mono text-palette-brightest-white"
-                    >
-                        {
-                            previous ? (
-                                <a
-                                    href={`/project/${previous.slug}`}
-                                    class="hover:underline underline-offset-4"
-                                >
-                                    previous_project
-                                </a>
-                            ) : (
-                                <span class="opacity-40">previous_project</span>
-                            )
-                        }
-
-                        {
-                            next ? (
-                                <a
-                                    href={`/project/${next.slug}`}
-                                    class="hover:underline underline-offset-4"
-                                >
-                                    next_project
-                                </a>
-                            ) : (
-                                <span class="opacity-40">next_project</span>
-                            )
-                        }
-                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- A quote from this very project, when one exists. Nothing renders otherwise. -->
+    <Testimonials project={project.slug} limit={1} heading="What the client said" />
+
+    <!--
+        The warmest moment on the whole site is right here: someone has just
+        finished reading the case. Previously the only thing on offer was
+        "next_project", which walks them away from a decision.
+    -->
+    <CallToAction />
+
+    <!-- Preview cards so you can see where you're going, not just that you can go. -->
+    <nav
+        class="w-full max-w-7xl mx-auto mb-20"
+        aria-label="Other projects"
+    >
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {
+                    previous ? (
+                        <a
+                            href={`/project/${previous.slug}`}
+                            class="group flex items-center gap-4 border border-palette-brightest-white/20 p-3 transition-colors hover:border-palette-brightest-white/60"
+                        >
+                            <img
+                                src={previous.thumbnailItem.src}
+                                alt=""
+                                width={previous.thumbnailItem.width}
+                                height={previous.thumbnailItem.height}
+                                loading="lazy"
+                                decoding="async"
+                                class="h-20 w-20 shrink-0 object-cover"
+                            />
+                            <span class="min-w-0">
+                                <span class="block uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
+                                    ← previous_project
+                                </span>
+                                <span class="mt-1 block truncate text-palette-brightest-white group-hover:underline underline-offset-4">
+                                    {previous.name}
+                                </span>
+                                <span class="mt-0.5 block truncate text-sm text-palette-brightest-white/60">
+                                    {previous.tagline}
+                                </span>
+                            </span>
+                        </a>
+                    ) : (
+                        <span />
+                    )
+                }
+
+                {
+                    next && (
+                        <a
+                            href={`/project/${next.slug}`}
+                            class="group flex items-center gap-4 border border-palette-brightest-white/20 p-3 text-right transition-colors hover:border-palette-brightest-white/60 md:col-start-2 md:flex-row-reverse"
+                        >
+                            <img
+                                src={next.thumbnailItem.src}
+                                alt=""
+                                width={next.thumbnailItem.width}
+                                height={next.thumbnailItem.height}
+                                loading="lazy"
+                                decoding="async"
+                                class="h-20 w-20 shrink-0 object-cover"
+                            />
+                            <span class="min-w-0">
+                                <span class="block uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60">
+                                    next_project →
+                                </span>
+                                <span class="mt-1 block truncate text-palette-brightest-white group-hover:underline underline-offset-4">
+                                    {next.name}
+                                </span>
+                                <span class="mt-0.5 block truncate text-sm text-palette-brightest-white/60">
+                                    {next.tagline}
+                                </span>
+                            </span>
+                        </a>
+                    )
+                }
+            </div>
+        </div>
+    </nav>
 </Layout>

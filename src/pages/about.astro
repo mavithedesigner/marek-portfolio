@@ -55,7 +55,16 @@ const howIWork = [
 	"Collaboration across disciplines",
 ];
 
-const programs = [
+// What a client can actually order. Tools moved below, where they belong —
+// nobody hires a designer because they own Illustrator.
+const services = [
+	"Visual identity & naming",
+	"Web design & art direction",
+	"Product and UX/UI design",
+	"Content and campaign visuals",
+];
+
+const tools = [
 	"Figma",
 	"Adobe Illustrator",
 	"Adobe Photoshop",
@@ -70,7 +79,10 @@ const email = "contact@vican.design";
 const labelClass = "text-base font-mono text-secondary-foreground";
 ---
 
-<Layout title="About |">
+<Layout
+	title="About |"
+	description="Marek Vicáň — multidisciplinary designer from Orava, based in Bratislava. Visual identity, web design and digital products."
+>
 	<!-- Mobile mirrors the project detail: showcase first, copy underneath -->
 	<div class="flex flex-col">
 	<div class="order-2 lg:order-1 w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-16">
@@ -87,10 +99,13 @@ const labelClass = "text-base font-mono text-secondary-foreground";
 					{howIWork.map((item) => <li>{item}</li>)}
 				</ul>
 
-				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Programs</h2>
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>What I do</h2>
 				<ul>
-					{programs.map((item) => <li>{item}</li>)}
+					{services.map((item) => <li>{item}</li>)}
 				</ul>
+
+				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Tools</h2>
+				<p class="text-palette-brightest-white/60">{tools.join(", ")}</p>
 
 				<h2 class={`${labelClass} whitespace-nowrap self-start`}>Location</h2>
 				<p>{location}</p>
@@ -112,10 +127,13 @@ const labelClass = "text-base font-mono text-secondary-foreground";
 						{howIWork.map((item) => <li>{item}</li>)}
 					</ul>
 
-					<h2 class={`${labelClass} mt-12 mb-2`}>Programs</h2>
+					<h2 class={`${labelClass} mt-12 mb-2`}>What I do</h2>
 					<ul>
-						{programs.map((item) => <li>{item}</li>)}
+						{services.map((item) => <li>{item}</li>)}
 					</ul>
+
+					<h2 class={`${labelClass} mt-12 mb-2`}>Tools</h2>
+					<p class="text-palette-brightest-white/60">{tools.join(", ")}</p>
 				</div>
 
 				<div>
