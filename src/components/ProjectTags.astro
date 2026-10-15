@@ -39,8 +39,10 @@ const { tags } = Astro.props;
 		pointer-events: none;
 	}
 
+	/* Filled, not outlined: on this site a border means the thing is clickable,
+	   and these chips are only labels. */
 	.tag-strip li {
-		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
 		padding: 0.2rem 0.6rem;
 		font-size: 0.75rem;
 		line-height: 1.4;

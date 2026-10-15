@@ -84,7 +84,7 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 							><span class="bar-rest">············</span>]</span
 						>
 					</span>
-					<span class="line l3" style="--n: 22ch">&gt; 15 min slot — free</span>
+					<span class="line l3" style="--n: 22ch">&gt; 15 min slot, free</span>
 				</div>
 
 				<div class="cta-actions">
@@ -98,7 +98,7 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 			<div class="cta-tile">
 				<div>
 					<div class="cta-title">Reach out on LinkedIn</div>
-					<p class="cta-sub">Rather look me up first? That’s fine — I’m there too.</p>
+					<p class="cta-sub">Rather look me up first? That’s fine, I’m there too.</p>
 				</div>
 
 				<div class="cta-anim" aria-hidden="true">
@@ -121,19 +121,15 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 </section>
 
 <style>
+	/*
+	 * No box around the tile: a border on this site means "you can click this".
+	 * Only the three actions below get one.
+	 */
 	.cta-tile {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
 		height: 100%;
-		padding: 1.25rem;
-		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 20%, transparent);
-		transition: border-color 0.3s ease;
-	}
-
-	.cta-tile:hover,
-	.cta-tile:focus-within {
-		border-color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
 	}
 
 	.cta-title {
@@ -155,13 +151,21 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 		font-size: 0.875rem;
 	}
 
+	/* The one bordered element in the component: the actual button. */
 	.cta-link {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 0.9rem;
+		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
 		color: var(--color-palette-brightest-white);
-		text-underline-offset: 4px;
+		transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 	}
 
-	.cta-tile:hover .cta-link {
-		text-decoration: underline;
+	.cta-link:hover,
+	.cta-link:focus-visible {
+		background: var(--color-palette-brightest-white);
+		border-color: var(--color-palette-brightest-white);
+		color: var(--color-background);
 	}
 
 	.cta-ghost {

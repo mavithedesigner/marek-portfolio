@@ -1,12 +1,16 @@
 ---
 /**
- * Client quotes.
+ * Client quotes, as a horizontal slider.
  *
- * The section renders nothing until at least one entry in
- * `src/data/testimonials.json` has `published: true` and a non-empty quote —
- * so an empty or half-collected list can sit in the repo without ever showing
- * a placeholder on the live site.
+ * Renders nothing until at least one entry in `src/data/testimonials.json` has
+ * `published: true` and a non-empty quote, so a half-collected list can sit in
+ * the repo without ever showing a placeholder on the live site.
+ *
+ * Photos are optional. Drop a file in `src/assets/testimonials/` and point
+ * `avatar` at its filename; without one the card falls back to initials.
  */
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import rawTestimonials from "../data/testimonials.json";
 import sampleTestimonials from "../data/testimonials.sample.json";
 
@@ -16,19 +20,27 @@ type Testimonial = {
 	name: string;
 	role?: string;
 	company?: string;
+	/** Filename inside `src/assets/testimonials/`. */
+	avatar?: string;
 	/** Optional project slug, so the quote can link to the case it came from. */
 	project?: string;
 };
 
 interface Props {
 	heading?: string;
-	/** Show at most this many. Three reads best in a row. */
+	/** Hard cap on how many to show. */
 	limit?: number;
 	/** Only quotes attached to this project slug. */
 	project?: string;
+	class?: string;
 }
 
-const { heading = "What clients say", limit = 3, project } = Astro.props;
+const {
+	heading = "What clients say",
+	limit = 6,
+	project,
+	class: className = "",
+} = Astro.props;
 
 const usable = (list: Testimonial[]) =>
 	list
@@ -38,9 +50,9 @@ const usable = (list: Testimonial[]) =>
 const real = usable(rawTestimonials as Testimonial[]);
 
 /*
- * Nothing real yet? Show the invented ones — but only while developing, so you
+ * Nothing real yet? Show the invented ones, but only while developing, so you
  * can see the layout. A production build never renders them, which means made-up
- * quotes can't reach the live site by accident.
+ * quotes cannot reach the live site by accident.
  */
 const isPreview = real.length === 0 && import.meta.env.DEV;
 const testimonials = (isPreview ? usable(sampleTestimonials as Testimonial[]) : real).slice(
@@ -48,47 +60,282 @@ const testimonials = (isPreview ? usable(sampleTestimonials as Testimonial[]) : 
 	limit,
 );
 
+const avatarModules = import.meta.glob("../assets/testimonials/*.{png,jpg,jpeg,webp}", {
+	eager: true,
+}) as Record<string, { default: ImageMetadata }>;
+
+async function resolveAvatar(filename?: string) {
+	if (!filename) return null;
+
+	const entry = Object.entries(avatarModules).find(
+		([path]) => path.split("/").pop() === filename,
+	);
+
+	if (!entry) return null;
+
+	const image = await getImage({
+		src: entry[1].default,
+		width: 112,
+		height: 112,
+		fit: "cover",
+		format: "webp",
+		quality: 85,
+	});
+
+	return image.src;
+}
+
+function initials(name: string) {
+	return name
+		.split(/\s+/)
+		.filter(Boolean)
+		.slice(0, 2)
+		.map((part) => part[0]?.toUpperCase() ?? "")
+		.join("");
+}
+
+const cards = await Promise.all(
+	testimonials.map(async (item) => ({
+		...item,
+		avatarSrc: await resolveAvatar(item.avatar),
+	})),
+);
+
 const labelClass =
 	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
 ---
 
 {
-	testimonials.length > 0 && (
-		<section class="w-full max-w-7xl mx-auto mt-28" aria-labelledby="testimonials-heading">
+	cards.length > 0 && (
+		<section
+			class={`testimonials w-full max-w-7xl mx-auto ${className}`}
+			aria-labelledby="testimonials-heading"
+		>
 			<div class="container mx-auto px-4">
-				<h2 id="testimonials-heading" class={labelClass}>
-					{heading}
-					{isPreview && (
-						<span class="ml-3 border border-palette-brightest-white/40 px-2 py-0.5 normal-case tracking-normal text-palette-brightest-white/80">
-							preview only — invented quotes, hidden in production
-						</span>
-					)}
-				</h2>
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<h2 id="testimonials-heading" class={labelClass}>
+						{heading}
+						{isPreview && (
+							<span class="preview-flag">
+								preview only, invented quotes, hidden in production
+							</span>
+						)}
+					</h2>
 
-				<div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-					{testimonials.map((item) => (
-						<figure class="flex h-full flex-col justify-between gap-6 border border-palette-brightest-white/20 p-5">
-							<blockquote class="text-palette-brightest-white/90 leading-relaxed">
-								“{item.quote}”
-							</blockquote>
-							<figcaption class="text-sm">
-								<div class="text-palette-brightest-white">{item.name}</div>
-								<div class="text-palette-brightest-white/60">
-									{[item.role, item.company].filter(Boolean).join(", ")}
-								</div>
-								{item.project && (
-									<a
-										href={`/project/${item.project}`}
-										class="mt-2 inline-block text-palette-brightest-white/60 underline-offset-4 hover:text-palette-brightest-white hover:underline"
-									>
-										See the project →
-									</a>
-								)}
-							</figcaption>
-						</figure>
-					))}
+					{cards.length > 1 && (
+						<div class="slider-nav">
+							<button type="button" data-slide="prev" aria-label="Previous quote">
+								←
+							</button>
+							<button type="button" data-slide="next" aria-label="Next quote">
+								→
+							</button>
+						</div>
+					)}
 				</div>
+
+				<ul class="slider" data-testimonial-slider>
+					{cards.map((item) => (
+						<li class="slide">
+							<figure>
+								<blockquote>“{item.quote}”</blockquote>
+
+								<figcaption>
+									<span class="avatar">
+										{item.avatarSrc ? (
+											<img src={item.avatarSrc} alt="" width="56" height="56" loading="lazy" />
+										) : (
+											<span class="avatar-fallback">{initials(item.name)}</span>
+										)}
+									</span>
+
+									<span>
+										<span class="who">{item.name}</span>
+										<span class="where">
+											{[item.role, item.company].filter(Boolean).join(", ")}
+										</span>
+										{item.project && (
+											<a href={`/project/${item.project}`} class="case-link">
+												See the project →
+											</a>
+										)}
+									</span>
+								</figcaption>
+							</figure>
+						</li>
+					))}
+				</ul>
 			</div>
 		</section>
 	)
 }
+
+<style>
+	.preview-flag {
+		margin-left: 0.75rem;
+		padding: 0.1rem 0.5rem;
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
+		text-transform: none;
+		letter-spacing: normal;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 80%, transparent);
+	}
+
+	/* Arrows are clickable, so they are allowed to look like controls. */
+	.slider-nav {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.slider-nav button {
+		width: 2.25rem;
+		height: 2.25rem;
+		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 30%, transparent);
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.slider-nav button:hover:not(:disabled) {
+		color: var(--color-palette-brightest-white);
+		border-color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
+	}
+
+	.slider-nav button:disabled {
+		opacity: 0.3;
+		cursor: default;
+	}
+
+	.slider {
+		display: flex;
+		gap: 1.5rem;
+		margin: 2rem 0 0;
+		padding: 0 0 0.5rem;
+		list-style: none;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+		overscroll-behavior-x: contain;
+	}
+
+	.slider::-webkit-scrollbar {
+		display: none;
+	}
+
+	.slide {
+		flex: 0 0 85%;
+		scroll-snap-align: start;
+	}
+
+	@media (min-width: 768px) {
+		.slide {
+			flex-basis: calc((100% - 3rem) / 3);
+		}
+	}
+
+	.slide figure {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 1.5rem;
+		height: 100%;
+		margin: 0;
+	}
+
+	/* No box: a quote is not a button. The rule carries the eye instead. */
+	.slide blockquote {
+		margin: 0;
+		padding-left: 1rem;
+		border-left: 2px solid
+			color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 90%, transparent);
+		line-height: 1.6;
+	}
+
+	.slide figcaption {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		font-size: 0.875rem;
+	}
+
+	.avatar,
+	.avatar img,
+	.avatar-fallback {
+		display: block;
+		width: 3.5rem;
+		height: 3.5rem;
+		flex-shrink: 0;
+		border-radius: 9999px;
+		object-fit: cover;
+	}
+
+	.avatar-fallback {
+		display: grid;
+		place-items: center;
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
+		color: var(--color-palette-brightest-white);
+		font-size: 0.9rem;
+		letter-spacing: 0.05em;
+	}
+
+	.who {
+		display: block;
+		color: var(--color-palette-brightest-white);
+	}
+
+	.where {
+		display: block;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.case-link {
+		display: inline-block;
+		margin-top: 0.35rem;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+		text-underline-offset: 4px;
+	}
+
+	.case-link:hover {
+		color: var(--color-palette-brightest-white);
+		text-decoration: underline;
+	}
+</style>
+
+<script>
+	function bindTestimonialSliders() {
+		for (const slider of document.querySelectorAll<HTMLElement>(
+			"[data-testimonial-slider]",
+		)) {
+			if (slider.dataset.sliderBound === "true") continue;
+			slider.dataset.sliderBound = "true";
+
+			const section = slider.closest("section");
+			const prev = section?.querySelector<HTMLButtonElement>('[data-slide="prev"]');
+			const next = section?.querySelector<HTMLButtonElement>('[data-slide="next"]');
+			const first = slider.querySelector<HTMLElement>(".slide");
+
+			// One card plus the gap, so a click always lands on a card edge.
+			const step = () => (first ? first.getBoundingClientRect().width + 24 : 320);
+
+			function sync() {
+				const max = slider.scrollWidth - slider.clientWidth - 1;
+				if (prev) prev.disabled = slider.scrollLeft <= 0;
+				if (next) next.disabled = slider.scrollLeft >= max;
+			}
+
+			prev?.addEventListener("click", () => {
+				slider.scrollBy({ left: -step(), behavior: "smooth" });
+			});
+
+			next?.addEventListener("click", () => {
+				slider.scrollBy({ left: step(), behavior: "smooth" });
+			});
+
+			slider.addEventListener("scroll", sync, { passive: true });
+			window.addEventListener("resize", sync);
+			sync();
+		}
+	}
+
+	bindTestimonialSliders();
+	document.addEventListener("astro:after-swap", bindTestimonialSliders);
+</script>

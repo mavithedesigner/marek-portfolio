@@ -117,12 +117,12 @@ export async function getProjects(): Promise<Project[]> {
 				project.thumbnail,
 				// Reuse the written alt when the thumbnail is also in the gallery.
 				images.find((image) => image.src === project.thumbnail)?.alt ??
-					`${project.name} — ${humanizeFilename(project.thumbnail)}`,
+					`${project.name}, ${humanizeFilename(project.thumbnail)}`,
 			),
 			...images.map((image) =>
 				toCycleImageItem(
 					image.src,
-					image.alt ?? `${project.name} — ${humanizeFilename(image.src)}`,
+					image.alt ?? `${project.name}, ${humanizeFilename(image.src)}`,
 				),
 			),
 		]);

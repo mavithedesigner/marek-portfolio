@@ -26,7 +26,7 @@ const ogImage = await getOgImage(project.thumbnail);
 
 <Layout
     title={`${project.name} |`}
-    description={`${project.tagline} ${project.name} — ${project.role}, ${project.year}.`}
+    description={`${project.tagline} ${project.name}, ${project.role}, ${project.year}.`}
     image={ogImage}
 >
     <!--
@@ -131,7 +131,7 @@ const ogImage = await getOgImage(project.thumbnail);
                             </div>
                             <ul class="flex flex-wrap gap-2">
                                 {project.tags.map((tag) => (
-                                    <li class="border border-palette-brightest-white/30 px-2.5 py-1 text-sm text-palette-brightest-white/80">
+                                    <li class="bg-palette-brightest-white/15 px-2.5 py-1 text-sm text-palette-brightest-white/80">
                                         {tag}
                                     </li>
                                 ))}

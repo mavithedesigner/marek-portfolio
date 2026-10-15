@@ -1,10 +1,11 @@
 [
 	{
 		"published": true,
-		"quote": "Marek came back with naming and a logo inside three weeks, and we still run everything off it — the caps, the signage, the booking page.",
+		"quote": "Marek came back with naming and a logo inside three weeks, and we still run everything off it, the caps, the signage, the booking page.",
 		"name": "Sample Name",
 		"role": "Sample role",
 		"company": "Bicykľáreň",
+		"avatar": "",
 		"project": "bicyklaren"
 	},
 	{
@@ -13,6 +14,7 @@
 		"name": "Sample Name",
 		"role": "Sample role",
 		"company": "Pro podnikavé",
+		"avatar": "",
 		"project": "propodnikave"
 	},
 	{
@@ -21,6 +23,7 @@
 		"name": "Sample Name",
 		"role": "Sample role",
 		"company": "Cabana",
+		"avatar": "",
 		"project": "cabana"
 	}
 ]
