@@ -64,6 +64,28 @@
 		"collaborators": "Adam Demian"
 	},
 	{
+		"slug": "edesk",
+		"name": "Slovensko.sk eDesk",
+		"tagline": "UX redesign of a national government service.",
+		"client": "Slovensko.sk",
+		"year": "2025",
+		"role": "UX Design",
+		"tags": [
+			"UX/UI",
+			"Web"
+		],
+		"outcome": "Shipped inside a continuously optimised national service used by millions.",
+		"about": "eDesk is where Slovak citizens and companies receive and handle official documents from the state. Once the platform became mandatory, every rough edge in it stopped being an inconvenience and became a problem for millions of people at once.\n\nThe redesign ran with Lighting Beetle as an ongoing programme rather than a single handover. Workshops with stakeholders, feedback gathered from real users, prototypes put in front of people and reworked, all held together by one design system so the service stayed consistent while it kept changing.\n\nI joined the UX side as a junior designer and worked on the redesign inside that process. It was the first time I saw a service of this scale up close, where one unclear label or a step in the wrong place costs thousands of people an afternoon, and where nothing ships on taste alone. A lot of how I work now, research first and decisions you can defend, comes from here.",
+		"programs": [
+			"Figma"
+		],
+		"thumbnail": "edesk_cover.png",
+		"images": [
+			"edesk_cover.png"
+		],
+		"collaborators": "Lighting Beetle*"
+	},
+	{
 		"slug": "wezeo",
 		"name": "WEZEO Rebranding",
 		"tagline": "Rebrand clarifying what the team stands for.",
