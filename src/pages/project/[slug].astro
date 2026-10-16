@@ -3,7 +3,7 @@ import CallToAction from "../../components/CallToAction.astro";
 import ProjectGallery from "../../components/ProjectGallery";
 import Testimonials from "../../components/Testimonials.astro";
 import Layout from "../../layouts/Layout.astro";
-import { getOgImage, getProjects } from "../../lib/projects";
+import { getOgImage, getProjects, parseCollaborators } from "../../lib/projects";
 
 export async function getStaticPaths() {
     const projects = await getProjects();
@@ -26,6 +26,7 @@ const ogImage = await getOgImage(project.thumbnail);
 // With a single image there is no strip to pin or scroll, so the whole
 // scroll-driven layout is skipped for that project.
 const hasStrip = project.imageItems.length > 1;
+const collaborators = parseCollaborators(project.collaborators);
 ---
 
 <Layout
@@ -38,7 +39,7 @@ const hasStrip = project.imageItems.length > 1;
         the navigation stays visible for the whole scroll.
     -->
     <section
-        class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-6 pb-12 md:pt-2 md:pb-16 [--header-h:4rem] md:[--header-h:5.5rem]"
+        class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-6 pb-6 md:pt-2 md:pb-8 [--header-h:4rem] md:[--header-h:5.5rem]"
     >
         <!-- px-4 everywhere so the header's logo and CTA line up with the content -->
         <div class="px-4">
@@ -58,7 +59,7 @@ const hasStrip = project.imageItems.length > 1;
                                 project copy follows straight after instead of a blank screen. */}
                             <div
                                 data-pin-sticky
-                                class="sticky top-[var(--header-h)] flex flex-col justify-start pt-2 lg:min-h-[calc(100svh-var(--header-h))]"
+                                class="sticky top-[var(--header-h)] flex flex-col justify-start pt-2 "
                             >
                                 <ProjectGallery client:load images={project.imageItems} />
                             </div>
@@ -79,7 +80,7 @@ const hasStrip = project.imageItems.length > 1;
                         // Pinning the copy only makes sense while the strip beside it
                         // is being scrolled through.
                         hasStrip &&
-                            "lg:sticky lg:top-[var(--header-h)] lg:min-h-[calc(100svh-var(--header-h))] lg:justify-start",
+                            "lg:sticky lg:top-[var(--header-h)] lg:justify-start",
                     ]}
                 >
                     <div class="grid grid-cols-2 gap-8">
@@ -199,7 +200,23 @@ const hasStrip = project.imageItems.length > 1;
                                 Collaborators
                             </div>
                             <div class="text-palette-brightest-white/80">
-                                {project.collaborators}
+                                {collaborators.map((person, i) => (
+                                    <>
+                                        {i > 0 && ", "}
+                                        {person.url ? (
+                                            <a
+                                                href={person.url}
+                                                target="_blank"
+                                                rel="noreferrer noopener"
+                                                class="hover:text-palette-brightest-white hover:underline underline-offset-4"
+                                            >
+                                                {person.name}
+                                            </a>
+                                        ) : (
+                                            person.name
+                                        )}
+                                    </>
+                                ))}
                             </div>
                         </div>
                     )}
@@ -231,68 +248,6 @@ const hasStrip = project.imageItems.length > 1;
         class="section-gap"
     />
 
-    <!-- Preview cards so you can see where you're going, not just that you can go. -->
-    <nav
-        class="w-full max-w-7xl mx-auto section-gap"
-        aria-label="Other projects"
-    >
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
-                {
-                    previous ? (
-                        <a href={`/project/${previous.slug}`} class="pager group">
-                            <span class="pager-label">← previous_project</span>
-                            <span class="pager-row">
-                                <span class="pager-thumb">
-                                    <img
-                                        src={previous.thumbnailItem.src}
-                                        alt=""
-                                        width={previous.thumbnailItem.width}
-                                        height={previous.thumbnailItem.height}
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
-                                </span>
-                                <span class="min-w-0">
-                                    <span class="pager-name">{previous.name}</span>
-                                    <span class="pager-tagline">{previous.tagline}</span>
-                                </span>
-                            </span>
-                        </a>
-                    ) : (
-                        <span />
-                    )
-                }
-
-                {
-                    next && (
-                        <a
-                            href={`/project/${next.slug}`}
-                            class="pager pager--next group md:col-start-2"
-                        >
-                            <span class="pager-label">next_project →</span>
-                            <span class="pager-row">
-                                <span class="pager-thumb">
-                                    <img
-                                        src={next.thumbnailItem.src}
-                                        alt=""
-                                        width={next.thumbnailItem.width}
-                                        height={next.thumbnailItem.height}
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
-                                </span>
-                                <span class="min-w-0">
-                                    <span class="pager-name">{next.name}</span>
-                                    <span class="pager-tagline">{next.tagline}</span>
-                                </span>
-                            </span>
-                        </a>
-                    )
-                }
-            </div>
-        </div>
-    </nav>
 
     <!--
         The ask comes last, after the case and after the quote: by then someone
@@ -300,6 +255,43 @@ const hasStrip = project.imageItems.length > 1;
         browsing" stays available without competing with it.
     -->
     <CallToAction />
+
+    <!-- Plain text, last thing on the page: a way out for anyone still browsing,
+         without competing with the contact block above it. -->
+    <nav
+        class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
+        aria-label="Other projects"
+    >
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between gap-4 text-sm font-mono">
+                {
+                    previous ? (
+                        <a
+                            href={`/project/${previous.slug}`}
+                            class="text-palette-brightest-white hover:underline underline-offset-4"
+                        >
+                            ← previous_project
+                        </a>
+                    ) : (
+                        <span class="text-palette-brightest-white/30">← previous_project</span>
+                    )
+                }
+
+                {
+                    next ? (
+                        <a
+                            href={`/project/${next.slug}`}
+                            class="text-palette-brightest-white hover:underline underline-offset-4"
+                        >
+                            next_project →
+                        </a>
+                    ) : (
+                        <span class="text-palette-brightest-white/30">next_project →</span>
+                    )
+                }
+            </div>
+        </div>
+    </nav>
 </Layout>
 
 <script is:inline>
@@ -310,102 +302,3 @@ const hasStrip = project.imageItems.length > 1;
 	}
 </script>
 
-<style>
-	/*
-	 * Pager: no boxes. The thumbnail does the framing, type does the rest.
-	 * The image desaturates until you hover, so the two previews don't compete
-	 * with the project you're still reading.
-	 */
-	.pager {
-		display: block;
-	}
-
-	.pager-label {
-		display: block;
-		font-size: 0.7rem;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
-	}
-
-	.pager-row {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		margin-top: 0.75rem;
-	}
-
-	.pager-thumb {
-		display: block;
-		flex-shrink: 0;
-		width: 5.5rem;
-		height: 5.5rem;
-		overflow: hidden;
-	}
-
-	.pager-thumb img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: grayscale(1);
-		opacity: 0.65;
-		transform: scale(1);
-		transition: filter 0.4s ease, opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-
-	.pager:hover .pager-thumb img,
-	.pager:focus-visible .pager-thumb img {
-		filter: grayscale(0);
-		opacity: 1;
-		transform: scale(1.06);
-	}
-
-	.pager-name {
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: var(--color-palette-brightest-white);
-		text-decoration-color: transparent;
-		text-underline-offset: 4px;
-		transition: text-decoration-color 0.3s ease;
-	}
-
-	.pager:hover .pager-name,
-	.pager:focus-visible .pager-name {
-		text-decoration-line: underline;
-		text-decoration-color: currentColor;
-	}
-
-	.pager-tagline {
-		display: block;
-		margin-top: 0.15rem;
-		font-size: 0.8rem;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
-	}
-
-	/* The "next" side mirrors, so the two previews read outward from the centre. */
-	@media (min-width: 768px) {
-		.pager--next {
-			text-align: right;
-		}
-
-		.pager--next .pager-row {
-			flex-direction: row-reverse;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.pager-thumb img {
-			transition: filter 0.2s ease, opacity 0.2s ease;
-			transform: none;
-		}
-
-		.pager:hover .pager-thumb img {
-			transform: none;
-		}
-	}
-</style>

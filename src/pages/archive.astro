@@ -1,5 +1,6 @@
 ---
 import CycleImage from "../components/CycleImage";
+import ProjectBadge from "../components/ProjectBadge.astro";
 import ProjectTags from "../components/ProjectTags.astro";
 import Layout from "../layouts/Layout.astro";
 import { getProjects, getProjectTags } from "../lib/projects";
@@ -54,13 +55,16 @@ const tags = await getProjectTags();
             class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
             data-tags={project.tags.join("|")}
           >
-            <CycleImage
-              client:load
-              images={project.imageItems}
-              startIndex={0}
-              className="w-full h-auto select-none object-contain"
-              disableClick={true}
-            />
+            <div class="relative">
+              <CycleImage
+                client:load
+                images={project.imageItems}
+                startIndex={0}
+                className="w-full h-auto select-none object-contain"
+                disableClick={true}
+              />
+              <ProjectBadge label={project.badge} />
+            </div>
 
             <!-- relative: the chips hang off the bottom of this row -->
             <div class="relative">

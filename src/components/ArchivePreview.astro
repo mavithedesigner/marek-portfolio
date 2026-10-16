@@ -1,6 +1,7 @@
 ---
 import { getProjects } from "../lib/projects";
 import CycleImage from "./CycleImage";
+import ProjectBadge from "./ProjectBadge.astro";
 import ProjectTags from "./ProjectTags.astro";
 
 const projects = await getProjects();
@@ -20,12 +21,15 @@ const previewProjects = projects.slice(0, 6);
                         href={`/project/${project.slug}`}
                         class="project-preview project-card relative w-full block"
                     >
-                        <CycleImage
-                            client:load
-                            images={project.imageItems}
-                            startIndex={0}
-                            disableClick={true}
-                        />
+                        <div class="relative">
+                            <CycleImage
+                                client:load
+                                images={project.imageItems}
+                                startIndex={0}
+                                disableClick={true}
+                            />
+                            <ProjectBadge label={project.badge} />
+                        </div>
                         <!-- relative: the discipline chips hang off the bottom of this row -->
                         <div class="relative">
                             <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">

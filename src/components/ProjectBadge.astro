@@ -1,0 +1,40 @@
+---
+/**
+ * A short label laid over a project thumbnail, for the one or two pieces of work
+ * that deserve a second glance in a grid of twelve. Solid fill against a mostly
+ * flat, dark layout, so the eye lands on it before it reads anything.
+ *
+ * Decorative only: the same fact is spelled out in the project copy, so it is
+ * hidden from screen readers rather than repeated.
+ *
+ * The parent needs `position: relative`.
+ */
+interface Props {
+	label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+{label && (
+	<span class="project-badge" aria-hidden="true">
+		{label}
+	</span>
+)}
+
+<style>
+	.project-badge {
+		position: absolute;
+		top: var(--space-2xs);
+		left: var(--space-2xs);
+		z-index: 1;
+		padding: 0.25rem 0.55rem;
+		background: var(--color-palette-brightest-white);
+		color: var(--color-background);
+		font-size: 0.65rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		line-height: 1.4;
+		pointer-events: none;
+	}
+</style>

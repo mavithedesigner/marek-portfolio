@@ -24,7 +24,10 @@
 		"role": "Product Designer",
 		"company": "",
 		"avatar": "richard-egyed.png",
-		"project": "propodnikave"
+		"project": [
+			"propodnikave",
+			"edesk"
+		]
 	},
 	{
 		"published": true,

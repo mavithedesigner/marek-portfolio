@@ -27,6 +27,8 @@ type RawProject = {
 	role: string;
 	/** Disciplines, used for archive filtering and the hover chips. */
 	tags?: string[];
+	/** Short label laid over the thumbnail, for work worth a second look. */
+	badge?: string;
 	/** What the work actually achieved. Shown above About on the detail page. */
 	outcome?: string;
 	about: string;
@@ -162,6 +164,27 @@ export async function getOgImage(filename: string): Promise<string> {
 	});
 
 	return image.src;
+}
+
+/**
+ * Collaborators are stored as a plain comma-separated string. A few of them have
+ * a home on the web; this map is the single place that knows about it, so adding
+ * a link later never means editing every project entry.
+ */
+const COLLABORATOR_LINKS: Record<string, string> = {
+	Wezeo: "https://www.wezeo.com/",
+};
+
+export type Collaborator = { name: string; url?: string };
+
+export function parseCollaborators(value?: string): Collaborator[] {
+	if (!value) return [];
+
+	return value
+		.split(",")
+		.map((part) => part.trim())
+		.filter(Boolean)
+		.map((name) => ({ name, url: COLLABORATOR_LINKS[name] }));
 }
 
 /** Every tag in use, in the order projects declare them. */

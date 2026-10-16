@@ -21,8 +21,8 @@ type Testimonial = {
 	company?: string;
 	/** Filename inside `src/assets/testimonials/`. */
 	avatar?: string;
-	/** Optional project slug, so the quote can link to the case it came from. */
-	project?: string;
+	/** Project slug, or several when the quote covers more than one case. */
+	project?: string | string[];
 };
 
 interface Props {
@@ -41,9 +41,13 @@ const {
 	class: className = "",
 } = Astro.props;
 
+/** A quote can belong to several projects, so always compare against a list. */
+const slugsOf = (value?: string | string[]) =>
+	(Array.isArray(value) ? value : [value]).filter(Boolean) as string[];
+
 const testimonials = (rawTestimonials as Testimonial[])
 	.filter((item) => item.published && item.quote.trim().length > 0)
-	.filter((item) => (project ? item.project === project : true))
+	.filter((item) => (project ? slugsOf(item.project).includes(project) : true))
 	.slice(0, limit);
 
 const avatarModules = import.meta.glob("../assets/testimonials/*.{png,jpg,jpeg,webp}", {
