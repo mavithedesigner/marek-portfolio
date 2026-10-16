@@ -142,6 +142,22 @@ const tags = await getProjectTags();
 		const cards = [...grid.querySelectorAll<HTMLElement>(".project-card")];
 
 		function apply(filter: string) {
+			/*
+			 * Hiding cards makes the document shorter. The browser clamps the real
+			 * scroll immediately, but Lenis still holds the old value and eases back
+			 * to the new limit on its next frame, which reads as the page scrolling
+			 * by itself. So: freeze Lenis, change the DOM, re-measure, put the scroll
+			 * exactly where it was, then let Lenis run again.
+			 */
+			const lenis = (window as any).__lenis;
+			const root = document.documentElement;
+			const before = window.scrollY;
+
+			// With reduced motion Lenis stops marking the root, which re-enables the
+			// CSS smooth-scroll fallback. Switch it off for the length of the swap.
+			root.style.scrollBehavior = "auto";
+			lenis?.stop?.();
+
 			let visible = 0;
 
 			for (const card of cards) {
@@ -160,14 +176,6 @@ const tags = await getProjectTags();
 
 			if (empty) empty.hidden = visible > 0;
 
-			/*
-			 * Filtering shortens the page. Lenis keeps its own scroll value and
-			 * would smoothly glide to the new maximum, which reads as the page
-			 * scrolling by itself. Re-measure and pin the scroll where it is.
-			 */
-			const lenis = (window as any).__lenis;
-			const current = window.scrollY;
-
 			requestAnimationFrame(() => {
 				lenis?.resize?.();
 
@@ -175,13 +183,16 @@ const tags = await getProjectTags();
 					0,
 					document.documentElement.scrollHeight - window.innerHeight,
 				);
-				const target = Math.min(current, max);
+				const target = Math.min(before, max);
 
-				if (lenis?.scrollTo) {
-					lenis.scrollTo(target, { immediate: true, force: true });
-				} else {
-					window.scrollTo({ top: target, behavior: "auto" });
-				}
+				// Native first, so the browser and Lenis agree before Lenis resumes.
+				window.scrollTo(0, target);
+				lenis?.scrollTo?.(target, { immediate: true, force: true });
+				lenis?.start?.();
+
+				requestAnimationFrame(() => {
+					root.style.scrollBehavior = "";
+				});
 			});
 		}
 

@@ -10,9 +10,19 @@ const title = "Contact |";
 	title={title}
 	description="Get in touch with Marek Vicáň, designer in Bratislava. Send an email, book a 15-minute call, or reach out on LinkedIn."
 >
-	<div class="w-full max-w-7xl mx-auto text-palette-brightest-white py-16 min-h-dvh h-full">
-		<Contact />
-		<!-- Proof sits right next to the ask. Renders only once quotes exist. -->
-		<Testimonials limit={3} />
+	<div class="w-full max-w-7xl mx-auto text-palette-brightest-white">
+		<!--
+			The ask has to fit one screen on desktop: nobody should have to scroll
+			to find out how to get in touch. svh so mobile browser chrome doesn't
+			push the block out of view.
+		-->
+		<div
+			class="flex min-h-[calc(100svh-5.5rem)] flex-col justify-center py-8 lg:py-12"
+		>
+			<Contact spacing="mt-0 mb-0" />
+		</div>
+
+		<!-- Proof, well clear of the ask. Renders only once quotes exist. -->
+		<Testimonials limit={3} class="mt-40 mb-32" />
 	</div>
 </Layout>

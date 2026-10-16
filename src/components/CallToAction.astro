@@ -55,9 +55,9 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 				</div>
 
 				<div class="cta-anim" aria-hidden="true">
-					<span class="line l1" style="--n: 25ch">&gt; to: contact@vican.design</span>
-					<span class="line l2" style="--n: 25ch">&gt; subject: Project enquiry</span>
-					<span class="line l3" style="--n: 24ch"
+					<span class="line l1">&gt; to: contact@vican.design</span>
+					<span class="line l2">&gt; subject: Project enquiry</span>
+					<span class="line l3"
 						>&gt; hi marek, we’re building<span class="caret">▌</span></span
 					>
 				</div>
@@ -78,13 +78,13 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 				</div>
 
 				<div class="cta-anim" aria-hidden="true">
-					<span class="line l1" style="--n: 21ch">&gt; checking calendar…</span>
+					<span class="line l1">&gt; checking calendar…</span>
 					<span class="line l2 bar">
 						<span class="bar-track">[<span class="bar-fill">■■■■■■■■■■■■</span
 							><span class="bar-rest">············</span>]</span
 						>
 					</span>
-					<span class="line l3" style="--n: 22ch">&gt; 15 min slot, free</span>
+					<span class="line l3">&gt; 15 min slot, free</span>
 				</div>
 
 				<div class="cta-actions">
@@ -102,12 +102,12 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 				</div>
 
 				<div class="cta-anim" aria-hidden="true">
-					<span class="line l1" style="--n: 15ch">&gt; connecting…</span>
+					<span class="line l1">&gt; connecting…</span>
 					<span class="line l2 wire">
 						<span class="wire-a">you ○</span><span class="wire-line">────────────</span
 						><span class="wire-b">○ marek</span>
 					</span>
-					<span class="line l3" style="--n: 20ch">&gt; one message away</span>
+					<span class="line l3">&gt; one message away</span>
 				</div>
 
 				<div class="cta-actions">
@@ -198,17 +198,20 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 		opacity: 1;
 	}
 
+	/*
+	 * Typing is done by clipping, not by animating width. Width needed the exact
+	 * character count up front and any mismatch chopped the last letters off.
+	 * Clipping reveals whatever the line actually contains.
+	 */
 	.line {
 		display: block;
 		white-space: nowrap;
-		overflow: hidden;
-		width: 0;
+		clip-path: inset(0 100% 0 0);
 	}
 
-	/* Typing: reveal the line character by character. */
 	@keyframes type {
 		to {
-			width: var(--n);
+			clip-path: inset(0 0 0 0);
 		}
 	}
 
@@ -237,10 +240,10 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 		animation: blink 1s steps(1) infinite;
 	}
 
-	/* Tile 2: a progress bar that fills, then the slot is "found". */
+	/* Rows 2 of tiles 2 and 3 are drawn, not typed, so they start unclipped. */
 	.bar,
 	.wire {
-		width: auto;
+		clip-path: none;
 	}
 
 	.bar-track {
@@ -287,13 +290,12 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 		animation: drain 0.9s steps(12) 0.35s forwards;
 	}
 
-	/* Tile 2 and 3 reveal their middle row without the typing effect. */
 	.cta-tile:hover .l2.bar,
 	.cta-tile:hover .l2.wire,
 	.cta-tile:focus-within .l2.bar,
 	.cta-tile:focus-within .l2.wire {
 		animation: none;
-		width: auto;
+		clip-path: none;
 	}
 
 	/* Tile 3: the connection draws itself between the two nodes. */
@@ -330,7 +332,7 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 	/* No motion: show the finished state straight away. */
 	@media (prefers-reduced-motion: reduce) {
 		.line {
-			width: auto;
+			clip-path: none;
 		}
 
 		.cta-tile:hover .l1,
