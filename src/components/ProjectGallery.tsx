@@ -206,6 +206,37 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 
 	if (total === 0) return null;
 
+	/*
+	 * A single image has nothing to scroll through, so none of the strip
+	 * machinery applies: no pinning, no horizontal scroll, no counter. It simply
+	 * fills the column at its natural proportions.
+	 */
+	if (total === 1) {
+		const image = images[0];
+
+		return (
+			<div ref={rootRef} className="w-full">
+				<figure className="w-full">
+					<img
+						src={image.src}
+						srcSet={image.srcSet}
+						sizes="(max-width: 1024px) 100vw, 60vw"
+						alt={image.alt ?? image.title}
+						width={image.width}
+						height={image.height}
+						loading="eager"
+						decoding="async"
+						draggable={false}
+						className="h-auto w-full select-none object-contain"
+					/>
+					<figcaption className="text-palette-brightest-white text-[0.8rem] mt-2">
+						{image.title}
+					</figcaption>
+				</figure>
+			</div>
+		);
+	}
+
 	return (
 		<div ref={rootRef} className="w-full">
 			<div
