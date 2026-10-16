@@ -19,10 +19,19 @@
 	},
 	{
 		"published": true,
+		"quote": "I mentored Marek from his first steps in UX and watched him quickly grow into a designer who cares about every pixel. On the Propodnikave redesign, he co-led the design direction, rebuilt the information architecture and championed a mobile-first approach that increased returning users by 40%, all while coordinating five developers. At Skyro, he mentored junior designers with patience and real empathy. On eDesk at Slovensko.sk, a national platform used by millions, he showed the maturity and sense of responsibility that such a project demands. Curious, collaborative and reliable, he’s someone I would gladly work with again.",
+		"name": "Richard Egyed",
+		"role": "Product Designer",
+		"company": "",
+		"avatar": "richard-egyed.png",
+		"project": "propodnikave"
+	},
+	{
+		"published": true,
 		"quote": "I worked with Marek throughout most of my time at Wezeo. He has a strong creative mindset and always brought valuable ideas and fresh perspectives to our projects. Whether it was branding, websites, or UI/UX, he always came up with interesting and thoughtful solutions. He is reliable, responsible, and a great person to collaborate with.",
 		"name": "Nela Skovajsová",
 		"role": "Product Designer",
-		"company": "Wezeo",
+		"company": "",
 		"avatar": "nela-skovajsova.png",
 		"project": "wezeo"
 	},

@@ -35,7 +35,7 @@ interface Props {
 }
 
 const {
-	heading = "What clients say",
+	heading = "What others say",
 	limit = 6,
 	project,
 	class: className = "",
@@ -87,6 +87,15 @@ const cards = await Promise.all(
 	})),
 );
 
+/*
+ * Looping needs three identical copies: the viewer sits in the middle one and
+ * whenever they wander out of it the scroll position is snapped back by exactly
+ * one copy. The content either side is the same, so the jump is invisible.
+ * Only worth it once there are enough quotes to fill the row.
+ */
+const canLoop = cards.length >= 3;
+const rendered = canLoop ? [...cards, ...cards, ...cards] : cards;
+
 const labelClass =
 	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
 ---
@@ -115,9 +124,14 @@ const labelClass =
 					)}
 				</div>
 
-				<ul class="slider" data-testimonial-slider>
-					{cards.map((item) => (
-						<li class="slide">
+				<ul
+					class="slider"
+					data-testimonial-slider
+					data-loop={canLoop ? "true" : "false"}
+					data-count={cards.length}
+				>
+					{rendered.map((item, i) => (
+						<li class="slide" aria-hidden={i >= cards.length ? "true" : undefined}>
 							<figure>
 								<blockquote>“{item.quote}”</blockquote>
 
@@ -136,7 +150,11 @@ const labelClass =
 											{[item.role, item.company].filter(Boolean).join(", ")}
 										</span>
 										{item.project && (
-											<a href={`/project/${item.project}`} class="case-link">
+											<a
+												href={`/project/${item.project}`}
+												class="case-link"
+												tabindex={i >= cards.length ? -1 : undefined}
+											>
 												See the project →
 											</a>
 										)}
@@ -283,12 +301,40 @@ const labelClass =
 			const section = slider.closest("section");
 			const prev = section?.querySelector<HTMLButtonElement>('[data-slide="prev"]');
 			const next = section?.querySelector<HTMLButtonElement>('[data-slide="next"]');
-			const first = slider.querySelector<HTMLElement>(".slide");
+			const slides = [...slider.querySelectorAll<HTMLElement>(".slide")];
+			const count = Number(slider.dataset.count ?? slides.length);
+			const loop = slider.dataset.loop === "true" && slides.length >= count * 3;
+
+			// Width of one full copy, measured rather than calculated, so the flex
+			// gap between copies is accounted for exactly.
+			const copyWidth = () =>
+				loop && slides[count] ? slides[count].offsetLeft - slides[0].offsetLeft : 0;
 
 			// One card plus the gap, so a click always lands on a card edge.
-			const step = () => (first ? first.getBoundingClientRect().width + 24 : 320);
+			const step = () =>
+				slides[0] ? slides[0].getBoundingClientRect().width + 24 : 320;
+
+			/** Move without animating, with snapping off so it can't fight the jump. */
+			function jumpTo(left: number) {
+				const snap = slider.style.scrollSnapType;
+				slider.style.scrollSnapType = "none";
+				slider.scrollLeft = left;
+				requestAnimationFrame(() => {
+					slider.style.scrollSnapType = snap;
+				});
+			}
+
+			function recentre() {
+				if (!loop) return;
+				const one = copyWidth();
+				if (one <= 0) return;
+
+				if (slider.scrollLeft >= one * 2) jumpTo(slider.scrollLeft - one);
+				else if (slider.scrollLeft < one) jumpTo(slider.scrollLeft + one);
+			}
 
 			function sync() {
+				if (loop) return; // With looping there is no end to run into.
 				const max = slider.scrollWidth - slider.clientWidth - 1;
 				if (prev) prev.disabled = slider.scrollLeft <= 0;
 				if (next) next.disabled = slider.scrollLeft >= max;
@@ -302,8 +348,33 @@ const labelClass =
 				slider.scrollBy({ left: step(), behavior: "smooth" });
 			});
 
-			slider.addEventListener("scroll", sync, { passive: true });
-			window.addEventListener("resize", sync);
+			/*
+			 * Re-centring is deferred until scrolling settles. Moving the position
+			 * mid-animation would cut a smooth scroll short; once it has stopped the
+			 * jump lands on identical content and cannot be seen.
+			 */
+			let settle: number | undefined;
+
+			slider.addEventListener(
+				"scroll",
+				() => {
+					sync();
+					window.clearTimeout(settle);
+					settle = window.setTimeout(recentre, 140);
+				},
+				{ passive: true },
+			);
+
+			window.addEventListener("resize", () => {
+				sync();
+				recentre();
+			});
+
+			// Start inside the middle copy so there is room to go either way.
+			if (loop) {
+				requestAnimationFrame(() => jumpTo(copyWidth()));
+			}
+
 			sync();
 		}
 	}
