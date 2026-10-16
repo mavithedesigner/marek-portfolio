@@ -12,6 +12,9 @@ const pages = [
 	{ href: "/contact", text: "Contact" },
 ];
 
+// Lives in /public so the file is served as-is, no build step involved.
+const cv = "/cv/Marek-Vican-CV.pdf";
+
 // LinkedIn first: for a prospective client it's the most natural first contact,
 // not the fourth item under Pinterest.
 const socials = [
@@ -27,7 +30,7 @@ const year = new Date().getFullYear();
 const labelClass = "text-secondary-foreground mb-1";
 ---
 
-<footer class="w-full mt-44">
+<footer class="w-full section-gap">
 	<div class="w-full max-w-7xl mx-auto px-4">
 		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 py-8">
 			<ul>
@@ -64,6 +67,9 @@ const labelClass = "text-secondary-foreground mb-1";
 					class="mt-1 block hover:underline"
 				>
 					Book a 15-min call
+				</a>
+				<a href={cv} download class="mt-1 block hover:underline">
+					Download CV (PDF)
 				</a>
 			</div>
 		</div>

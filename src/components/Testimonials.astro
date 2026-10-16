@@ -125,7 +125,7 @@ const labelClass =
 				</div>
 
 				<ul
-					class="slider"
+					class={`slider ${cards.length === 1 ? "slider--single" : ""}`}
 					data-testimonial-slider
 					data-loop={canLoop ? "true" : "false"}
 					data-count={cards.length}
@@ -149,7 +149,8 @@ const labelClass =
 										<span class="where">
 											{[item.role, item.company].filter(Boolean).join(", ")}
 										</span>
-										{item.project && (
+										{/* No link when the quote already sits on that project's page. */}
+										{item.project && !project && (
 											<a
 												href={`/project/${item.project}`}
 												class="case-link"
@@ -179,14 +180,13 @@ const labelClass =
 	.slider-nav button {
 		width: 2.25rem;
 		height: 2.25rem;
-		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 30%, transparent);
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
-		transition: color 0.2s ease, border-color 0.2s ease;
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
+		color: var(--color-palette-brightest-white);
+		transition: background-color 0.2s ease;
 	}
 
 	.slider-nav button:hover:not(:disabled) {
-		color: var(--color-palette-brightest-white);
-		border-color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
 	}
 
 	.slider-nav button:disabled {
@@ -196,8 +196,8 @@ const labelClass =
 
 	.slider {
 		display: flex;
-		gap: 1.5rem;
-		margin: 2rem 0 0;
+		gap: var(--space-md);
+		margin: var(--space-lg) 0 0;
 		padding: 0 0 0.5rem;
 		list-style: none;
 		overflow-x: auto;
@@ -217,8 +217,18 @@ const labelClass =
 
 	@media (min-width: 768px) {
 		.slide {
-			flex-basis: calc((100% - 3rem) / 3);
+			flex-basis: calc((100% - 2 * var(--space-md)) / 3);
 		}
+	}
+
+	/* A lone quote, as on a project page, gets the full width instead of sitting
+	   in a third of the row looking like something is missing. */
+	.slider--single .slide {
+		flex-basis: 100%;
+	}
+
+	.slider--single blockquote {
+		font-size: 1.05rem;
 	}
 
 	.slide figure {

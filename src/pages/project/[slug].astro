@@ -34,7 +34,7 @@ const ogImage = await getOgImage(project.thumbnail);
         the navigation stays visible for the whole scroll.
     -->
     <section
-        class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-20 pb-12 md:pt-4 md:pb-16 [--header-h:4rem] md:[--header-h:5.5rem]"
+        class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-6 pb-12 md:pt-2 md:pb-16 [--header-h:4rem] md:[--header-h:5.5rem]"
     >
         <!-- px-4 everywhere so the header's logo and CTA line up with the content -->
         <div class="px-4">
@@ -63,7 +63,7 @@ const ogImage = await getOgImage(project.thumbnail);
 
                 <!-- Right: Project details — pinned alongside so nothing shifts on desktop -->
                 <div
-                    class="flex flex-col gap-5 text-base leading-relaxed max-w-xl lg:sticky lg:top-[var(--header-h)] lg:min-h-[calc(100svh-var(--header-h))] lg:justify-start lg:pt-2"
+                    class="flex flex-col gap-6 text-base leading-relaxed max-w-xl lg:sticky lg:top-[var(--header-h)] lg:min-h-[calc(100svh-var(--header-h))] lg:justify-start lg:pt-2"
                 >
                     <div class="grid grid-cols-2 gap-8">
                         <div class="space-y-2">
@@ -207,18 +207,16 @@ const ogImage = await getOgImage(project.thumbnail);
     </section>
 
     <!-- A quote from this very project, when one exists. Nothing renders otherwise. -->
-    <Testimonials project={project.slug} limit={1} heading="What the client said" />
-
-    <!--
-        The warmest moment on the whole site is right here: someone has just
-        finished reading the case. Previously the only thing on offer was
-        "next_project", which walks them away from a decision.
-    -->
-    <CallToAction />
+    <Testimonials
+        project={project.slug}
+        limit={1}
+        heading="What the client said"
+        class="section-gap"
+    />
 
     <!-- Preview cards so you can see where you're going, not just that you can go. -->
     <nav
-        class="w-full max-w-7xl mx-auto mb-20"
+        class="w-full max-w-7xl mx-auto section-gap"
         aria-label="Other projects"
     >
         <div class="container mx-auto px-4">
@@ -278,7 +276,22 @@ const ogImage = await getOgImage(project.thumbnail);
             </div>
         </div>
     </nav>
+
+    <!--
+        The ask comes last, after the case and after the quote: by then someone
+        has everything they need to decide. The pager sits above it so "keep
+        browsing" stays available without competing with it.
+    -->
+    <CallToAction />
 </Layout>
+
+<script is:inline>
+	// Open every project at the top. The gallery is driven by page scroll, so a
+	// restored scroll position used to drop people in the middle of the strip.
+	if ("scrollRestoration" in history) {
+		history.scrollRestoration = "manual";
+	}
+</script>
 
 <style>
 	/*

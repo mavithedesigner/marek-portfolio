@@ -32,7 +32,7 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 ---
 
 <section
-	class={`cta ${variant === "full" ? "w-full max-w-7xl mx-auto mt-32 mb-16" : ""} ${className}`}
+	class={`cta ${variant === "full" ? "w-full max-w-7xl mx-auto section-gap" : ""} ${className}`}
 	aria-labelledby="cta-heading"
 >
 	<div class={variant === "full" ? "container mx-auto px-4" : ""}>
@@ -151,21 +151,23 @@ const linkedin = "https://www.linkedin.com/in/vicandesign/";
 		font-size: 0.875rem;
 	}
 
-	/* The one bordered element in the component: the actual button. */
+	/*
+	 * Same chip as Contact in the navbar, so "this is a button" looks identical
+	 * everywhere on the site.
+	 */
 	.cta-link {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.5rem 0.9rem;
-		border: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
+		padding: var(--space-2xs) var(--space-xs);
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
 		color: var(--color-palette-brightest-white);
-		transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+		transition: background-color 0.25s ease;
 	}
 
 	.cta-link:hover,
 	.cta-link:focus-visible {
-		background: var(--color-palette-brightest-white);
-		border-color: var(--color-palette-brightest-white);
-		color: var(--color-background);
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+		outline: none;
 	}
 
 	.cta-ghost {

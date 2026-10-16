@@ -169,6 +169,15 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 		syncMode();
 		measure();
 
+		/*
+		 * Always open on the first image. Browsers restore the scroll position of
+		 * both the window and this strip on reload or a back/forward step, which
+		 * used to land people mid-gallery on a project they had just opened.
+		 */
+		if (viewportRef.current) viewportRef.current.scrollLeft = 0;
+		if (stripRef.current) stripRef.current.style.transform = "";
+		applyRatio(0);
+
 		const onResize = () => {
 			syncMode();
 			measure();
@@ -185,7 +194,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 			const track = trackRef.current;
 			if (track) track.style.height = "";
 		};
-	}, [measure]);
+	}, [measure, applyRatio]);
 
 	const handleTouchStart = useCallback(() => {
 		touchingRef.current = true;

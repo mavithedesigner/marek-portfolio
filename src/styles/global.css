@@ -76,6 +76,34 @@
 
 	/*
    * ================================================================================
+   * SPACING SCALE
+   *
+   * Everything sits on an 8 px grid (0.5rem), the convention most design systems
+   * settle on because 8 divides cleanly into common screen widths and keeps
+   * halves and doubles on whole pixels. Values are in rem so they follow the
+   * reader's own font size.
+   *
+   * Three jobs, three groups:
+   *   space-*    gaps inside a component (a label and its value, chips in a row)
+   *   gutter-*   gaps between sibling cards in a grid
+   *   section    distance between two top-level blocks of the page
+   *
+   * The rule of thumb that keeps it readable: space inside an element is always
+   * smaller than the space around it, so things group visually without borders.
+   * ================================================================================
+   */
+	--space-3xs: 0.25rem; /* 4px  — only for type, never layout */
+	--space-2xs: 0.5rem; /* 8px  */
+	--space-xs: 0.75rem; /* 12px */
+	--space-sm: 1rem; /* 16px */
+	--space-md: 1.5rem; /* 24px */
+	--space-lg: 2rem; /* 32px */
+	--space-xl: 3rem; /* 48px */
+	--space-2xl: 4rem; /* 64px */
+	--space-3xl: 6rem; /* 96px */
+
+	/*
+   * ================================================================================
    * BORDER RADIUS (shadcn/ui inspired)
    * Defines standard border radius values. Tailwind generates utilities like rounded-sm.
    * ================================================================================
@@ -125,6 +153,48 @@ body {
 	html:not(.lenis-smooth):focus-within {
 		scroll-behavior: smooth;
 	}
+}
+
+/*
+ * ================================================================================
+ * SECTION RHYTHM
+ *
+ * One value, three breakpoints, used by every top-level block. Section gaps grow
+ * with the viewport because a gap that reads as generous on a phone reads as a
+ * mistake on a 27" display, and the other way round. Applied as margin-top only,
+ * so two neighbouring sections can never add their spacing together.
+ * ================================================================================
+ */
+:root {
+	--section-gap: 5rem; /* 80px  — phones */
+	--card-gutter: 2rem; /* 32px between cards side by side */
+	--card-gutter-y: 4.5rem; /* 72px, leaves room for the hover chips below a card */
+}
+
+@media (min-width: 768px) {
+	:root {
+		--section-gap: 7.5rem; /* 120px — tablets */
+		--card-gutter: 3rem;
+		--card-gutter-y: 5rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	:root {
+		--section-gap: 10rem; /* 160px — desktop */
+		--card-gutter: 4rem;
+		--card-gutter-y: 6rem;
+	}
+}
+
+/* Put a standard gap above a block. */
+.section-gap {
+	margin-top: var(--section-gap);
+}
+
+/* Same distance, but below, for the last block before the footer. */
+.section-gap-b {
+	margin-bottom: var(--section-gap);
 }
 
 h1,
