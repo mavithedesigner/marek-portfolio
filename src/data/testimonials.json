@@ -1,56 +1,38 @@
 [
 	{
-		"published": false,
-		"quote": "",
-		"name": "Dávid Drímal",
-		"role": "",
+		"published": true,
+		"quote": "For a long time we kept postponing our rebrand at wezeo, because we could not describe who we are without falling back on buzzwords. Marek helped us break through that. He took our scattered ideas and shaped them into a clear, practical brand system that we now use every day, from sales decks to our website. What I valued most was how he worked: he asked the right questions, genuinely listened, and kept refining until the result felt true to us, not just good-looking. He is growing fast and delivers what he promises. I would gladly work with him again.",
+		"name": "Matija Kadanec",
+		"role": "CEO",
 		"company": "Wezeo",
-		"avatar": "",
+		"avatar": "matija-kadanec.png",
 		"project": "wezeo"
 	},
 	{
-		"published": false,
-		"quote": "",
-		"name": "Richard Egyed",
-		"role": "",
-		"company": "Pro podnikavé",
-		"avatar": "",
-		"project": "propodnikave"
+		"published": true,
+		"quote": "Some people take just tasks. Marek always go deeper, and takes full responsibility. For WEZEO's presence at TechBBQ, he designed our booth materials, presentation and print materials. I handed it over to him and did not have to worry about it again. He kept me updated, handled various changes and delivered everything. That is rare and it is exactly what makes him great to work with.",
+		"name": "Veronika Petran",
+		"role": "CEO",
+		"company": "WEZEO Nordics",
+		"avatar": "veronika-petran.png",
+		"project": "wezeo"
 	},
 	{
-		"published": false,
-		"quote": "",
-		"name": "Ján Šefárik",
-		"role": "",
-		"company": "Tech Bear",
-		"avatar": "",
-		"project": "aacarabiner"
+		"published": true,
+		"quote": "I worked with Marek throughout most of my time at Wezeo. He has a strong creative mindset and always brought valuable ideas and fresh perspectives to our projects. Whether it was branding, websites, or UI/UX, he always came up with interesting and thoughtful solutions. He is reliable, responsible, and a great person to collaborate with.",
+		"name": "Nela Skovajsová",
+		"role": "Product Designer",
+		"company": "Wezeo",
+		"avatar": "nela-skovajsova.png",
+		"project": "wezeo"
 	},
 	{
-		"published": false,
-		"quote": "",
-		"name": "",
-		"role": "",
-		"company": "Bicykľáreň",
-		"avatar": "",
-		"project": "bicyklaren"
-	},
-	{
-		"published": false,
-		"quote": "",
-		"name": "",
-		"role": "",
-		"company": "Cabana",
-		"avatar": "",
-		"project": "cabana"
-	},
-	{
-		"published": false,
-		"quote": "",
-		"name": "Adam Demian",
-		"role": "",
-		"company": "maturuj.com",
-		"avatar": "",
-		"project": "maturuj"
+		"published": true,
+		"quote": "Marek showed leadership long before anyone gave him a title. At Skyro, he mentored younger students in design six hours a week, next to his job as a designer at WEZEO. The students trusted him because he taught from real experience, not theory. He did not just share knowledge, he helped others grow. Any team that gives him people to lead will see the same.",
+		"name": "Viktória Ondrejička Jakubovičová",
+		"role": "CEO and Co-founder",
+		"company": "Skyro.ai",
+		"avatar": "viktoria-ondrejicka-jakubovicova.png",
+		"project": ""
 	}
 ]

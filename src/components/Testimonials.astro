@@ -12,7 +12,6 @@
 import { getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import rawTestimonials from "../data/testimonials.json";
-import sampleTestimonials from "../data/testimonials.sample.json";
 
 type Testimonial = {
 	published: boolean;
@@ -42,23 +41,10 @@ const {
 	class: className = "",
 } = Astro.props;
 
-const usable = (list: Testimonial[]) =>
-	list
-		.filter((item) => item.published && item.quote.trim().length > 0)
-		.filter((item) => (project ? item.project === project : true));
-
-const real = usable(rawTestimonials as Testimonial[]);
-
-/*
- * Nothing real yet? Show the invented ones, but only while developing, so you
- * can see the layout. A production build never renders them, which means made-up
- * quotes cannot reach the live site by accident.
- */
-const isPreview = real.length === 0 && import.meta.env.DEV;
-const testimonials = (isPreview ? usable(sampleTestimonials as Testimonial[]) : real).slice(
-	0,
-	limit,
-);
+const testimonials = (rawTestimonials as Testimonial[])
+	.filter((item) => item.published && item.quote.trim().length > 0)
+	.filter((item) => (project ? item.project === project : true))
+	.slice(0, limit);
 
 const avatarModules = import.meta.glob("../assets/testimonials/*.{png,jpg,jpeg,webp}", {
 	eager: true,
@@ -115,11 +101,6 @@ const labelClass =
 				<div class="flex flex-wrap items-center justify-between gap-4">
 					<h2 id="testimonials-heading" class={labelClass}>
 						{heading}
-						{isPreview && (
-							<span class="preview-flag">
-								preview only, invented quotes, hidden in production
-							</span>
-						)}
 					</h2>
 
 					{cards.length > 1 && (
@@ -171,15 +152,6 @@ const labelClass =
 }
 
 <style>
-	.preview-flag {
-		margin-left: 0.75rem;
-		padding: 0.1rem 0.5rem;
-		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
-		text-transform: none;
-		letter-spacing: normal;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 80%, transparent);
-	}
-
 	/* Arrows are clickable, so they are allowed to look like controls. */
 	.slider-nav {
 		display: flex;
