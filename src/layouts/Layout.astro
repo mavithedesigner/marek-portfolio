@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import { getImage } from "astro:assets";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 import ogSource from "../assets/archive/aac_logo_3d.png";
 import Footer from "../components/Footer.astro";
@@ -93,11 +94,12 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 		<ViewTransitions />
 
 		<!--
-			Vercel Web Analytics. Needs to be switched on once in the Vercel
-			dashboard (Project → Analytics); until then the script 404s harmlessly.
-			No cookies, no consent banner.
+			Vercel Web Analytics. The official component rather than a bare script
+			tag, because this site navigates with view transitions: the component
+			registers each client-side route change, a plain script only counts the
+			first page load. No cookies, no consent banner.
 		-->
-		<script is:inline defer src="/_vercel/insights/script.js"></script>
+		<Analytics />
 	</head>
 	<body>
 		<div class="noise-overlay" aria-hidden="true"></div>
