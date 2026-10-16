@@ -240,13 +240,11 @@ const collaborators = parseCollaborators(project.collaborators);
         </div>
     </section>
 
-    <!-- A quote from this very project, when one exists. Nothing renders otherwise. -->
-    <Testimonials
-        project={project.slug}
-        limit={1}
-        heading="What the client said"
-        class="section-gap"
-    />
+    <!--
+        A quote tied to this project, when one exists. The heading stays generic
+        because the people quoted are a mix of clients, colleagues and mentors.
+    -->
+    <Testimonials project={project.slug} limit={1} class="section-gap" />
 
 
     <!-- Where you'd go next, in words: the label, the name and what it is.

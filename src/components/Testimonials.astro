@@ -230,9 +230,17 @@ const labelClass =
 	}
 
 	/* A lone quote, as on a project page, gets the full width instead of sitting
-	   in a third of the row looking like something is missing. */
+	   in a third of the row looking like something is missing. With nothing to
+	   scroll to, the scroll container and snapping are switched off as well. */
+	.slider--single {
+		overflow: visible;
+		scroll-snap-type: none;
+	}
+
 	.slider--single .slide {
 		flex-basis: 100%;
+		min-width: 0;
+		scroll-snap-align: none;
 	}
 
 	.slider--single blockquote {
