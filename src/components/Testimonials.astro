@@ -23,6 +23,8 @@ type Testimonial = {
 	avatar?: string;
 	/** Project slug, or several when the quote covers more than one case. */
 	project?: string | string[];
+	/** Set false for quotes that are about the person, not about one project. */
+	showLink?: boolean;
 };
 
 interface Props {
@@ -154,9 +156,11 @@ const labelClass =
 											{[item.role, item.company].filter(Boolean).join(", ")}
 										</span>
 										{/* No link when the quote already sits on that project's page. */}
-										{item.project && !project && (
+										{slugsOf(item.project)[0] &&
+											!project &&
+											item.showLink !== false && (
 											<a
-												href={`/project/${item.project}`}
+												href={`/project/${slugsOf(item.project)[0]}`}
 												class="case-link"
 												tabindex={i >= cards.length ? -1 : undefined}
 											>

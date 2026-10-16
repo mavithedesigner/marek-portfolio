@@ -15,7 +15,8 @@
 		"role": "CEO",
 		"company": "WEZEO Nordics",
 		"avatar": "veronika-petran.png",
-		"project": "wezeo"
+		"project": "wezeo",
+		"showLink": false
 	},
 	{
 		"published": true,
@@ -36,7 +37,8 @@
 		"role": "Product Designer",
 		"company": "",
 		"avatar": "nela-skovajsova.png",
-		"project": "wezeo"
+		"project": "wezeo",
+		"showLink": false
 	},
 	{
 		"published": true,

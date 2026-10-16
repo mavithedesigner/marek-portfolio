@@ -249,6 +249,42 @@ const collaborators = parseCollaborators(project.collaborators);
     />
 
 
+    <!-- Where you'd go next, in words: the label, the name and what it is.
+         No thumbnail, so it stays quiet next to the contact block below. -->
+    <nav
+        class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
+        aria-label="Other projects"
+    >
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+                {
+                    previous ? (
+                        <a href={`/project/${previous.slug}`} class="pager">
+                            <span class="pager-label">← previous_project</span>
+                            <span class="pager-name">{previous.name}</span>
+                            <span class="pager-tagline">{previous.tagline}</span>
+                        </a>
+                    ) : (
+                        <span />
+                    )
+                }
+
+                {
+                    next && (
+                        <a
+                            href={`/project/${next.slug}`}
+                            class="pager pager--next md:col-start-2"
+                        >
+                            <span class="pager-label">next_project →</span>
+                            <span class="pager-name">{next.name}</span>
+                            <span class="pager-tagline">{next.tagline}</span>
+                        </a>
+                    )
+                }
+            </div>
+        </div>
+    </nav>
+
     <!--
         The ask comes last, after the case and after the quote: by then someone
         has everything they need to decide. The pager sits above it so "keep
@@ -256,42 +292,6 @@ const collaborators = parseCollaborators(project.collaborators);
     -->
     <CallToAction />
 
-    <!-- Plain text, last thing on the page: a way out for anyone still browsing,
-         without competing with the contact block above it. -->
-    <nav
-        class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
-        aria-label="Other projects"
-    >
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between gap-4 text-sm font-mono">
-                {
-                    previous ? (
-                        <a
-                            href={`/project/${previous.slug}`}
-                            class="text-palette-brightest-white hover:underline underline-offset-4"
-                        >
-                            ← previous_project
-                        </a>
-                    ) : (
-                        <span class="text-palette-brightest-white/30">← previous_project</span>
-                    )
-                }
-
-                {
-                    next ? (
-                        <a
-                            href={`/project/${next.slug}`}
-                            class="text-palette-brightest-white hover:underline underline-offset-4"
-                        >
-                            next_project →
-                        </a>
-                    ) : (
-                        <span class="text-palette-brightest-white/30">next_project →</span>
-                    )
-                }
-            </div>
-        </div>
-    </nav>
 </Layout>
 
 <script is:inline>
@@ -302,3 +302,49 @@ const collaborators = parseCollaborators(project.collaborators);
 	}
 </script>
 
+<style>
+	/* No boxes and no thumbnail: type alone carries it. */
+	.pager {
+		display: block;
+	}
+
+	.pager-label {
+		display: block;
+		font-size: 0.7rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.pager-name {
+		display: block;
+		margin-top: var(--space-xs);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: var(--color-palette-brightest-white);
+		text-underline-offset: 4px;
+	}
+
+	.pager:hover .pager-name,
+	.pager:focus-visible .pager-name {
+		text-decoration: underline;
+	}
+
+	.pager-tagline {
+		display: block;
+		margin-top: 0.15rem;
+		font-size: 0.8rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+	}
+
+	/* The two sides read outward from the centre of the row. */
+	@media (min-width: 768px) {
+		.pager--next {
+			text-align: right;
+		}
+	}
+</style>
