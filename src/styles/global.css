@@ -368,6 +368,27 @@ html[data-theme="light"] .site-logo {
  * length of the switch and taken off again. For those 250 ms every element
  * animates its colours together, and the rest of the time nothing is affected.
  */
+/*
+ * The page chrome fades permanently, whatever the script does. These are the
+ * pieces that used to give the switch away: the header sits over the page, the
+ * footer closes it, the logo inverts and the grain overlay changes weight.
+ * Element selectors, so component styles still win for their own hovers.
+ */
+@media (prefers-reduced-motion: no-preference) {
+	body,
+	header,
+	footer,
+	.noise-overlay,
+	.site-logo {
+		transition:
+			background-color 250ms ease,
+			border-color 250ms ease,
+			color 250ms ease,
+			opacity 250ms ease,
+			filter 250ms ease;
+	}
+}
+
 .theme-transition,
 .theme-transition *,
 .theme-transition *::before,

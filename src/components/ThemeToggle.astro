@@ -39,7 +39,18 @@
 			window.clearTimeout(clearTransition);
 			clearTransition = window.setTimeout(() => {
 				root.classList.remove("theme-transition");
-			}, 300);
+			}, 400);
+
+			/*
+			 * This read is load-bearing. A transition only runs when it was already
+			 * declared in the style the element had BEFORE the value changed. Adding
+			 * the class and flipping the theme in the same block puts both into one
+			 * style recalculation, so the browser sees an element that had no
+			 * transition and simply snaps to the new colour. Reading a computed style
+			 * forces that recalculation to happen first, so the transition is in
+			 * place by the time the colours change.
+			 */
+			void window.getComputedStyle(root).transitionDuration;
 
 			root.dataset.theme = next;
 			try {
