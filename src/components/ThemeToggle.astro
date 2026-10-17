@@ -24,10 +24,24 @@
 
 		syncLabel(button);
 
+		let clearTransition: number | undefined;
+
 		button.addEventListener("click", () => {
-			const next =
-				document.documentElement.dataset.theme === "light" ? "dark" : "light";
-			document.documentElement.dataset.theme = next;
+			const root = document.documentElement;
+			const next = root.dataset.theme === "light" ? "dark" : "light";
+
+			/*
+			 * Switch every element's colours at the same pace. The class is only on
+			 * for the length of the fade, so ordinary hover transitions keep their
+			 * own timing.
+			 */
+			root.classList.add("theme-transition");
+			window.clearTimeout(clearTransition);
+			clearTransition = window.setTimeout(() => {
+				root.classList.remove("theme-transition");
+			}, 300);
+
+			root.dataset.theme = next;
 			try {
 				localStorage.setItem("theme", next);
 			} catch (_) {

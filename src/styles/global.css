@@ -357,14 +357,37 @@ html[data-theme="light"] .site-logo {
 	filter: invert(1);
 }
 
-body {
+/*
+ * Theme switching.
+ *
+ * Only `body` used to animate, so the page faded while the header, chips and
+ * buttons flipped instantly. The switch read as two separate events.
+ *
+ * Rather than giving everything a permanent colour transition (which would slow
+ * down every hover on the site), the class below is added to <html> for the
+ * length of the switch and taken off again. For those 250 ms every element
+ * animates its colours together, and the rest of the time nothing is affected.
+ */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
 	transition:
 		background-color 250ms ease,
-		color 250ms ease;
+		border-color 250ms ease,
+		color 250ms ease,
+		fill 250ms ease,
+		stroke 250ms ease,
+		opacity 250ms ease,
+		filter 250ms ease !important;
+	transition-delay: 0s !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	body {
-		transition: none;
+	.theme-transition,
+	.theme-transition *,
+	.theme-transition *::before,
+	.theme-transition *::after {
+		transition: none !important;
 	}
 }

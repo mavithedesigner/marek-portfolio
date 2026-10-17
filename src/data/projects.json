@@ -42,7 +42,8 @@
 		"role": "PX, UX/UI Design",
 		"tags": [
 			"Visual Identity",
-			"UX/UI"
+			"UX/UI",
+			"Product Design"
 		],
 		"outcome": "Live and bootstrapped, running as a working business.",
 		"about": "maturuj.com began as a final school project with an unusual brief: build something worth keeping after graduation, a real product we could sell. Together with Adam Demian we went through the entire cycle, from the first idea and project planning to development, testing, and launch.\n\nThe app prepares students for the Slovak school-leaving exam through personalised AI feedback. It holds digitised SJL and English exam papers, exercises covering the topics students struggle with most, and an assistant that explains why an answer is right instead of only marking it wrong. It answers a problem most students know well, they drown in endless notes while the education system moves slowly, so the exam becomes something to survive rather than learn from.\n\nI led the design side, tone of voice, branding and logo, the UX/UI of the app, and the sales materials. It is live, bootstrapped, and running as a working business.",
@@ -157,7 +158,8 @@
 		"role": "Logo Design, Web, Content Creation",
 		"tags": [
 			"Visual Identity",
-			"Web"
+			"Web",
+			"Logo"
 		],
 		"outcome": "A template the owner keeps the site and social channels running from.",
 		"about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image.\n\nAdditionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
@@ -243,9 +245,11 @@
 		"tags": [
 			"Visual Identity",
 			"Web",
-			"Art Direction"
+			"Art Direction",
+			"Content",
+			"Logo"
 		],
-		"outcome": "Grew into a live event series with its own product line and public archive.",
+		"outcome": "Grew into a live event series with its own product line, a public archive and over 100K reach.",
 		"about": "Music, design and art here mostly ran in separate lanes, and the events that did exist rarely treated any of them with much care. Artistic Area Club started to put them in one room and take the result seriously, and it had to stay open, so the brand could not read like a members-only badge. The logo works from that idea: separate liquids poured together until they set into a single shape, the letters AAC running into one another instead of lining up.\n\nThe website carries the same intent. It is a timeline and a portfolio of everything the club has done, so someone arriving cold can see there is real history behind it, and someone who missed a night can see what they missed and show up to the next one. Photos from each event are there to download, so the evening goes home with the people who were in it.\n\nThe visual changes from event to event on purpose. One manual applied to everything would turn the club into a company, and the look belongs to the artists who build each night. A few elements repeat; the rest is made once and stays tied to that one evening.",
 		"programs": [
 			"Adobe Illustrator",
@@ -329,6 +333,7 @@
 		],
 		"thumbnail": "exhibition_poster.png",
 		"images": [
+			"disharmonia_poster.png",
 			"aaconcert_pinkwhale_poster.png",
 			"exhibition_poster.png",
 			"aaconcert_poster.png",
