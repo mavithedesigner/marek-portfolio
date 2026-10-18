@@ -369,6 +369,28 @@ html[data-theme="light"] .site-logo {
  * animates its colours together, and the rest of the time nothing is affected.
  */
 /*
+ * Dark is the default, with no attribute on <html> at all. Declaring the colour
+ * scheme means the browser's own furniture (scrollbars, form controls, the flash
+ * before CSS loads) is dark from the first frame, instead of following whatever
+ * the operating system prefers.
+ */
+html {
+	color-scheme: dark;
+}
+
+/*
+ * Cross-fade between the two themes. The toggle asks the browser to snapshot the
+ * page, swaps the theme, then fades the old snapshot into the new one. Scoped to
+ * the switch so page navigations keep their own timing.
+ */
+html.theme-switching::view-transition-old(root),
+html.theme-switching::view-transition-new(root) {
+	animation-duration: 320ms;
+	animation-timing-function: ease;
+	mix-blend-mode: normal;
+}
+
+/*
  * The page chrome fades permanently, whatever the script does. These are the
  * pieces that used to give the switch away: the header sits over the page, the
  * footer closes it, the logo inverts and the grain overlay changes weight.

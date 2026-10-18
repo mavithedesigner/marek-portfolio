@@ -1,5 +1,5 @@
 ---
-// Only the mode word is interactive — the leading copy is plain text.
+// Only the mode word is interactive, the leading copy is plain text.
 ---
 
 <p class="text-sm text-secondary-foreground">
@@ -24,43 +24,79 @@
 
 		syncLabel(button);
 
-		let clearTransition: number | undefined;
+		let clearFallback: number | undefined;
+
+		function applyTheme(next: "light" | "dark", button: HTMLButtonElement) {
+			const root = document.documentElement;
+
+			// Dark is the base, so it carries no attribute at all.
+			if (next === "dark") {
+				delete root.dataset.theme;
+			} else {
+				root.dataset.theme = next;
+			}
+
+			try {
+				localStorage.setItem("theme", next);
+			} catch (_) {
+				/* private mode, the choice just won't persist */
+			}
+
+			syncLabel(button);
+		}
 
 		button.addEventListener("click", () => {
 			const root = document.documentElement;
 			const next = root.dataset.theme === "light" ? "dark" : "light";
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			// Dropping focus stops the browser trying to keep the button in view.
+			button.blur();
 
 			/*
-			 * Switch every element's colours at the same pace. The class is only on
-			 * for the length of the fade, so ordinary hover transitions keep their
-			 * own timing.
+			 * Preferred path: the browser takes a snapshot of the whole page, we swap
+			 * the theme, and it cross-fades the old picture into the new one. Because
+			 * it is one image fading into another, nothing can fall out of step. The
+			 * header, the logo and the body all change together by definition.
+			 */
+			const startViewTransition = (
+				document as Document & {
+					startViewTransition?: (callback: () => void) => { finished: Promise<void> };
+				}
+			).startViewTransition;
+
+			if (!reduceMotion && typeof startViewTransition === "function") {
+				root.classList.add("theme-switching");
+
+				const transition = startViewTransition.call(document, () =>
+					applyTheme(next, button),
+				);
+
+				transition.finished.finally(() => {
+					root.classList.remove("theme-switching");
+				});
+
+				return;
+			}
+
+			/*
+			 * Fallback for browsers without view transitions: give everything a
+			 * temporary colour transition instead.
+			 *
+			 * The computed-style read below is load-bearing. A transition only runs
+			 * when it was already part of the element's style BEFORE the value
+			 * changed. Without forcing a style recalculation here, the class and the
+			 * new colour land in the same pass and the page simply snaps.
 			 */
 			root.classList.add("theme-transition");
-			window.clearTimeout(clearTransition);
-			clearTransition = window.setTimeout(() => {
+			window.clearTimeout(clearFallback);
+			clearFallback = window.setTimeout(() => {
 				root.classList.remove("theme-transition");
 			}, 400);
 
-			/*
-			 * This read is load-bearing. A transition only runs when it was already
-			 * declared in the style the element had BEFORE the value changed. Adding
-			 * the class and flipping the theme in the same block puts both into one
-			 * style recalculation, so the browser sees an element that had no
-			 * transition and simply snaps to the new colour. Reading a computed style
-			 * forces that recalculation to happen first, so the transition is in
-			 * place by the time the colours change.
-			 */
 			void window.getComputedStyle(root).transitionDuration;
 
-			root.dataset.theme = next;
-			try {
-				localStorage.setItem("theme", next);
-			} catch (_) {
-				/* private mode — theme just won't persist */
-			}
-			syncLabel(button);
-			// Dropping focus stops the browser trying to keep the button in view.
-			button.blur();
+			applyTheme(next, button);
 		});
 	}
 

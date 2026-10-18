@@ -51,18 +51,22 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 		<script is:inline>
 			// Applied before first paint so switching themes never flashes.
 			// View transitions replace <html>, so the theme has to be re-applied
-			// after every swap — otherwise navigating resets the page to dark.
+			// after every swap, otherwise navigating resets the page.
+			//
+			// Dark is the default and carries no attribute: only an explicit
+			// choice of light mode is ever written onto <html>. Someone arriving
+			// for the first time always lands on the dark site, whatever their
+			// operating system prefers.
 			(function () {
 				function applyStoredTheme() {
 					try {
-						const stored = localStorage.getItem("theme");
-						if (stored === "light" || stored === "dark") {
-							document.documentElement.dataset.theme = stored;
+						if (localStorage.getItem("theme") === "light") {
+							document.documentElement.dataset.theme = "light";
 						} else {
 							delete document.documentElement.dataset.theme;
 						}
 					} catch (_) {
-						/* private mode — fall back to dark */
+						/* private mode, fall back to dark */
 					}
 				}
 
