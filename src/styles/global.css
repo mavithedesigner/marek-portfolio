@@ -391,26 +391,12 @@ html.theme-switching::view-transition-new(root) {
 }
 
 /*
- * The page chrome fades permanently, whatever the script does. These are the
- * pieces that used to give the switch away: the header sits over the page, the
- * footer closes it, the logo inverts and the grain overlay changes weight.
- * Element selectors, so component styles still win for their own hovers.
+ * Note: the header, footer and logo deliberately have NO standing colour
+ * transition. Page navigation swaps the document, and a permanent transition
+ * made them animate their colours on arrival while the rest of the new page was
+ * already painted, so the navbar lagged behind on every click. The theme switch
+ * is handled by the cross-fade above instead, which is a one-off.
  */
-@media (prefers-reduced-motion: no-preference) {
-	body,
-	header,
-	footer,
-	.noise-overlay,
-	.site-logo {
-		transition:
-			background-color 250ms ease,
-			border-color 250ms ease,
-			color 250ms ease,
-			opacity 250ms ease,
-			filter 250ms ease;
-	}
-}
-
 .theme-transition,
 .theme-transition *,
 .theme-transition *::before,

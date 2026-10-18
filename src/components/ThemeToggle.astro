@@ -11,6 +11,9 @@
 </p>
 
 <script>
+	// Must match the key used by the inline script in Layout.astro.
+	const THEME_KEY = "theme-2";
+
 	// The label always names the mode you'd switch TO.
 	function syncLabel(button: HTMLButtonElement) {
 		const isLight = document.documentElement.dataset.theme === "light";
@@ -37,7 +40,7 @@
 			}
 
 			try {
-				localStorage.setItem("theme", next);
+				localStorage.setItem(THEME_KEY, next);
 			} catch (_) {
 				/* private mode, the choice just won't persist */
 			}

@@ -58,9 +58,13 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 			// for the first time always lands on the dark site, whatever their
 			// operating system prefers.
 			(function () {
+				// Bumping this key retires every previously saved choice, so the
+				// site falls back to its dark default for everyone once.
+				var THEME_KEY = "theme-2";
+
 				function applyStoredTheme() {
 					try {
-						if (localStorage.getItem("theme") === "light") {
+						if (localStorage.getItem(THEME_KEY) === "light") {
 							document.documentElement.dataset.theme = "light";
 						} else {
 							delete document.documentElement.dataset.theme;
