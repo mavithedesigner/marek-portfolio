@@ -1,0 +1,216 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+import CallToAction from "../../components/CallToAction.astro";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate, getThoughts, readingTime } from "../../lib/thoughts";
+
+export async function getStaticPaths() {
+	const posts = await getThoughts();
+
+	return posts.map((post, index) => ({
+		params: { slug: post.id },
+		props: {
+			post,
+			// Newest first, so the "newer" post is the one before it in the list.
+			newer: index > 0 ? posts[index - 1] : null,
+			older: index < posts.length - 1 ? posts[index + 1] : null,
+		},
+	}));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+
+const minutes = readingTime(post.body ?? "");
+const url = new URL(`/thoughts/${post.id}/`, Astro.site ?? Astro.url).href;
+
+const share = {
+	linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+	x: `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(post.data.title)}`,
+};
+
+const labelClass =
+	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
+---
+
+<Layout
+	title={`${post.data.title} |`}
+	description={post.data.description}
+	image={post.data.cover?.src}
+>
+	<article class="w-full max-w-7xl mx-auto py-[var(--section-gap)]">
+		<div class="container mx-auto px-4">
+			<!-- 62ch is about 12 words a line, which is where reading stays easy on
+			     a phone and on a wide screen alike. -->
+			<header class="max-w-[62ch]">
+				<a href="/thoughts/" class={`${labelClass} hover:underline underline-offset-4`}>
+					← thoughts
+				</a>
+
+				<h1 class="mt-6 text-3xl leading-tight text-palette-brightest-white md:text-4xl">
+					{post.data.title}
+				</h1>
+
+				<p class="mt-5 text-lg leading-relaxed text-palette-brightest-white/70">
+					{post.data.description}
+				</p>
+
+				<p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
+					<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+					<span aria-hidden="true">·</span>
+					<span>{minutes} min read</span>
+					{post.data.updated && (
+						<>
+							<span aria-hidden="true">·</span>
+							<span>updated {formatDate(post.data.updated)}</span>
+						</>
+					)}
+					{post.data.draft && <span class="draft-flag">draft</span>}
+				</p>
+			</header>
+
+			{
+				post.data.cover && (
+					<figure class="mt-12 max-w-4xl">
+						<Image
+							src={post.data.cover}
+							alt={post.data.coverAlt ?? ""}
+							widths={[480, 800, 1200, 1600]}
+							sizes="(max-width: 768px) 100vw, 56rem"
+							loading="eager"
+							class="h-auto w-full"
+						/>
+					</figure>
+				)
+			}
+
+			<div class="prose mt-12 max-w-[62ch]">
+				<Content />
+			</div>
+
+			{
+				post.data.tags.length > 0 && (
+					<ul class="mt-12 flex max-w-[62ch] flex-wrap gap-2" aria-label="Topics">
+						{post.data.tags.map((tag) => (
+							<li>
+								<a href={`/thoughts/tag/${tag}/`} class="tag-link">
+									{tag}
+								</a>
+							</li>
+						))}
+					</ul>
+				)
+			}
+
+			<div class="mt-12 max-w-[62ch]">
+				<p class={labelClass}>Share</p>
+				<p class="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+					<a href={share.linkedin} target="_blank" rel="noreferrer noopener" class="share-link">
+						LinkedIn
+					</a>
+					<a href={share.x} target="_blank" rel="noreferrer noopener" class="share-link">
+						X
+					</a>
+				</p>
+			</div>
+		</div>
+	</article>
+
+	{
+		(newer || older) && (
+			<nav
+				class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
+				aria-label="Other posts"
+			>
+				<div class="container mx-auto px-4">
+					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+						{older ? (
+							<a href={`/thoughts/${older.id}/`} class="pager">
+								<span class="pager-label">← older_post</span>
+								<span class="pager-title">{older.data.title}</span>
+							</a>
+						) : (
+							<span />
+						)}
+
+						{newer && (
+							<a href={`/thoughts/${newer.id}/`} class="pager pager--next md:col-start-2">
+								<span class="pager-label">newer_post →</span>
+								<span class="pager-title">{newer.data.title}</span>
+							</a>
+						)}
+					</div>
+				</div>
+			</nav>
+		)
+	}
+
+	<CallToAction
+		heading="Working on something?"
+		intro="If any of this sounds like your problem, I'd like to hear about it."
+	/>
+</Layout>
+
+<style>
+	.draft-flag {
+		padding: 0.1rem 0.45rem;
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 20%, transparent);
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	.tag-link {
+		display: inline-block;
+		padding: 0.375rem 0.75rem;
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
+		color: var(--color-palette-brightest-white);
+		font-size: 0.8rem;
+		transition: background-color 0.2s ease;
+	}
+
+	.tag-link:hover {
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+	}
+
+	.share-link {
+		color: var(--color-palette-brightest-white);
+		text-underline-offset: 4px;
+	}
+
+	.share-link:hover {
+		text-decoration: underline;
+	}
+
+	.pager {
+		display: block;
+	}
+
+	.pager-label {
+		display: block;
+		font-size: 0.7rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.pager-title {
+		display: block;
+		margin-top: var(--space-xs);
+		color: var(--color-palette-brightest-white);
+		line-height: 1.4;
+		text-underline-offset: 4px;
+	}
+
+	.pager:hover .pager-title,
+	.pager:focus-visible .pager-title {
+		text-decoration: underline;
+	}
+
+	@media (min-width: 768px) {
+		.pager--next {
+			text-align: right;
+		}
+	}
+</style>

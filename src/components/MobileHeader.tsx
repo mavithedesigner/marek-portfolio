@@ -47,6 +47,7 @@ export default function MobileHeader() {
 	// Contact is rendered separately as a CTA chip, matching the desktop header.
 	const menuLinks = [
 		{ href: "/archive", text: "Archive" },
+		{ href: "/thoughts", text: "Thoughts" },
 		{ href: "/about", text: "About" },
 	];
 

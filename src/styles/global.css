@@ -420,3 +420,160 @@ html.theme-switching::view-transition-new(root) {
 		transition: none !important;
 	}
 }
+
+/*
+ * ================================================================================
+ * PROSE
+ *
+ * Long-form reading, used by the posts under /thoughts. Everything here is sized
+ * for the phone first and grows a little on wider screens, because that is where
+ * most people will actually read it.
+ *
+ * The measure is capped at 62 characters by the page, which is the span where the
+ * eye finds the next line without effort. Spacing follows the same 8px scale as
+ * the rest of the site, with more room above a heading than below it, so a
+ * heading visibly belongs to the text that follows.
+ * ================================================================================
+ */
+.prose {
+	font-size: 1.0625rem; /* 17px */
+	line-height: 1.75;
+	color: color-mix(in srgb, var(--color-palette-brightest-white) 85%, transparent);
+}
+
+@media (min-width: 768px) {
+	.prose {
+		font-size: 1.125rem; /* 18px */
+	}
+}
+
+.prose > * + * {
+	margin-top: var(--space-md);
+}
+
+.prose h2,
+.prose h3 {
+	color: var(--color-palette-brightest-white);
+	line-height: 1.3;
+	text-wrap: balance;
+}
+
+.prose h2 {
+	margin-top: var(--space-2xl);
+	font-size: 1.5rem;
+}
+
+.prose h3 {
+	margin-top: var(--space-xl);
+	font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+	.prose h2 {
+		font-size: 1.75rem;
+	}
+
+	.prose h3 {
+		font-size: 1.35rem;
+	}
+}
+
+/* A heading owns what comes after it, so the gap below is small. */
+.prose h2 + *,
+.prose h3 + * {
+	margin-top: var(--space-sm);
+}
+
+.prose strong {
+	color: var(--color-palette-brightest-white);
+	font-weight: 600;
+}
+
+.prose a {
+	color: var(--color-palette-brightest-white);
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	text-decoration-thickness: 1px;
+	text-decoration-color: color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
+	transition: text-decoration-color 0.2s ease;
+}
+
+.prose a:hover {
+	text-decoration-color: currentColor;
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.25rem;
+}
+
+.prose ul {
+	list-style: disc;
+}
+
+.prose ol {
+	list-style: decimal;
+}
+
+.prose li + li {
+	margin-top: var(--space-2xs);
+}
+
+.prose li::marker {
+	color: color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
+}
+
+.prose blockquote {
+	padding-left: var(--space-sm);
+	border-left: 2px solid color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+	color: var(--color-palette-brightest-white);
+}
+
+/* Images break out of the text measure on wider screens: a screenshot needs the
+   room, a sentence does not. */
+.prose img {
+	width: 100%;
+	height: auto;
+}
+
+.prose figure {
+	margin-top: var(--space-xl);
+	margin-bottom: var(--space-xl);
+}
+
+.prose figcaption {
+	margin-top: var(--space-2xs);
+	font-size: 0.8rem;
+	color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+}
+
+@media (min-width: 1024px) {
+	.prose figure,
+	.prose > img {
+		width: min(56rem, 86vw);
+	}
+}
+
+.prose hr {
+	margin-top: var(--space-2xl);
+	margin-bottom: var(--space-2xl);
+	border: 0;
+	border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
+}
+
+.prose code {
+	padding: 0.1rem 0.3rem;
+	background: color-mix(in srgb, var(--color-palette-brightest-white) 12%, transparent);
+	font-size: 0.9em;
+}
+
+.prose pre {
+	padding: var(--space-sm);
+	background: color-mix(in srgb, var(--color-palette-brightest-white) 8%, transparent);
+	overflow-x: auto;
+}
+
+.prose pre code {
+	padding: 0;
+	background: none;
+}

@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@astrojs/react": "^4.2.7",
+		"@astrojs/rss": "^4.0.14",
 		"@astrojs/sitemap": "^3.7.4",
 		"@studio-freight/lenis": "^1.0.42",
 		"@tailwindcss/vite": "^4.1.6",
