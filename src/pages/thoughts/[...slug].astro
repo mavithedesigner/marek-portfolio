@@ -46,7 +46,7 @@ const labelClass =
 	-->
 	<article class="w-full py-[var(--section-gap)]">
 		<div class="mx-auto w-full max-w-[66ch] px-4">
-			<header class="text-center">
+			<header>
 				<a href="/thoughts/" class={`${labelClass} hover:underline underline-offset-4`}>
 					← thoughts
 				</a>
@@ -57,7 +57,7 @@ const labelClass =
 					{post.data.description}
 				</p>
 
-				<p class="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
+				<p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
 					<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
 					<span aria-hidden="true">·</span>
 					<span>{minutes} min read</span>
