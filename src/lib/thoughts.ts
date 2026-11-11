@@ -16,8 +16,21 @@ export async function getThoughts(): Promise<Thought[]> {
 	return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
+/**
+ * Tags are written the way they are read: "UX/UI", "Art Direction". The URL
+ * needs a plain version of the same thing, so "UX/UI" becomes "ux-ui".
+ */
+export function tagSlug(tag: string): string {
+	return tag
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-|-$/g, "");
+}
+
 /** Every tag in use, with how many posts carry it, most used first. */
-export async function getThoughtTags(): Promise<{ tag: string; count: number }[]> {
+export async function getThoughtTags(): Promise<
+	{ tag: string; slug: string; count: number }[]
+> {
 	const posts = await getThoughts();
 	const counts = new Map<string, number>();
 
@@ -28,7 +41,7 @@ export async function getThoughtTags(): Promise<{ tag: string; count: number }[]
 	}
 
 	return [...counts.entries()]
-		.map(([tag, count]) => ({ tag, count }))
+		.map(([tag, count]) => ({ tag, slug: tagSlug(tag), count }))
 		.sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
 

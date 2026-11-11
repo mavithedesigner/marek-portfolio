@@ -2,7 +2,7 @@
 title: "What a national service taught a junior designer"
 description: "I joined the eDesk redesign as the least experienced person in the room. That turned out to be the fastest way to learn what design is actually for."
 date: 2026-11-04
-tags: ["ux", "process"]
+tags: ["UX/UI", "Process"]
 cover: ../../assets/thoughts/edesk-screens.png
 coverAlt: "eDesk shown on a phone, a tablet and a laptop side by side"
 draft: true

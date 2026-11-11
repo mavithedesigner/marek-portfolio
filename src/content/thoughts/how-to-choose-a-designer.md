@@ -2,7 +2,7 @@
 title: "How to choose a designer"
 description: "Four questions worth asking before you hire anyone, from someone who would rather you asked them."
 date: 2026-10-28
-tags: ["branding", "clients"]
+tags: ["Branding", "Clients"]
 draft: true
 ---
 

@@ -1,43 +1,43 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { formatDate, getThoughts, getThoughtTags } from "../../../lib/thoughts";
+import { formatDate, getThoughts, getThoughtTags, tagSlug } from "../../../lib/thoughts";
 
 export async function getStaticPaths() {
 	const posts = await getThoughts();
 	const tags = await getThoughtTags();
 
-	return tags.map(({ tag }) => ({
-		params: { tag },
-		props: { posts: posts.filter((post) => post.data.tags.includes(tag)) },
+	return tags.map(({ tag, slug }) => ({
+		params: { tag: slug },
+		props: {
+			label: tag,
+			posts: posts.filter((post) => post.data.tags.includes(tag)),
+		},
 	}));
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { label, posts } = Astro.props;
 
 const labelClass =
 	"uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60";
 ---
 
 <Layout
-	title={`${tag} |`}
-	description={`Posts about ${tag} by Marek Vicáň.`}
+	title={`${label} |`}
+	description={`Posts about ${label} by Marek Vicáň.`}
 >
-	<section class="w-full max-w-7xl mx-auto py-[var(--section-gap)]">
-		<div class="container mx-auto px-4">
-			<header class="max-w-[62ch]">
+	<section class="w-full py-[var(--section-gap)]">
+		<div class="mx-auto w-full max-w-[66ch] px-4">
+			<header class="text-center">
 				<a href="/thoughts/" class={`${labelClass} hover:underline underline-offset-4`}>
 					← thoughts
 				</a>
-				<h1 class="mt-6 text-3xl leading-tight text-palette-brightest-white md:text-4xl">
-					{tag}
-				</h1>
+				<h1 class="tag-title mt-6">{label}</h1>
 				<p class="mt-3 text-palette-brightest-white/60">
 					{posts.length} {posts.length === 1 ? "post" : "posts"}
 				</p>
 			</header>
 
-			<ol class="post-list mt-16">
+			<ol class="post-list mt-[var(--space-3xl)]">
 				{
 					posts.map((post) => (
 						<li>
@@ -60,11 +60,23 @@ const labelClass =
 </Layout>
 
 <style>
+	.tag-title {
+		font-size: 2.25rem;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+		color: var(--color-palette-brightest-white);
+	}
+
+	@media (min-width: 768px) {
+		.tag-title {
+			font-size: 3rem;
+		}
+	}
+
 	.post-list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		max-width: 62ch;
 	}
 
 	.post-list li + li {
@@ -93,7 +105,8 @@ const labelClass =
 		text-underline-offset: 5px;
 	}
 
-	.post:hover .post-title {
+	.post:hover .post-title,
+	.post:hover .post-summary {
 		text-decoration: underline;
 	}
 
@@ -101,6 +114,7 @@ const labelClass =
 		margin-top: var(--space-2xs);
 		line-height: 1.6;
 		color: color-mix(in srgb, var(--color-palette-brightest-white) 65%, transparent);
+		text-underline-offset: 4px;
 	}
 
 	@media (min-width: 768px) {

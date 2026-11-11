@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import CallToAction from "../../components/CallToAction.astro";
 import Layout from "../../layouts/Layout.astro";
-import { formatDate, getThoughts, readingTime } from "../../lib/thoughts";
+import { formatDate, getThoughts, readingTime, tagSlug } from "../../lib/thoughts";
 
 export async function getStaticPaths() {
 	const posts = await getThoughts();
@@ -39,24 +39,25 @@ const labelClass =
 	description={post.data.description}
 	image={post.data.cover?.src}
 >
-	<article class="w-full max-w-7xl mx-auto py-[var(--section-gap)]">
-		<div class="container mx-auto px-4">
-			<!-- 62ch is about 12 words a line, which is where reading stays easy on
-			     a phone and on a wide screen alike. -->
-			<header class="max-w-[62ch]">
+	<!--
+		A centred column, not the left-aligned grid the rest of the site uses:
+		reading wants a narrow measure, and a narrow measure stuck to the left of a
+		wide screen leaves the page lopsided.
+	-->
+	<article class="w-full py-[var(--section-gap)]">
+		<div class="mx-auto w-full max-w-[66ch] px-4">
+			<header class="text-center">
 				<a href="/thoughts/" class={`${labelClass} hover:underline underline-offset-4`}>
 					← thoughts
 				</a>
 
-				<h1 class="mt-6 text-3xl leading-tight text-palette-brightest-white md:text-4xl">
-					{post.data.title}
-				</h1>
+				<h1 class="post-title mt-6">{post.data.title}</h1>
 
 				<p class="mt-5 text-lg leading-relaxed text-palette-brightest-white/70">
 					{post.data.description}
 				</p>
 
-				<p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
+				<p class="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
 					<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
 					<span aria-hidden="true">·</span>
 					<span>{minutes} min read</span>
@@ -72,12 +73,12 @@ const labelClass =
 
 			{
 				post.data.cover && (
-					<figure class="mt-12 max-w-4xl">
+					<figure class="mt-12">
 						<Image
 							src={post.data.cover}
 							alt={post.data.coverAlt ?? ""}
 							widths={[480, 800, 1200, 1600]}
-							sizes="(max-width: 768px) 100vw, 56rem"
+							sizes="(max-width: 768px) 100vw, 66ch"
 							loading="eager"
 							class="h-auto w-full"
 						/>
@@ -85,16 +86,16 @@ const labelClass =
 				)
 			}
 
-			<div class="prose mt-12 max-w-[62ch]">
+			<div class="prose mt-12">
 				<Content />
 			</div>
 
 			{
 				post.data.tags.length > 0 && (
-					<ul class="mt-12 flex max-w-[62ch] flex-wrap gap-2" aria-label="Topics">
+					<ul class="mt-12 flex flex-wrap gap-2" aria-label="Topics">
 						{post.data.tags.map((tag) => (
 							<li>
-								<a href={`/thoughts/tag/${tag}/`} class="tag-link">
+								<a href={`/thoughts/tag/${tagSlug(tag)}/`} class="tag-link">
 									{tag}
 								</a>
 							</li>
@@ -103,7 +104,7 @@ const labelClass =
 				)
 			}
 
-			<div class="mt-12 max-w-[62ch]">
+			<div class="mt-12">
 				<p class={labelClass}>Share</p>
 				<p class="mt-3 flex flex-wrap gap-x-5 gap-y-2">
 					<a href={share.linkedin} target="_blank" rel="noreferrer noopener" class="share-link">
@@ -119,11 +120,8 @@ const labelClass =
 
 	{
 		(newer || older) && (
-			<nav
-				class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
-				aria-label="Other posts"
-			>
-				<div class="container mx-auto px-4">
+			<nav class="w-full mt-[var(--space-3xl)]" aria-label="Other posts">
+				<div class="mx-auto w-full max-w-[66ch] px-4">
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
 						{older ? (
 							<a href={`/thoughts/${older.id}/`} class="pager">
@@ -153,6 +151,22 @@ const labelClass =
 </Layout>
 
 <style>
+	/* Smaller than the "Thoughts" heading on the list page, which is the parent
+	   of this one and should outrank it. */
+	.post-title {
+		font-size: 1.875rem;
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+		color: var(--color-palette-brightest-white);
+		text-wrap: balance;
+	}
+
+	@media (min-width: 768px) {
+		.post-title {
+			font-size: 2.5rem;
+		}
+	}
+
 	.draft-flag {
 		padding: 0.1rem 0.45rem;
 		background: color-mix(in srgb, var(--color-palette-brightest-white) 20%, transparent);
