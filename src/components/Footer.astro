@@ -31,9 +31,9 @@ const year = new Date().getFullYear();
 const labelClass = "text-secondary-foreground mb-1";
 ---
 
-<footer class="w-full section-gap">
+<footer class="site-footer w-full section-gap">
 	<div class="w-full max-w-7xl mx-auto px-4">
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 py-8">
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 pt-[var(--space-xl)] pb-8">
 			<ul>
 				{leftLinks.map((l) => (
 					<li><a href={l.href} class="hover:underline" target="_blank" rel="noreferrer noopener">{l.text}</a></li>
@@ -80,3 +80,16 @@ const labelClass = "text-secondary-foreground mb-1";
 		<p class="text-center text-palette-brightest-white pt-4 pb-12">ARTISTICAREACLUB © {year} All Rights Reserved</p>
 	</div>
 </footer>
+
+<style>
+	/*
+	 * The footer sits on its own surface, a few percent lighter than the page,
+	 * with a hairline on top. Without it the links at the end of a long page read
+	 * as more content; with it they read as the end of the page.
+	 * Built from the theme variables, so it flips with light mode on its own.
+	 */
+	.site-footer {
+		background: color-mix(in srgb, var(--color-palette-brightest-white) 5%, var(--color-background));
+		border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 12%, transparent);
+	}
+</style>

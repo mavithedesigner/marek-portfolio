@@ -19,8 +19,8 @@ const [featured, ...rest] = posts;
 		body text is hard to read, because the eye loses where the next line starts.
 		So: a centred block of left-aligned writing, the way a reading view works.
 	-->
-	<section class="w-full py-[var(--section-gap)]">
-		<div class="mx-auto w-full max-w-5xl px-4">
+	<section class="w-full pt-[var(--space-2xl)] pb-[var(--section-gap)]">
+		<div class="mx-auto w-full max-w-6xl px-4">
 			<!-- Search engines and screen readers need a heading; the page itself
 			     doesn't, the writing introduces itself. -->
 			<h1 class="sr-only">Thoughts</h1>
@@ -39,7 +39,7 @@ const [featured, ...rest] = posts;
 									src={featured.data.cover}
 									alt={featured.data.coverAlt ?? ""}
 									widths={[480, 800, 1200, 1600]}
-									sizes="(max-width: 1024px) 100vw, 64rem"
+									sizes="(max-width: 1152px) 100vw, 72rem"
 									loading="eager"
 									class="featured-cover"
 								/>
@@ -135,9 +135,13 @@ const [featured, ...rest] = posts;
 		display: block;
 	}
 
+	/* Capped against the viewport: the lead post has to fit on one screen
+	   together with the topics and the first row of the grid below it. */
 	.featured-cover {
 		width: 100%;
 		height: auto;
+		max-height: 38svh;
+		object-fit: cover;
 		margin-bottom: var(--space-lg);
 	}
 
@@ -170,7 +174,7 @@ const [featured, ...rest] = posts;
 
 	@media (min-width: 768px) {
 		.featured-title {
-			font-size: 2.75rem;
+			font-size: 2.375rem;
 		}
 	}
 
@@ -180,8 +184,8 @@ const [featured, ...rest] = posts;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		margin: var(--space-3xl) 0 0;
-		padding: var(--space-3xl) 0 0;
+		margin: var(--space-2xl) 0 0;
+		padding: var(--space-2xl) 0 0;
 		list-style: none;
 		border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 12%, transparent);
 	}
