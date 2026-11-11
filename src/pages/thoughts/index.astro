@@ -14,32 +14,36 @@ const [featured, ...rest] = posts;
 	title="Thoughts |"
 	description="Notes on design, branding and working with AI, by Marek Vicáň."
 >
-	<!--
-		The column is centred in the viewport, the text inside it is not. Centred
-		body text is hard to read, because the eye loses where the next line starts.
-		So: a centred block of left-aligned writing, the way a reading view works.
-	-->
-	<section class="w-full pt-[var(--space-2xl)] pb-[var(--section-gap)]">
-		<div class="mx-auto w-full max-w-6xl px-4">
+	<!-- Same frame as Archive and About, so the left and right edges line up
+	     across the whole site. -->
+	<section
+		class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-[var(--space-2xl)] pb-[var(--section-gap)]"
+	>
+		<div class="container mx-auto">
 			<!-- Search engines and screen readers need a heading; the page itself
 			     doesn't, the writing introduces itself. -->
 			<h1 class="sr-only">Thoughts</h1>
 
 			{
 				posts.length === 0 ? (
-					<p class="text-palette-brightest-white/60">
+					<p class="px-4 text-secondary-foreground">
 						Nothing published yet. The first posts are on their way.
 					</p>
 				) : (
 					<>
-						{/* Lead post */}
-						<a href={`/thoughts/${featured.id}/`} class="featured">
+						{/* Lead post. Hidden by a filter like any other entry. */}
+						<a
+							href={`/thoughts/${featured.id}/`}
+							class="featured px-4"
+							data-post
+							data-tags={featured.data.tags.join("|")}
+						>
 							{featured.data.cover && (
 								<Image
 									src={featured.data.cover}
 									alt={featured.data.coverAlt ?? ""}
 									widths={[480, 800, 1200, 1600]}
-									sizes="(max-width: 1152px) 100vw, 72rem"
+									sizes="(max-width: 1280px) 100vw, 80rem"
 									loading="eager"
 									class="featured-cover"
 								/>
@@ -58,31 +62,35 @@ const [featured, ...rest] = posts;
 							<p class="featured-summary">{featured.data.description}</p>
 						</a>
 
-						{/* Topics sit between the lead and the rest, the way the filters
-						    sit above the grid in the archive. */}
+						{/*
+							Topics filter in place, exactly like the archive: no page load,
+							the list just narrows. Every post stays in the HTML, so the page
+							still works with JavaScript switched off.
+						*/}
 						{tags.length > 0 && (
-							<ul class="tag-row" aria-label="Topics">
-								{tags.map(({ tag, slug, count }) => (
-									<li>
-										<a href={`/thoughts/tag/${slug}/`} class="tag-link">
-											{tag} <span class="count">{count}</span>
-										</a>
-									</li>
+							<div class="tag-row px-4" role="group" aria-label="Filter posts by topic" data-tag-filters>
+								<button type="button" data-filter="all" aria-pressed="true" class="tag-link">
+									All <span class="count">{posts.length}</span>
+								</button>
+								{tags.map(({ tag, count }) => (
+									<button type="button" data-filter={tag} aria-pressed="false" class="tag-link">
+										{tag} <span class="count">{count}</span>
+									</button>
 								))}
-							</ul>
+							</div>
 						)}
 
 						{rest.length > 0 && (
-							<ol class="post-grid">
+							<ol class="post-grid px-4" data-post-grid>
 								{rest.map((post) => (
-									<li>
+									<li data-post data-tags={post.data.tags.join("|")}>
 										<a href={`/thoughts/${post.id}/`} class="post">
 											{post.data.cover && (
 												<Image
 													src={post.data.cover}
 													alt=""
 													widths={[400, 800]}
-													sizes="(max-width: 768px) 100vw, 30rem"
+													sizes="(max-width: 768px) 100vw, 36rem"
 													loading="lazy"
 													class="post-cover"
 												/>
@@ -104,6 +112,10 @@ const [featured, ...rest] = posts;
 								))}
 							</ol>
 						)}
+
+						<p class="px-4 mt-10 text-secondary-foreground" data-empty hidden>
+							Nothing on that topic yet.
+						</p>
 					</>
 				)
 			}
@@ -127,6 +139,10 @@ const [featured, ...rest] = posts;
 		padding: 0.1rem 0.4rem;
 		background: color-mix(in srgb, var(--color-palette-brightest-white) 20%, transparent);
 		letter-spacing: 0.1em;
+	}
+
+	[data-post][hidden] {
+		display: none;
 	}
 
 	/* --- lead post ------------------------------------------------------- */
@@ -184,9 +200,8 @@ const [featured, ...rest] = posts;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		margin: var(--space-2xl) 0 0;
-		padding: var(--space-2xl) 0 0;
-		list-style: none;
+		margin-top: var(--space-2xl);
+		padding-top: var(--space-2xl);
 		border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 12%, transparent);
 	}
 
@@ -198,16 +213,25 @@ const [featured, ...rest] = posts;
 		background: color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
 		color: var(--color-palette-brightest-white);
 		font-size: 0.8rem;
-		transition: background-color 0.2s ease;
+		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 
 	.tag-link:hover {
 		background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
 	}
 
+	.tag-link[aria-pressed="true"] {
+		background: var(--color-palette-brightest-white);
+		color: var(--color-background);
+	}
+
 	.count {
 		font-size: 0.7rem;
 		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
+	}
+
+	.tag-link[aria-pressed="true"] .count {
+		color: color-mix(in srgb, var(--color-background) 60%, transparent);
 	}
 
 	/* --- the rest, as a grid like the archive ----------------------------- */
@@ -217,7 +241,8 @@ const [featured, ...rest] = posts;
 		grid-template-columns: 1fr;
 		gap: var(--card-gutter-y) var(--card-gutter);
 		margin: var(--space-2xl) 0 0;
-		padding: 0;
+		padding-left: 1rem;
+		padding-right: 1rem;
 		list-style: none;
 	}
 
@@ -277,3 +302,73 @@ const [featured, ...rest] = posts;
 		}
 	}
 </style>
+
+<script>
+	function bindThoughtFilters() {
+		const bar = document.querySelector<HTMLElement>("[data-tag-filters]");
+		const empty = document.querySelector<HTMLElement>("[data-empty]");
+		if (!bar || bar.dataset.bound === "true") return;
+		bar.dataset.bound = "true";
+
+		const buttons = [...bar.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+		const entries = [...document.querySelectorAll<HTMLElement>("[data-post]")];
+
+		function apply(filter: string) {
+			let visible = 0;
+
+			for (const entry of entries) {
+				const tags = (entry.dataset.tags ?? "").split("|").filter(Boolean);
+				const show = filter === "all" || tags.includes(filter);
+				entry.hidden = !show;
+				if (show) visible++;
+			}
+
+			for (const button of buttons) {
+				button.setAttribute("aria-pressed", String(button.dataset.filter === filter));
+			}
+
+			if (empty) empty.hidden = visible > 0;
+
+			/*
+			 * Filtering shortens the page. Lenis holds its own scroll value and
+			 * would glide to the new maximum on its next frame, which reads as the
+			 * page moving by itself. Freeze it, re-measure, pin the scroll back.
+			 */
+			const lenis = (window as any).__lenis;
+			const root = document.documentElement;
+			const before = window.scrollY;
+
+			root.style.scrollBehavior = "auto";
+			lenis?.stop?.();
+
+			requestAnimationFrame(() => {
+				lenis?.resize?.();
+				const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+				const target = Math.min(before, max);
+				window.scrollTo(0, target);
+				lenis?.scrollTo?.(target, { immediate: true, force: true });
+				lenis?.start?.();
+				requestAnimationFrame(() => {
+					root.style.scrollBehavior = "";
+				});
+			});
+		}
+
+		for (const button of buttons) {
+			button.addEventListener("click", (event) => {
+				event.preventDefault();
+				apply(button.dataset.filter ?? "all");
+			});
+		}
+
+		// A link like /thoughts/?tag=Branding arrives pre-filtered, which is how
+		// the tags under a post get back here.
+		const wanted = new URLSearchParams(window.location.search).get("tag");
+		if (wanted && buttons.some((b) => b.dataset.filter === wanted)) {
+			apply(wanted);
+		}
+	}
+
+	bindThoughtFilters();
+	document.addEventListener("astro:after-swap", bindThoughtFilters);
+</script>

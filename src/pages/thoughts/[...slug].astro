@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import CallToAction from "../../components/CallToAction.astro";
 import Layout from "../../layouts/Layout.astro";
-import { formatDate, getThoughts, readingTime, tagSlug } from "../../lib/thoughts";
+import { formatDate, getThoughts, readingTime } from "../../lib/thoughts";
 
 export async function getStaticPaths() {
 	const posts = await getThoughts();
@@ -44,8 +44,9 @@ const labelClass =
 		reading wants a narrow measure, and a narrow measure stuck to the left of a
 		wide screen leaves the page lopsided.
 	-->
-	<article class="w-full py-[var(--section-gap)]">
-		<div class="mx-auto w-full max-w-[66ch] px-4">
+	<article class="w-full max-w-7xl mx-auto py-[var(--section-gap)]">
+		<div class="container mx-auto px-4">
+			<div class="mx-auto w-full max-w-[66ch]">
 			<header>
 				<a href="/thoughts/" class={`${labelClass} hover:underline underline-offset-4`}>
 					← thoughts
@@ -95,7 +96,7 @@ const labelClass =
 					<ul class="mt-12 flex flex-wrap gap-2" aria-label="Topics">
 						{post.data.tags.map((tag) => (
 							<li>
-								<a href={`/thoughts/tag/${tagSlug(tag)}/`} class="tag-link">
+								<a href={`/thoughts/?tag=${encodeURIComponent(tag)}`} class="tag-link">
 									{tag}
 								</a>
 							</li>
@@ -115,13 +116,15 @@ const labelClass =
 					</a>
 				</p>
 			</div>
+			</div>
 		</div>
 	</article>
 
 	{
 		(newer || older) && (
-			<nav class="w-full mt-[var(--space-3xl)]" aria-label="Other posts">
-				<div class="mx-auto w-full max-w-[66ch] px-4">
+			<nav class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]" aria-label="Other posts">
+				<div class="container mx-auto px-4">
+					<div class="mx-auto w-full max-w-[66ch]">
 					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
 						{older ? (
 							<a href={`/thoughts/${older.id}/`} class="pager">
@@ -138,6 +141,7 @@ const labelClass =
 								<span class="pager-title">{newer.data.title}</span>
 							</a>
 						)}
+						</div>
 					</div>
 				</div>
 			</nav>

@@ -72,12 +72,15 @@ const labelClass = "text-secondary-foreground mb-1";
 				<a href={cv} download class="mt-1 block hover:underline">
 					Download CV (PDF)
 				</a>
-				<a href="/rss.xml" class="mt-1 block hover:underline">RSS</a>
 			</div>
 		</div>
 
 		<div class="h-px bg-white/10"></div>
-		<p class="text-center text-palette-brightest-white pt-4 pb-12">ARTISTICAREACLUB © {year} All Rights Reserved</p>
+		<div class="flex flex-col items-center gap-2 pt-4 pb-12 text-palette-brightest-white sm:flex-row sm:justify-between">
+			<p>ARTISTICAREACLUB © {year} All Rights Reserved</p>
+			<!-- A feed, not a way to contact me, so it belongs down here. -->
+			<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+		</div>
 	</div>
 </footer>
 
