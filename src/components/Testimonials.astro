@@ -193,8 +193,19 @@ const labelClass =
 		transition: background-color 0.2s ease;
 	}
 
-	.slider-nav button:hover:not(:disabled) {
-		background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+	/* Hover only where a real pointer hovers; on touch it would stick after a tap. */
+	@media (hover: hover) {
+		.slider-nav button:hover:not(:disabled) {
+			background: color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+		}
+	}
+
+	/* A fingertip needs a bigger target than a cursor. */
+	@media (pointer: coarse) {
+		.slider-nav button {
+			width: 2.75rem;
+			height: 2.75rem;
+		}
 	}
 
 	.slider-nav button:disabled {
@@ -223,7 +234,14 @@ const labelClass =
 		scroll-snap-align: start;
 	}
 
+	/* Two per row on tablets: three would squeeze each quote to ~220px. */
 	@media (min-width: 768px) {
+		.slide {
+			flex-basis: calc((100% - var(--space-md)) / 2);
+		}
+	}
+
+	@media (min-width: 1024px) {
 		.slide {
 			flex-basis: calc((100% - 2 * var(--space-md)) / 3);
 		}

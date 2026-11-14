@@ -22,8 +22,10 @@ const previewProjects = projects.slice(0, 6);
                         class="project-preview project-card relative w-full block"
                     >
                         <div class="relative">
+                            <!-- client:visible: these cards sit below a full-screen
+                                 hero, so hydrating them on load only delays it. -->
                             <CycleImage
-                                client:load
+                                client:visible
                                 images={project.imageItems}
                                 startIndex={0}
                                 disableClick={true}

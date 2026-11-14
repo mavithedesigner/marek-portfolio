@@ -27,6 +27,12 @@ const ogImage = await getOgImage(project.thumbnail);
 // scroll-driven layout is skipped for that project.
 const hasStrip = project.imageItems.length > 1;
 const collaborators = parseCollaborators(project.collaborators);
+const websiteLabel =
+    project.websiteLabel ??
+    (project.website ?? "")
+        .replace(/^https?:\/\//, "")
+        .replace(/^www\./, "")
+        .replace(/\/$/, "");
 ---
 
 <Layout
@@ -78,12 +84,19 @@ const collaborators = parseCollaborators(project.collaborators);
                     class:list={[
                         "flex flex-col gap-6 text-base leading-relaxed max-w-xl lg:pt-2",
                         // Pinning the copy only makes sense while the strip beside it
-                        // is being scrolled through.
+                        // is being scrolled through. Most case studies are taller than
+                        // a laptop screen, so the pin offset comes from the script
+                        // below: a tall column scrolls until its last line is in view
+                        // and only then pins, instead of pinning with Client, Year,
+                        // Role and Programs stuck below the fold.
                         hasStrip &&
-                            "lg:sticky lg:top-[var(--header-h)] lg:justify-start",
+                            "lg:sticky lg:top-[min(var(--header-h),calc(100svh-var(--details-h,0px)-2rem))] lg:justify-start",
                     ]}
+                    data-project-details={hasStrip ? "" : undefined}
                 >
-                    <div class="grid grid-cols-2 gap-8">
+                    <!-- min-w-0: a long website name must wrap inside its cell
+                         instead of widening the grid past a 320px screen. -->
+                    <div class="grid grid-cols-2 gap-8 [&>*]:min-w-0">
                         <div class="space-y-2">
                             <div
                                 class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
@@ -104,13 +117,14 @@ const collaborators = parseCollaborators(project.collaborators);
                                     href={project.website}
                                     target="_blank"
                                     rel="noreferrer noopener"
-                                    class="text-palette-brightest-white hover:underline underline-offset-4"
+                                    class="text-palette-brightest-white hover:underline underline-offset-4 [overflow-wrap:anywhere]"
                                 >
-                                    {project.websiteLabel ??
-                                        project.website
-                                            .replace(/^https?:\/\//, "")
-                                            .replace(/^www\./, "")
-                                            .replace(/\/$/, "")}
+                                    {/* <wbr> before each dot so a long domain breaks
+                                        at ".com" rather than mid-word; anywhere-wrap
+                                        is only the fallback for a single long word. */}
+                                    {websiteLabel
+                                        .split(".")
+                                        .map((part, i) => (i > 0 ? <><wbr />.{part}</> : part))}
                                 </a>
                             </div>
                         )}
@@ -157,7 +171,7 @@ const collaborators = parseCollaborators(project.collaborators);
                         </div>
                     )}
 
-                    <div class="grid grid-cols-2 gap-8">
+                    <div class="grid grid-cols-2 gap-8 [&>*]:min-w-0">
                         <div class="space-y-2">
                             <div
                                 class="uppercase tracking-[0.18em] text-[0.7rem] text-palette-brightest-white/60"
@@ -292,6 +306,30 @@ const collaborators = parseCollaborators(project.collaborators);
 
 </Layout>
 
+
+<script>
+	/*
+	 * Pin offset for the details column. A column that fits under the header
+	 * pins at the header as before. A taller one ends up with a negative `top`
+	 * (see the min() on the element), so it scrolls with the page until its
+	 * bottom is 2rem above the bottom of the screen and pins there: every line stays
+	 * reachable while the strip beside it is still travelling. CSS can't read
+	 * an element's own height, so this only reports it.
+	 */
+	function bindDetailsPin() {
+		const details = document.querySelector<HTMLElement>("[data-project-details]");
+		if (!details || details.dataset.bound === "true") return;
+		details.dataset.bound = "true";
+
+		// Web fonts and the column width both change how tall the copy is.
+		new ResizeObserver(() => {
+			details.style.setProperty("--details-h", `${details.offsetHeight}px`);
+		}).observe(details);
+	}
+
+	bindDetailsPin();
+	document.addEventListener("astro:after-swap", bindDetailsPin);
+</script>
 
 <style>
 	/* No boxes and no thumbnail: type alone carries it. */

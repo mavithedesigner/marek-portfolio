@@ -107,3 +107,18 @@
 	// View transitions swap the page, so re-bind after every navigation.
 	document.addEventListener("astro:page-load", setupThemeToggle);
 </script>
+
+<style>
+	/*
+	 * The word is one text line tall, too small for a thumb. On touch screens it
+	 * gets a taller hit area; the negative margin cancels the padding so the line
+	 * it sits in doesn't move.
+	 */
+	@media (pointer: coarse) {
+		#theme-toggle {
+			display: inline-block;
+			padding-block: 0.75rem;
+			margin-block: -0.75rem;
+		}
+	}
+</style>

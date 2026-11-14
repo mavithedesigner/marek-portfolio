@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../assets/logo.svg";
+import { SHOW_THOUGHTS } from "../lib/features";
 
 export default function MobileHeader() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +9,32 @@ export default function MobileHeader() {
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
+
+	/*
+	 * Lock the page while the menu is open. Without this a swipe on the
+	 * overlay scrolled the page underneath it: Lenis keeps driving the scroll
+	 * on its own, so it has to be stopped as well as the document. The cleanup
+	 * also runs on unmount, so a view-transition navigation never leaves the
+	 * next page stuck.
+	 */
+	useEffect(() => {
+		if (!isMenuOpen) return;
+		const html = document.documentElement;
+		const lenis = (window as { __lenis?: { stop(): void; start(): void } })
+			.__lenis;
+		const prevOverflow = html.style.overflow;
+		const prevOverscroll = html.style.overscrollBehavior;
+
+		lenis?.stop();
+		html.style.overflow = "hidden";
+		html.style.overscrollBehavior = "contain";
+
+		return () => {
+			html.style.overflow = prevOverflow;
+			html.style.overscrollBehavior = prevOverscroll;
+			lenis?.start();
+		};
+	}, [isMenuOpen]);
 
 	const menuVariants = {
 		initial: {
@@ -47,14 +74,24 @@ export default function MobileHeader() {
 	// Contact is rendered separately as a CTA chip, matching the desktop header.
 	const menuLinks = [
 		{ href: "/archive", text: "Archive" },
-		{ href: "/thoughts", text: "Thoughts" },
+		...(SHOW_THOUGHTS ? [{ href: "/thoughts", text: "Thoughts" }] : []),
 		{ href: "/about", text: "About" },
 	];
 
 	return (
 		<div className="md:hidden">
-			{/* Mobile Header - fixed height to prevent layout shift */}
-			<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 bg-transparent">
+			{/*
+			  Mobile Header - fixed height to prevent layout shift. Same frosted
+			  surface as the desktop header, otherwise the logo and "Menu" vanish
+			  over light images and content shows through. While the menu is open
+			  the overlay already supplies the surface, so the header goes clear
+			  to avoid a darker band across the top.
+			*/}
+			<header
+				className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 transition-colors duration-200 ${
+					isMenuOpen ? "bg-transparent" : "bg-background/85 backdrop-blur-sm"
+				}`}
+			>
 				<a href="/" className="z-50">
 					<img src={logo.src} alt="Logo" className="site-logo w-8 h-8" />
 				</a>
@@ -62,7 +99,10 @@ export default function MobileHeader() {
 				<button
 					type="button"
 					onClick={toggleMenu}
-					className="z-50 text-white focus:outline-none text-base font-normal"
+					aria-expanded={isMenuOpen}
+					aria-controls="mobile-menu"
+					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+					className="z-50 text-palette-brightest-white focus:outline-none text-base font-normal"
 				>
 					{isMenuOpen ? "X" : "Menu"}
 				</button>
@@ -72,6 +112,7 @@ export default function MobileHeader() {
 			<AnimatePresence>
 				{isMenuOpen && (
 					<motion.div
+						id="mobile-menu"
 						initial="initial"
 						animate="animate"
 						exit="exit"

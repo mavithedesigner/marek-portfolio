@@ -111,9 +111,15 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 	</head>
 	<body>
 		<div class="noise-overlay" aria-hidden="true"></div>
-		<CustomCursor client:load transition:persist />
-		<ImageCounter client:load transition:persist />
+		<!--
+			The cursor and the image counter both follow the mouse, so on touch
+			screens they render nothing. client:media skips downloading and
+			hydrating them there entirely.
+		-->
+		<CustomCursor client:media="(hover: hover)" transition:persist />
+		<ImageCounter client:media="(hover: hover)" transition:persist />
 		<Header />
+		<!-- client:load: the menu button has to answer the very first tap. -->
 		<MobileHeader client:load />
 		<main class="flex-grow">
 			<slot />

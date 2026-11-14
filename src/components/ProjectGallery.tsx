@@ -49,8 +49,22 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 
 	const [index, setIndex] = useState(0);
 	const [isFreeScroll, setIsFreeScroll] = useState(false);
+	/**
+	 * Flipped once the page has loaded. In pin mode the strip is clipped and
+	 * moved with a transform, so native lazy loading only sees an image once it
+	 * is already on screen and it would pop in mid-scroll. Loading the rest
+	 * after `load` keeps them off the critical path but ready in time. The
+	 * swipeable carousel scrolls natively, so lazy loading works there as is.
+	 */
+	const [warm, setWarm] = useState(false);
 	/** Below this width the strip is a plain swipeable carousel — no pinning. */
 	const PIN_MIN_WIDTH = 1024;
+	/*
+	 * Touch-first screens get the carousel at any width: a 1024px+ tablet would
+	 * otherwise get the pinned strip, whose overflow is hidden, and a horizontal
+	 * swipe would do nothing.
+	 */
+	const TOUCH_QUERY = "(hover: none) and (pointer: coarse)";
 
 	const total = images.length;
 
@@ -159,7 +173,9 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 	// Measure once mounted, on resize, and as images finish decoding.
 	useEffect(() => {
 		const syncMode = () => {
-			const free = window.innerWidth < PIN_MIN_WIDTH;
+			const free =
+				window.innerWidth < PIN_MIN_WIDTH ||
+				window.matchMedia(TOUCH_QUERY).matches;
 			freeScrollRef.current = free;
 			setIsFreeScroll(free);
 			// Leaving pin mode must clear the transform, or the strip stays offset.
@@ -196,6 +212,13 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 		};
 	}, [measure, applyRatio]);
 
+	useEffect(() => {
+		const onLoad = () => setWarm(true);
+		if (document.readyState === "complete") onLoad();
+		else window.addEventListener("load", onLoad, { once: true });
+		return () => window.removeEventListener("load", onLoad);
+	}, []);
+
 	const handleTouchStart = useCallback(() => {
 		touchingRef.current = true;
 	}, []);
@@ -225,6 +248,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 						width={image.width}
 						height={image.height}
 						loading="eager"
+						fetchPriority="high"
 						decoding="async"
 						draggable={false}
 						className="h-auto w-full select-none object-contain"
@@ -274,7 +298,15 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 									alt={image.alt ?? image.title}
 									width={image.width}
 									height={image.height}
-									loading={i < 3 ? "eager" : "lazy"}
+									// The first image is the LCP candidate, so it alone gets
+									// eager + high priority. The second can peek in at the
+									// column edge on desktop; lazy images that intersect the
+									// viewport still load straight away, just without
+									// competing with the first. The rest wait for `warm`.
+									loading={
+										i === 0 || (warm && !isFreeScroll) ? "eager" : "lazy"
+									}
+									fetchPriority={i === 0 ? "high" : undefined}
 									decoding="async"
 									draggable={false}
 									className="h-full w-auto max-w-none select-none object-contain"

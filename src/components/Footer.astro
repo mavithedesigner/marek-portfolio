@@ -1,4 +1,6 @@
 ---
+import { SHOW_THOUGHTS } from "../lib/features";
+
 const leftLinks = [
 	{
 		href: "https://www.artisticareaclub.com/",
@@ -8,7 +10,7 @@ const leftLinks = [
 
 const pages = [
 	{ href: "/archive", text: "Archive" },
-	{ href: "/thoughts", text: "Thoughts" },
+	...(SHOW_THOUGHTS ? [{ href: "/thoughts", text: "Thoughts" }] : []),
 	{ href: "/about", text: "About" },
 	{ href: "/contact", text: "Contact" },
 ];
@@ -33,7 +35,7 @@ const labelClass = "text-secondary-foreground mb-1";
 
 <footer class="site-footer w-full section-gap">
 	<div class="w-full max-w-7xl mx-auto px-4">
-		<div class="grid grid-cols-1 md:grid-cols-4 gap-8 pt-[var(--space-xl)] pb-8">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-[var(--space-xl)] pb-8">
 			<ul>
 				{leftLinks.map((l) => (
 					<li><a href={l.href} class="hover:underline" target="_blank" rel="noreferrer noopener">{l.text}</a></li>
@@ -76,10 +78,18 @@ const labelClass = "text-secondary-foreground mb-1";
 		</div>
 
 		<div class="h-px bg-white/10"></div>
-		<div class="flex flex-col items-center gap-2 pt-4 pb-12 text-palette-brightest-white sm:flex-row sm:justify-between">
-			<p>ARTISTICAREACLUB © {year} All Rights Reserved</p>
+		<!-- Centred on its own; once the RSS link is back it sits opposite it. -->
+		<div
+			class:list={[
+				"flex flex-col items-center gap-2 pt-4 pb-12 text-palette-brightest-white sm:flex-row",
+				SHOW_THOUGHTS ? "sm:justify-between" : "justify-center",
+			]}
+		>
+			<p class="text-center">Marek Vicáň © {year} All Rights Reserved</p>
 			<!-- A feed, not a way to contact me, so it belongs down here. -->
-			<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+			{SHOW_THOUGHTS && (
+				<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+			)}
 		</div>
 	</div>
 </footer>
@@ -94,5 +104,19 @@ const labelClass = "text-secondary-foreground mb-1";
 	.site-footer {
 		background: color-mix(in srgb, var(--color-palette-brightest-white) 5%, var(--color-background));
 		border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 12%, transparent);
+	}
+
+	/*
+	 * Links are one text line tall, which is plenty for a cursor but too small
+	 * and too tightly stacked for a thumb. Touch screens get 44px rows; desktop
+	 * keeps the compact list.
+	 */
+	@media (pointer: coarse) {
+		.site-footer a {
+			display: flex;
+			align-items: center;
+			width: fit-content;
+			min-height: 2.75rem;
+		}
 	}
 </style>

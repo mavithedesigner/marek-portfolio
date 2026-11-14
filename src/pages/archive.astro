@@ -49,7 +49,7 @@ const tags = await getProjectTags();
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[var(--card-gutter)] gap-y-[var(--card-gutter-y)] px-4 mt-10" data-archive-grid>
-        {projects.map((project) => (
+        {projects.map((project, i) => (
           <a
             href={`/project/${project.slug}`}
             class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
@@ -62,6 +62,7 @@ const tags = await getProjectTags();
                 startIndex={0}
                 className="w-full h-auto select-none object-contain"
                 disableClick={true}
+                priority={i < 2}
               />
               <ProjectBadge label={project.badge} />
             </div>
@@ -116,6 +117,13 @@ const tags = await getProjectTags();
 		font-size: 0.8rem;
 		color: var(--color-palette-brightest-white);
 		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+
+	/* Fingers need a bigger target than the cursor does; the desktop chip is unchanged. */
+	@media (pointer: coarse) {
+		.filter-chip {
+			min-height: 2.5rem;
+		}
 	}
 
 	.filter-chip:hover {

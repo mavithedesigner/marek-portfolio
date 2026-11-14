@@ -23,6 +23,11 @@ type CycleImageProps = {
 	cursorClassName?: string;
 	disableClick?: boolean;
 	showCounter?: boolean;
+	/**
+	 * Above the fold on load (e.g. the first archive cards): load eagerly at
+	 * high priority so it can be the LCP image instead of waiting on lazy loading.
+	 */
+	priority?: boolean;
 };
 
 export default function CycleImage(props: CycleImageProps) {
@@ -35,6 +40,7 @@ export default function CycleImage(props: CycleImageProps) {
 		cursorClassName = "cursor-default hover:cursor-e-resize",
 		disableClick = false,
 		showCounter = false,
+		priority = false,
 	} = props;
 
 	const total = images.length;
@@ -120,7 +126,8 @@ export default function CycleImage(props: CycleImageProps) {
 					srcSet={current.srcSet}
 					sizes={current.sizes}
 					alt={current.alt ?? current.title}
-					loading="lazy"
+					loading={priority ? "eager" : "lazy"}
+					fetchPriority={priority ? "high" : undefined}
 					decoding="async"
 					width={current.width}
 					height={current.height}

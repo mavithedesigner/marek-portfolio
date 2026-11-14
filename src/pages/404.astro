@@ -1,17 +1,21 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
-<html>
-    <head>
-        <title>404 | Marek Vican</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content="404 page not found..." />
-    </head>
-    <body>
-        <div class="w-screen h-screen flex items-center justify-center bg-background text-palette-brightest-white">
-            <p class="text-lg">404 page not found...</p>
-        </div>
-    </body>
-</html>
+
+<!--
+	Uses the site Layout so a dead link still lands on the real site: header,
+	navigation and footer stay in reach instead of a bare dead end.
+-->
+<Layout title="404 |" description="404 page not found...">
+	<!-- svh, not h-screen: on iOS 100vh includes the hidden browser chrome. -->
+	<div
+		class="flex min-h-[calc(100svh-5.5rem)] flex-col items-center justify-center gap-6 px-4 text-palette-brightest-white"
+	>
+		<p class="text-lg">404 page not found...</p>
+		<a
+			href="/"
+			class="rounded-none bg-palette-brightest-white/15 px-4 py-2 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
+			>Back to home</a
+		>
+	</div>
+</Layout>

@@ -10,7 +10,9 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<div class="relative flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
+	<!-- svh, not vh: on iOS 100vh includes the hidden browser chrome, so the
+	     theme toggle sat under the toolbar. Matches contact and about. -->
+	<div class="relative flex flex-col items-center justify-center min-h-[calc(100svh-5rem)]">
 		<WritingHeading />
 		<div class="absolute bottom-8 left-0 right-0 flex justify-center">
 			<ThemeToggle />
