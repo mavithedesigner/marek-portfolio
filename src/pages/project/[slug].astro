@@ -292,13 +292,6 @@ const collaborators = parseCollaborators(project.collaborators);
 
 </Layout>
 
-<script is:inline>
-	// Open every project at the top. The gallery is driven by page scroll, so a
-	// restored scroll position used to drop people in the middle of the strip.
-	if ("scrollRestoration" in history) {
-		history.scrollRestoration = "manual";
-	}
-</script>
 
 <style>
 	/* No boxes and no thumbnail: type alone carries it. */

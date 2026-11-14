@@ -122,26 +122,57 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 		<script>
 			import Lenis from "@studio-freight/lenis";
 
-			const prefersReducedMotion = window.matchMedia(
-				"(prefers-reduced-motion: reduce)",
-			).matches;
+			/*
+			 * Smooth scrolling, set up exactly once per visit.
+			 *
+			 * This script runs again on every view-transition navigation. Without the
+			 * guard below, each page visited created ANOTHER Lenis instance with
+			 * ANOTHER animation loop, and every one of them kept writing the scroll
+			 * position every frame. The result was a page that drifted on its own
+			 * after a few clicks, and that never started at the top. One instance,
+			 * one loop, for the life of the tab.
+			 */
+			const w = window as any;
 
-			const lenis = new Lenis({
-				duration: prefersReducedMotion ? 0 : 1,
-				smoothWheel: !prefersReducedMotion,
-			});
+			if (!w.__lenis) {
+				const prefersReducedMotion = window.matchMedia(
+					"(prefers-reduced-motion: reduce)",
+				).matches;
 
-			// Exposed so the project gallery can keep page scroll and the
-			// horizontal strip in sync when the strip is swiped directly.
-			(window as any).__lenis = lenis;
+				const lenis = new Lenis({
+					duration: prefersReducedMotion ? 0 : 1,
+					smoothWheel: !prefersReducedMotion,
+				});
 
-			function raf(time: number) {
-				lenis.raf(time);
-				requestAnimationFrame(raf);
-			}
+				// Exposed so the project gallery can keep page scroll and the
+				// horizontal strip in sync when the strip is swiped directly.
+				w.__lenis = lenis;
 
-			if (!prefersReducedMotion) {
-				requestAnimationFrame(raf);
+				function raf(time: number) {
+					lenis.raf(time);
+					requestAnimationFrame(raf);
+				}
+
+				if (!prefersReducedMotion) {
+					requestAnimationFrame(raf);
+				}
+
+				// The browser restoring a scroll position fights the rule below, so it
+				// is switched off for the whole site, not just the project pages.
+				if ("scrollRestoration" in history) {
+					history.scrollRestoration = "manual";
+				}
+
+				/*
+				 * Every navigation starts at the top. Lenis keeps its own idea of the
+				 * scroll position across a view transition, so it has to be told, not
+				 * just the window.
+				 */
+				document.addEventListener("astro:after-swap", () => {
+					window.scrollTo(0, 0);
+					lenis.resize();
+					lenis.scrollTo(0, { immediate: true, force: true });
+				});
 			}
 		</script>
 	</body>
