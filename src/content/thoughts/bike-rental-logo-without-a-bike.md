@@ -12,7 +12,7 @@ draft: false
 
 Put the logos of ten bike rentals next to each other and you'll mostly see a wheel, a gear or a bike drawn from the side, and around the lakes of Orava it's no different. Those logos tell you what the place rents, but none of them says anything about **how the ride will feel**.
 
-That's the category I stepped into when Tilia Resort asked me to create [Bicykľáreň](https://bicyklaren.sk/), a bike rental under its own brand, which became my **biggest freelance project so far** and the first one I led from the first brainstorm to launch.
+That's the category I stepped into when [Tilia Resort](https://www.tiliaresort.sk/) asked me to create [Bicykľáreň](https://bicyklaren.sk/), a bike rental under its own brand, which became my **biggest freelance project so far** and the first one I led from the first brainstorm to launch.
 
 ## Two concepts and a blank page
 
@@ -20,13 +20,23 @@ The brief had a tension in it, because the rental had to feel like part of the r
 
 I usually present three logo concepts. I had two ready, and after a briefing with the client I knew the third one had to be completely different from both of them, but **I was blocked** and couldn't come up with anything.
 
+The first concept sets the name inside **the shape of a folded map** that breaks like a mountain ridge. The zigzag naturally carries the idea of a route, terrain and a clear direction. It's bold and hard to miss, which I liked, but it also felt more technical, closer to the bikes than to the ride.
+
+The second one is built from **separate lines that suggest the road** a customer sets off on, and it takes its cues from the Tilia Resort brand itself. Everything in it is split apart to say that the trails here wind and twist, which you can see best in the Y and the K, where the letters turn into paths.
+
+![Three logo concepts for Bicykľáreň, from the top: the name inside a folded map, the name built from winding separate lines, and the handwritten wordmark in one continuous line](../../assets/thoughts/bicyklaren-concepts.png "bicyklaren_concepts.png")
+
 ## Drawing the ride
 
 So I went deeper and looked for a gap, something no other rental was doing. Every logo in the category showed the bike, and none of them showed what people actually come for, which is the afternoon on the trail, a route that keeps going without stops.
 
 That became the third concept. The wordmark is written in **one continuous line**, like a route you ride from start to finish without stopping, and it also had the traditional, family-friendly feel the brief asked for. I presented it next to the other two concepts, and **it won**.
 
-I used the same rule for the illustrations, so every drawing in the brand looks like **part of one smooth trip**, and the line travelled onto everything a guest touches, from the stickers on the bikes and the shop window to flags, posters, flyers and a cap.
+I used the same rule for the illustrations, so every drawing in the brand is made from a single line and looks like **part of one smooth trip**.
+
+![Bicykľáreň illustrations, each drawn in one continuous line: a trophy wrapped in linden leaves, a chainring, a linden leaf, mountains and a spruce](../../assets/thoughts/bicyklaren-illustrations.png "bicyklaren_illustrations.png")
+
+From there the line travelled onto everything a guest touches, from the stickers on the bikes and the shop window to flags, posters, flyers and a cap.
 
 ## Keeping the promise
 

@@ -133,7 +133,7 @@ export default function MobileHeader() {
 								<motion.a
 									key={link.href}
 									href={link.href}
-									className="text-xl font-normal text-secondary-foreground first-letter:text-palette-brightest-white hover:opacity-60 transition-opacity"
+									className="text-xl font-normal text-palette-brightest-white"
 									onClick={() => setIsMenuOpen(false)}
 									variants={linkVariants}
 								>

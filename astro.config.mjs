@@ -9,6 +9,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
 import { PUBLISH_THOUGHTS } from "./src/lib/features";
+import rehypeFigure from "./src/lib/rehype-figure.mjs";
 
 /**
  * Until Thoughts is published, the production build drops its pages and the
@@ -57,6 +58,10 @@ const postLastmod = new Map(
 export default defineConfig({
 	// Needed for canonical URLs, absolute og:image paths and the sitemap.
 	site: "https://www.vican.design",
+
+	markdown: {
+		rehypePlugins: [rehypeFigure],
+	},
 
 	vite: {
 		plugins: [tailwindcss()],

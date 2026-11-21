@@ -594,22 +594,18 @@ html.theme-switching::view-transition-new(root) {
 	height: auto;
 }
 
+/* Same width as the text, so pictures sit in the reading column. The caption
+   is the file name in small white type, as under the project galleries. */
 .prose figure {
-	margin-top: var(--space-xl);
-	margin-bottom: var(--space-xl);
+	margin-top: var(--space-lg);
+	margin-bottom: var(--space-lg);
 }
 
 .prose figcaption {
-	margin-top: var(--space-2xs);
+	margin-top: 0.25rem;
 	font-size: 0.8rem;
-	color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
-}
-
-@media (min-width: 1024px) {
-	.prose figure,
-	.prose > img {
-		width: min(56rem, 86vw);
-	}
+	line-height: 1.4;
+	color: var(--color-palette-brightest-white);
 }
 
 .prose hr {

@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import { render } from "astro:content";
-import CallToAction from "../../components/CallToAction.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getProjects } from "../../lib/projects";
 import {
@@ -145,26 +144,6 @@ const labelClass =
 			</div>
 
 			{
-				caseStudies.length > 0 && (
-					<div class="mt-12 border-t border-palette-brightest-white/15 pt-8">
-						<p class={labelClass}>
-							{caseStudies.length > 1 ? "Case studies" : "Case study"}
-						</p>
-						<ul class="mt-4 space-y-5">
-							{caseStudies.map((project) => (
-								<li>
-									<a href={`/project/${project.slug}/`} class="case-link">
-										<span class="case-name">{project.name} →</span>
-										<span class="case-tagline">{project.tagline}</span>
-									</a>
-								</li>
-							))}
-						</ul>
-					</div>
-				)
-			}
-
-			{
 				post.data.tags.length > 0 && (
 					<ul class="mt-12 flex flex-wrap gap-2" aria-label="Topics">
 						{post.data.tags.map((tag) => (
@@ -178,7 +157,7 @@ const labelClass =
 				)
 			}
 
-			<div class="mt-12">
+			<div class="mt-8">
 				<p class={labelClass}>Share</p>
 				<p class="mt-3 flex flex-wrap gap-x-5 gap-y-2">
 					<a href={share.linkedin} target="_blank" rel="noreferrer noopener" class="share-link">
@@ -189,42 +168,59 @@ const labelClass =
 					</a>
 				</p>
 			</div>
+
+			{/*
+				Where to go after the post, as two separate blocks with their own
+				labels and a line above each: first the work the post is about,
+				then the other posts.
+			*/}
+			{
+				caseStudies.length > 0 && (
+					<section class="end-block" aria-labelledby="case-study-label">
+						<p id="case-study-label" class={labelClass}>
+							{caseStudies.length > 1 ? "Full case studies" : "Full case study"}
+						</p>
+						<ul class="mt-4 space-y-5">
+							{caseStudies.map((project) => (
+								<li>
+									<a href={`/project/${project.slug}/`} class="case-link">
+										<span class="case-name">{project.name} →</span>
+										<span class="case-tagline">{project.tagline}</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				)
+			}
+
+			{
+				(newer || older) && (
+					<nav class="end-block" aria-label="Other posts">
+						<p class={labelClass}>More thoughts</p>
+						<div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-12">
+							{older ? (
+								<a href={`/thoughts/${older.id}/`} class="pager">
+									<span class="pager-label">← older_post</span>
+									<span class="pager-title">{older.data.title}</span>
+								</a>
+							) : (
+								<span class="hidden md:block" />
+							)}
+
+							{newer && (
+								<a href={`/thoughts/${newer.id}/`} class="pager pager--next md:col-start-2">
+									<span class="pager-label">newer_post →</span>
+									<span class="pager-title">{newer.data.title}</span>
+								</a>
+							)}
+						</div>
+					</nav>
+				)
+			}
 			</div>
 		</div>
 	</article>
-
-	{
-		(newer || older) && (
-			<nav class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]" aria-label="Other posts">
-				<div class="container mx-auto px-4">
-					<div class="mx-auto w-full max-w-[66ch]">
-					<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-						{older ? (
-							<a href={`/thoughts/${older.id}/`} class="pager">
-								<span class="pager-label">← older_post</span>
-								<span class="pager-title">{older.data.title}</span>
-							</a>
-						) : (
-							<span />
-						)}
-
-						{newer && (
-							<a href={`/thoughts/${newer.id}/`} class="pager pager--next md:col-start-2">
-								<span class="pager-label">newer_post →</span>
-								<span class="pager-title">{newer.data.title}</span>
-							</a>
-						)}
-						</div>
-					</div>
-				</div>
-			</nav>
-		)
-	}
-
-	<CallToAction
-		heading="Working on something?"
-		intro="If any of this sounds like your problem, I'd like to hear about it."
-	/>
 </Layout>
 
 <style>
@@ -272,6 +268,12 @@ const labelClass =
 
 	.share-link:hover {
 		text-decoration: underline;
+	}
+
+	.end-block {
+		margin-top: var(--space-xl);
+		padding-top: var(--space-lg);
+		border-top: 1px solid color-mix(in srgb, var(--color-palette-brightest-white) 15%, transparent);
 	}
 
 	.case-link {
