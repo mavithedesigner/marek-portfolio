@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 export type Thought = CollectionEntry<"thoughts">;
 
@@ -13,7 +13,11 @@ export async function getThoughts(): Promise<Thought[]> {
 		import.meta.env.PROD ? !data.draft : true,
 	);
 
-	return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+	// Same day: alphabetical by file name, so the order never shuffles between builds.
+	return posts.sort(
+		(a, b) =>
+			b.data.date.valueOf() - a.data.date.valueOf() || a.id.localeCompare(b.id),
+	);
 }
 
 /**
@@ -58,4 +62,13 @@ export function formatDate(date: Date): string {
 export function readingTime(body: string): number {
 	const words = body.trim().split(/\s+/).length;
 	return Math.max(1, Math.round(words / 200));
+}
+
+/** Inline style for a cover frame: its background colour and image position. */
+export function coverStyle(data: { coverBg?: string; coverPosition?: string }) {
+	const parts = [
+		data.coverBg && `--cover-bg: ${data.coverBg}`,
+		data.coverPosition && `--cover-pos: ${data.coverPosition}`,
+	].filter(Boolean);
+	return parts.length ? parts.join("; ") : undefined;
 }

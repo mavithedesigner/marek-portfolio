@@ -14,6 +14,9 @@ const {
 	// Only where the block is above the fold (the contact page); on the home
 	// page it sits far down and should stay lazy.
 	eager = false,
+	// The home page only points to the contact page with one button; the three
+	// ways to reach me live on the contact page itself.
+	options = true,
 } = Astro.props;
 ---
 
@@ -23,10 +26,20 @@ const {
 			<div class="w-full md:w-auto text-left">
 				<h2 class="text-base font-mono text-secondary-foreground">Contact</h2>
 				<p class="mt-4 max-w-sm text-lg text-palette-brightest-white">
-					Have a project in mind? There are three ways to reach me, pick
-					whichever suits you.
+					{options
+						? "There are three ways to reach me, pick whichever suits you."
+						: "Have a project in mind?"}
 				</p>
 				<p class="mt-3 text-sm text-palette-brightest-white/60">{availability}</p>
+				{!options && (
+					<!-- Same chip as Contact in the header. -->
+					<a
+						href="/contact"
+						class="mt-6 inline-block rounded-none bg-palette-brightest-white/15 px-3 py-1.5 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
+					>
+						Contact
+					</a>
+				)}
 			</div>
 
 			<!-- A definite width: in a column with items-start (and as a flex item
@@ -50,6 +63,6 @@ const {
 			</div>
 		</div>
 
-		<CallToAction variant="inline" class="mt-16" heading="Get in touch" />
+		{options && <CallToAction variant="inline" class="mt-16" heading="" intro="" />}
 	</div>
 </section>

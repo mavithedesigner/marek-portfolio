@@ -3,7 +3,12 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import CallToAction from "../../components/CallToAction.astro";
 import Layout from "../../layouts/Layout.astro";
-import { formatDate, getThoughts, readingTime } from "../../lib/thoughts";
+import {
+	coverStyle,
+	formatDate,
+	getThoughts,
+	readingTime,
+} from "../../lib/thoughts";
 
 export async function getStaticPaths() {
 	const posts = await getThoughts();
@@ -74,14 +79,16 @@ const labelClass =
 
 			{
 				post.data.cover && (
-					<figure class="mt-12">
+					<figure
+						class="cover-frame mt-12 aspect-[16/10] w-full"
+						style={coverStyle(post.data)}
+					>
 						<Image
 							src={post.data.cover}
 							alt={post.data.coverAlt ?? ""}
 							widths={[480, 800, 1200, 1600]}
 							sizes="(max-width: 768px) 100vw, 66ch"
 							loading="eager"
-							class="h-auto w-full"
 						/>
 					</figure>
 				)

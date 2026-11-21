@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useState } from "react";
 
 type CounterData = {
@@ -23,13 +23,10 @@ export default function ImageCounter() {
 		isVisible: false,
 	});
 
-	// Same smooth spring animation as cursor
-	const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-	const mouseXSpring = useSpring(mouseX, springConfig);
-	const mouseYSpring = useSpring(mouseY, springConfig);
+	// Follows the pointer exactly, like the crosshair above it.
 
 	// Add offset to position counter below cursor
-	const counterY = useTransform(mouseYSpring, (value) => value + 30);
+	const counterY = useTransform(mouseY, (value) => value + 30);
 
 	useEffect(() => {
 		const handleMouseMove = (e: MouseEvent) => {
@@ -60,7 +57,7 @@ export default function ImageCounter() {
 			animate={{ opacity: counterData.isVisible ? 1 : 0 }}
 			transition={{ duration: 0.2 }}
 			style={{
-				x: mouseXSpring,
+				x: mouseX,
 				y: counterY,
 			}}
 		>

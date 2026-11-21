@@ -1,7 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
-import { formatDate, getThoughts, getThoughtTags, readingTime } from "../../lib/thoughts";
+import {
+	coverStyle,
+	formatDate,
+	getThoughtTags,
+	getThoughts,
+	readingTime,
+} from "../../lib/thoughts";
 
 const posts = await getThoughts();
 const tags = await getThoughtTags();
@@ -39,27 +45,31 @@ const [featured, ...rest] = posts;
 							data-tags={featured.data.tags.join("|")}
 						>
 							{featured.data.cover && (
-								<Image
-									src={featured.data.cover}
-									alt={featured.data.coverAlt ?? ""}
-									widths={[480, 800, 1200, 1600]}
-									sizes="(max-width: 1280px) 100vw, 80rem"
-									loading="eager"
-									class="featured-cover"
-								/>
+								<div
+									class="cover-frame featured-cover"
+									style={coverStyle(featured.data)}
+								>
+									<Image
+										src={featured.data.cover}
+										alt={featured.data.coverAlt ?? ""}
+										widths={[480, 800, 1200, 1600]}
+										sizes="(max-width: 1024px) 100vw, 46rem"
+										loading="eager"
+									/>
+								</div>
 							)}
 
-							<span class="meta">
-								<time datetime={featured.data.date.toISOString()}>
-									{formatDate(featured.data.date)}
-								</time>
-								<span aria-hidden="true">·</span>
-								<span>{readingTime(featured.body ?? "")} min read</span>
-								{featured.data.draft && <span class="draft-flag">draft</span>}
+							<span class="featured-text">
+								<h2 class="featured-title">{featured.data.title}</h2>
+								<span class="featured-summary">{featured.data.description}</span>
+								<span class="meta">
+									<time datetime={featured.data.date.toISOString()}>
+										{formatDate(featured.data.date)}
+									</time>
+									<span>{readingTime(featured.body ?? "")} min read</span>
+									{featured.data.draft && <span class="draft-flag">draft</span>}
+								</span>
 							</span>
-
-							<h2 class="featured-title">{featured.data.title}</h2>
-							<p class="featured-summary">{featured.data.description}</p>
 						</a>
 
 						{/*
@@ -86,27 +96,30 @@ const [featured, ...rest] = posts;
 									<li data-post data-tags={post.data.tags.join("|")}>
 										<a href={`/thoughts/${post.id}/`} class="post">
 											{post.data.cover && (
-												<Image
-													src={post.data.cover}
-													alt=""
-													widths={[400, 800]}
-													sizes="(max-width: 768px) 100vw, 36rem"
-													loading="lazy"
-													class="post-cover"
-												/>
+												<div
+													class="cover-frame post-cover"
+													style={coverStyle(post.data)}
+												>
+													<Image
+														src={post.data.cover}
+														alt=""
+														widths={[400, 800]}
+														sizes="(max-width: 768px) 100vw, 36rem"
+														loading="lazy"
+													/>
+												</div>
 											)}
+
+											<span class="post-title">{post.data.title}</span>
+											<span class="post-summary">{post.data.description}</span>
 
 											<span class="meta">
 												<time datetime={post.data.date.toISOString()}>
 													{formatDate(post.data.date)}
 												</time>
-												<span aria-hidden="true">·</span>
 												<span>{readingTime(post.body ?? "")} min read</span>
 												{post.data.draft && <span class="draft-flag">draft</span>}
 											</span>
-
-											<span class="post-title">{post.data.title}</span>
-											<span class="post-summary">{post.data.description}</span>
 										</a>
 									</li>
 								))}
@@ -128,7 +141,7 @@ const [featured, ...rest] = posts;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.25rem 1rem;
 		font-size: 0.75rem;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -147,22 +160,41 @@ const [featured, ...rest] = posts;
 
 	/* --- lead post ------------------------------------------------------- */
 
+	/*
+	 * Phones: cover on top, text under it. From 1024px the cover sits beside the
+	 * text instead of stretching across the whole width, and the text lines up
+	 * with the bottom of the cover.
+	 */
 	.featured {
-		display: block;
+		display: grid;
+		gap: var(--space-lg);
 	}
 
-	/* Capped against the viewport: the lead post has to fit on one screen
-	   together with the topics and the first row of the grid below it. */
+	/* Capped against the viewport so the lead post fits on one phone screen. */
 	.featured-cover {
 		width: 100%;
-		height: auto;
-		max-height: 38svh;
-		object-fit: cover;
-		margin-bottom: var(--space-lg);
+		height: clamp(14rem, 38svh, 28rem);
+	}
+
+	.featured-text {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@media (min-width: 1024px) {
+		.featured {
+			grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+			align-items: end;
+			gap: var(--card-gutter, 2.5rem);
+		}
+
+		.featured-cover {
+			height: auto;
+			aspect-ratio: 4 / 3;
+		}
 	}
 
 	.featured-title {
-		margin-top: var(--space-xs);
 		font-size: 2rem;
 		line-height: 1.15;
 		letter-spacing: -0.02em;
@@ -172,12 +204,17 @@ const [featured, ...rest] = posts;
 	}
 
 	.featured-summary {
+		display: block;
 		margin-top: var(--space-sm);
 		max-width: 62ch;
 		font-size: 1.0625rem;
 		line-height: 1.65;
 		color: color-mix(in srgb, var(--color-palette-brightest-white) 70%, transparent);
 		text-underline-offset: 4px;
+	}
+
+	.featured .meta {
+		margin-top: var(--space-md);
 	}
 
 	/* The whole entry is one link, so the whole entry reacts. */
@@ -191,6 +228,12 @@ const [featured, ...rest] = posts;
 	@media (min-width: 768px) {
 		.featured-title {
 			font-size: 2.375rem;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.featured-title {
+			font-size: 2.75rem;
 		}
 	}
 
@@ -256,9 +299,11 @@ const [featured, ...rest] = posts;
 		display: block;
 	}
 
+	/* One shape for every card, so titles line up across the row whatever the
+	   cover's own proportions are. */
 	.post-cover {
 		width: 100%;
-		height: auto;
+		aspect-ratio: 16 / 10;
 		margin-bottom: var(--space-md);
 		filter: grayscale(1);
 		opacity: 0.75;
@@ -271,9 +316,12 @@ const [featured, ...rest] = posts;
 		opacity: 1;
 	}
 
+	.post .meta {
+		margin-top: var(--space-sm);
+	}
+
 	.post-title {
 		display: block;
-		margin-top: var(--space-2xs);
 		font-size: 1.25rem;
 		line-height: 1.3;
 		color: var(--color-palette-brightest-white);

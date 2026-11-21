@@ -1,0 +1,93 @@
+---
+/*
+ * Shown only when moving to another page takes long, e.g. on a slow
+ * connection. Normal navigations finish well inside the delay below, so most
+ * visitors never see it, and a quick page never flashes a spinner.
+ */
+const spokes = Array.from({ length: 12 }, (_, i) => i);
+---
+
+<div class="page-loader" data-page-loader hidden role="status" aria-live="polite">
+	<svg class="page-loader__spinner" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+		{spokes.map((i) => (
+			<rect
+				x="15"
+				y="2"
+				width="2"
+				height="8"
+				rx="1"
+				transform={`rotate(${i * 30} 16 16)`}
+				opacity={((i + 1) / 12).toFixed(2)}
+			/>
+		))}
+	</svg>
+	<p>Loading...</p>
+</div>
+
+<script>
+	// Wait this long before showing anything.
+	const DELAY = 400;
+	let timer: number | undefined;
+
+	function loader() {
+		return document.querySelector<HTMLElement>("[data-page-loader]");
+	}
+
+	document.addEventListener("astro:before-preparation", () => {
+		window.clearTimeout(timer);
+		timer = window.setTimeout(() => {
+			const el = loader();
+			if (el) el.hidden = false;
+		}, DELAY);
+	});
+
+	// Hide it once the new page is in, and also if the navigation was abandoned.
+	function hide() {
+		window.clearTimeout(timer);
+		const el = loader();
+		if (el) el.hidden = true;
+	}
+
+	document.addEventListener("astro:after-swap", hide);
+	document.addEventListener("astro:page-load", hide);
+	window.addEventListener("pageshow", hide);
+</script>
+
+<style>
+	.page-loader {
+		position: fixed;
+		inset: 0;
+		z-index: 9990;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		background: var(--color-background);
+		color: var(--color-palette-brightest-white);
+		font-size: 0.875rem;
+	}
+
+	.page-loader[hidden] {
+		display: none;
+	}
+
+	.page-loader__spinner {
+		fill: currentColor;
+		/* Steps, not a smooth spin: each spoke jumps to the next, like the
+		   system spinner. */
+		animation: page-loader-spin 1s steps(12) infinite;
+	}
+
+	@keyframes page-loader-spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.page-loader__spinner {
+			animation-duration: 2s;
+		}
+	}
+</style>

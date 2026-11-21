@@ -1,5 +1,6 @@
 ---
 import { SHOW_THOUGHTS } from "../lib/features";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const leftLinks = [
 	{
@@ -78,18 +79,27 @@ const labelClass = "text-secondary-foreground mb-1";
 		</div>
 
 		<div class="h-px bg-white/10"></div>
-		<!-- Centred on its own; once the RSS link is back it sits opposite it. -->
+		<!--
+			Three slots so the copyright stays in the middle whatever sits beside it:
+			the RSS link (once Thoughts is public) on the left, the theme switch on
+			the right. On a phone they stack, centred.
+		-->
 		<div
-			class:list={[
-				"flex flex-col items-center gap-2 pt-4 pb-12 text-palette-brightest-white sm:flex-row",
-				SHOW_THOUGHTS ? "sm:justify-between" : "justify-center",
-			]}
+			class="flex flex-col items-center gap-3 pt-4 pb-12 text-palette-brightest-white sm:grid sm:grid-cols-[1fr_auto_1fr] sm:gap-6"
 		>
-			<p class="text-center">Marek Vicáň © {year} All Rights Reserved</p>
-			<!-- A feed, not a way to contact me, so it belongs down here. -->
-			{SHOW_THOUGHTS && (
-				<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+			<!-- A feed, not a way to contact me, so it belongs down here. Without it
+			     the slot stays as an empty spacer on wide screens. -->
+			{SHOW_THOUGHTS ? (
+				<div class="order-3 sm:order-none sm:justify-self-start">
+					<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+				</div>
+			) : (
+				<div class="hidden sm:block" aria-hidden="true"></div>
 			)}
+			<p class="order-2 text-center sm:order-none">Marek Vicáň © {year} All Rights Reserved</p>
+			<div class="order-1 sm:order-none sm:justify-self-end">
+				<ThemeToggle />
+			</div>
 		</div>
 	</div>
 </footer>

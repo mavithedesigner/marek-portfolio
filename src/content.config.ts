@@ -27,6 +27,17 @@ const thoughts = defineCollection({
 			/** Describes the cover for screen readers. */
 			coverAlt: z.string().optional(),
 			/**
+			 * The cover's own background colour, e.g. "#f2e7d3". Covers are shown
+			 * whole in a fixed frame, and this fills the space around them so the
+			 * frame reads as part of the image.
+			 */
+			coverBg: z.string().optional(),
+			/**
+			 * Where the cover sits inside its frame, as CSS object-position, e.g.
+			 * "left bottom". Centred when left out.
+			 */
+			coverPosition: z.string().optional(),
+			/**
 			 * Drafts are visible while developing and invisible on the live site,
 			 * so a post can sit here for a week before you decide on it.
 			 */

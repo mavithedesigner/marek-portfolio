@@ -3,19 +3,14 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <!--
-	Uses the site Layout so a dead link still lands on the real site: header,
-	navigation and footer stay in reach instead of a bare dead end.
+	Just the line, centred, the same way the loading state looks. It still uses
+	the site Layout, so the header and its navigation are there to get back.
 -->
 <Layout title="404 |" description="404 page not found...">
 	<!-- svh, not h-screen: on iOS 100vh includes the hidden browser chrome. -->
 	<div
-		class="flex min-h-[calc(100svh-5.5rem)] flex-col items-center justify-center gap-6 px-4 text-palette-brightest-white"
+		class="flex min-h-[calc(100svh-5.5rem)] items-center justify-center px-4 text-sm text-palette-brightest-white"
 	>
-		<p class="text-lg">404 page not found...</p>
-		<a
-			href="/"
-			class="rounded-none bg-palette-brightest-white/15 px-4 py-2 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
-			>Back to home</a
-		>
+		<p>404 page not found...</p>
 	</div>
 </Layout>

@@ -9,7 +9,7 @@
  * To launch: set this to `true`, set `draft: false` on the posts that are ready,
  * then push.
  */
-export const PUBLISH_THOUGHTS = false;
+export const PUBLISH_THOUGHTS = true;
 
 /** Whether Thoughts should appear in the page being rendered right now. */
 // `?.` because astro.config.mjs imports this file too, outside of Vite.

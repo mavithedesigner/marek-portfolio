@@ -1,14 +1,15 @@
 ---
-import { ViewTransitions } from "astro:transitions";
 import { getImage } from "astro:assets";
+import { ViewTransitions } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 import ogSource from "../assets/archive/aac_logo_3d.png";
+import CustomCursor from "../components/CustomCursor";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import MobileHeader from "../components/MobileHeader";
-import CustomCursor from "../components/CustomCursor";
 import ImageCounter from "../components/ImageCounter";
+import MobileHeader from "../components/MobileHeader";
+import PageLoader from "../components/PageLoader.astro";
 
 // 1200×630 is what LinkedIn, WhatsApp and Slack expect from a link preview.
 const ogFallback = await getImage({
@@ -118,6 +119,7 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 		-->
 		<CustomCursor client:media="(hover: hover)" transition:persist />
 		<ImageCounter client:media="(hover: hover)" transition:persist />
+		<PageLoader transition:persist />
 		<Header />
 		<!-- client:load: the menu button has to answer the very first tap. -->
 		<MobileHeader client:load />
