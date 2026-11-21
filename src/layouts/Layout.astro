@@ -10,6 +10,8 @@ import Header from "../components/Header.astro";
 import ImageCounter from "../components/ImageCounter";
 import MobileHeader from "../components/MobileHeader";
 import PageLoader from "../components/PageLoader.astro";
+import { SHOW_THOUGHTS } from "../lib/features";
+import { PERSON_ID, person, toJsonLd } from "../lib/thoughts";
 
 // 1200×630 is what LinkedIn, WhatsApp and Slack expect from a link preview.
 const ogFallback = await getImage({
@@ -30,6 +32,18 @@ const {
 	description = defaultDescription,
 	// Relative path to the preview image; falls back to the shared one.
 	image = ogFallback.src,
+	// Pixel size of `image`, so platforms can lay out the preview before it
+	// downloads. Only known for the fallback unless a page passes its own.
+	imageWidth = image === ogFallback.src ? 1200 : undefined,
+	imageHeight = image === ogFallback.src ? 630 : undefined,
+	imageAlt,
+	// Posts are "article": LinkedIn and Facebook show the date and author, and
+	// search engines read article:published_time as the publication date.
+	type = "website",
+	// { published: Date, modified?: Date, tags?: string[] }, for type "article".
+	article,
+	// Structured data for this page (schema.org), one object or a list.
+	jsonLd,
 	...props
 } = Astro.props;
 
@@ -37,6 +51,31 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const ogImage = new URL(image, Astro.site ?? Astro.url);
 const fullTitle = `${title ?? ""} Marek Vican`.trim();
+
+const site = Astro.site ?? Astro.url;
+
+/*
+ * The home page says who runs the site. Search engines use this for the name
+ * shown above results and for the knowledge panel, and every post points back
+ * to the same person through PERSON_ID, so the writing and the portfolio are
+ * understood as one author.
+ */
+const homeJsonLd =
+	Astro.url.pathname === "/"
+		? [
+				{
+					"@context": "https://schema.org",
+					"@type": "WebSite",
+					"@id": new URL("/#website", site).href,
+					url: new URL("/", site).href,
+					name: "Marek Vicáň",
+					inLanguage: "en",
+					publisher: { "@id": PERSON_ID },
+				},
+				{ "@context": "https://schema.org", ...person },
+			]
+		: [];
+const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 ---
 
 <!doctype html>
@@ -88,17 +127,51 @@ const fullTitle = `${title ?? ""} Marek Vican`.trim();
 		<link rel="canonical" href={canonical.href} />
 
 		<!-- Link previews: without these a shared URL shows as bare text. -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={type} />
 		<meta property="og:site_name" content="Marek Vican" />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical.href} />
 		<meta property="og:image" content={ogImage.href} />
+		{imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+		{imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+		{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+		{
+			article && (
+				<>
+					<meta property="article:published_time" content={article.published.toISOString()} />
+					{article.modified && (
+						<meta property="article:modified_time" content={article.modified.toISOString()} />
+					)}
+					<meta property="article:author" content={new URL("/about/", site).href} />
+					{article.tags?.map((tag: string) => <meta property="article:tag" content={tag} />)}
+				</>
+			)
+		}
 		<meta property="og:locale" content="en_GB" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage.href} />
+		{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
+
+		<!-- Lets feed readers and browser extensions find the feed from any page. -->
+		{
+			SHOW_THOUGHTS && (
+				<link
+					rel="alternate"
+					type="application/rss+xml"
+					title="Marek Vicáň — Thoughts"
+					href={new URL("/rss.xml", site).href}
+				/>
+			)
+		}
+
+		{
+			structuredData.map((data) => (
+				<script is:inline type="application/ld+json" set:html={toJsonLd(data)} />
+			))
+		}
 
 		<ViewTransitions />
 

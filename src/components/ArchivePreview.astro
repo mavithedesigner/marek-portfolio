@@ -18,7 +18,7 @@ const previewProjects = projects.slice(0, 6);
             {
                 previewProjects.map((project) => (
                     <a
-                        href={`/project/${project.slug}`}
+                        href={`/project/${project.slug}/`}
                         class="project-preview project-card relative w-full block"
                     >
                         <div class="relative">
@@ -47,7 +47,7 @@ const previewProjects = projects.slice(0, 6);
     </div>
     <div class="flex justify-center px-4 pt-8 sm:pt-12 md:pt-16 lg:pt-20">
         <a
-            href="/archive"
+            href="/archive/"
             class="text-sm font-mono text-palette-brightest-white hover:text-white hover:underline transition-colors duration-300"
             >see_full_archive</a
         >

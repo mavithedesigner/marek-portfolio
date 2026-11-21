@@ -5,9 +5,9 @@ import { SHOW_THOUGHTS } from "../lib/features";
 
 // Contact is pulled out of the centre group and rendered as a CTA chip on the right.
 const links = [
-	{ href: "/archive", text: "Archive" },
-	...(SHOW_THOUGHTS ? [{ href: "/thoughts", text: "Thoughts" }] : []),
-	{ href: "/about", text: "About" },
+	{ href: "/archive/", text: "Archive" },
+	...(SHOW_THOUGHTS ? [{ href: "/thoughts/", text: "Thoughts" }] : []),
+	{ href: "/about/", text: "About" },
 ];
 ---
 <!--
@@ -32,7 +32,7 @@ const links = [
     </ul>
   </nav>
   <a
-    href="/contact"
+    href="/contact/"
     class="justify-self-end rounded-none bg-palette-brightest-white/15 px-3 py-1.5 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
   >
     Contact

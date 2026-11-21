@@ -21,6 +21,9 @@ export async function GET(context: APIContext) {
 			link: `/thoughts/${post.id}/`,
 			categories: post.data.tags,
 		})),
-		customData: "<language>en-gb</language>",
+		// The atom:link "self" reference is what feed validators ask for: it
+		// tells readers the canonical address of the feed itself.
+		xmlns: { atom: "http://www.w3.org/2005/Atom" },
+		customData: `<language>en-gb</language><atom:link href="${new URL("/rss.xml", context.site ?? "https://www.vican.design").href}" rel="self" type="application/rss+xml"/>`,
 	});
 }

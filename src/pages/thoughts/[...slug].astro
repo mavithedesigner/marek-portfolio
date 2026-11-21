@@ -3,10 +3,14 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import CallToAction from "../../components/CallToAction.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getProjects } from "../../lib/projects";
 import {
+	BLOG_ID,
+	author,
 	coverStyle,
 	formatDate,
 	getThoughts,
+	ogImagePath,
 	readingTime,
 } from "../../lib/thoughts";
 
@@ -27,8 +31,40 @@ export async function getStaticPaths() {
 const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
 
+// The case studies behind the post, in the order the post lists them.
+const allProjects = await getProjects();
+const caseStudies = post.data.projects
+	.map((slug) => allProjects.find((project) => project.slug === slug))
+	.filter((project) => project !== undefined);
+
 const minutes = readingTime(post.body ?? "");
 const url = new URL(`/thoughts/${post.id}/`, Astro.site ?? Astro.url).href;
+
+const ogImage = ogImagePath(post);
+
+/*
+ * BlogPosting structured data: lets search engines show the date, author and
+ * image with the result, and ties the post to the Thoughts blog and to the
+ * same person the home page describes.
+ */
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	"@id": `${url}#post`,
+	headline: post.data.title,
+	description: post.data.description,
+	url,
+	mainEntityOfPage: { "@type": "WebPage", "@id": url },
+	datePublished: post.data.date.toISOString(),
+	dateModified: (post.data.updated ?? post.data.date).toISOString(),
+	inLanguage: "en",
+	keywords: post.data.tags.join(", "),
+	wordCount: (post.body ?? "").trim().split(/\s+/).length,
+	image: ogImage && new URL(ogImage, Astro.site ?? Astro.url).href,
+	author,
+	publisher: author,
+	isPartOf: { "@type": "Blog", "@id": BLOG_ID },
+};
 
 const share = {
 	linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
@@ -42,7 +78,17 @@ const labelClass =
 <Layout
 	title={`${post.data.title} |`}
 	description={post.data.description}
-	image={post.data.cover?.src}
+	image={ogImage}
+	imageWidth={ogImage && 1200}
+	imageHeight={ogImage && 630}
+	imageAlt={post.data.coverAlt}
+	type="article"
+	article={{
+		published: post.data.date,
+		modified: post.data.updated,
+		tags: post.data.tags,
+	}}
+	jsonLd={jsonLd}
 >
 	<!--
 		A centred column, not the left-aligned grid the rest of the site uses:
@@ -87,7 +133,7 @@ const labelClass =
 							src={post.data.cover}
 							alt={post.data.coverAlt ?? ""}
 							widths={[480, 800, 1200, 1600]}
-							sizes="(max-width: 768px) 100vw, 66ch"
+							sizes="(max-width: 767px) 100vw, 42rem"
 							loading="eager"
 						/>
 					</figure>
@@ -97,6 +143,26 @@ const labelClass =
 			<div class="prose mt-12">
 				<Content />
 			</div>
+
+			{
+				caseStudies.length > 0 && (
+					<div class="mt-12 border-t border-palette-brightest-white/15 pt-8">
+						<p class={labelClass}>
+							{caseStudies.length > 1 ? "Case studies" : "Case study"}
+						</p>
+						<ul class="mt-4 space-y-5">
+							{caseStudies.map((project) => (
+								<li>
+									<a href={`/project/${project.slug}/`} class="case-link">
+										<span class="case-name">{project.name} →</span>
+										<span class="case-tagline">{project.tagline}</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				)
+			}
 
 			{
 				post.data.tags.length > 0 && (
@@ -206,6 +272,33 @@ const labelClass =
 
 	.share-link:hover {
 		text-decoration: underline;
+	}
+
+	.case-link {
+		display: block;
+	}
+
+	.case-name {
+		display: block;
+		font-size: 1.25rem;
+		color: var(--color-palette-brightest-white);
+		text-decoration: underline;
+		text-underline-offset: 5px;
+		text-decoration-thickness: 1px;
+		text-decoration-color: color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
+		transition: text-decoration-color 0.2s ease;
+	}
+
+	.case-link:hover .case-name,
+	.case-link:focus-visible .case-name {
+		text-decoration-color: currentColor;
+	}
+
+	.case-tagline {
+		display: block;
+		margin-top: 0.25rem;
+		font-size: 0.875rem;
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
 	}
 
 	.pager {

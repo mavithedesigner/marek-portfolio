@@ -38,6 +38,11 @@ const thoughts = defineCollection({
 			 */
 			coverPosition: z.string().optional(),
 			/**
+			 * Slugs of the case studies this post is about, e.g. ["bicyklaren"].
+			 * Each one is linked at the end of the post.
+			 */
+			projects: z.array(z.string()).default([]),
+			/**
 			 * Drafts are visible while developing and invisible on the live site,
 			 * so a post can sit here for a week before you decide on it.
 			 */

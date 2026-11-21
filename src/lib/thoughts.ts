@@ -72,3 +72,52 @@ export function coverStyle(data: { coverBg?: string; coverPosition?: string }) {
 	].filter(Boolean);
 	return parts.length ? parts.join("; ") : undefined;
 }
+
+/*
+ * Structured data (schema.org JSON-LD) shared by the layout and the posts.
+ *
+ * The person is described once, with a stable @id, and everything else refers
+ * to that id. Search engines then connect the posts, the blog and the home page
+ * to the same author instead of three unrelated "Marek"s.
+ */
+const SITE = "https://www.vican.design";
+
+export const PERSON_ID = `${SITE}/#person`;
+export const BLOG_ID = `${SITE}/thoughts/#blog`;
+
+export const person = {
+	"@type": "Person",
+	"@id": PERSON_ID,
+	name: "Marek Vicáň",
+	url: `${SITE}/about/`,
+	jobTitle: "Designer",
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Bratislava",
+		addressCountry: "SK",
+	},
+	sameAs: [
+		"https://www.linkedin.com/in/vicandesign/",
+		"https://www.instagram.com/vican.design.aac/",
+	],
+};
+
+/** Short reference to the author, for use inside other objects. */
+export const author = {
+	"@type": "Person",
+	"@id": PERSON_ID,
+	name: person.name,
+};
+
+/**
+ * JSON for a <script type="application/ld+json">. "<" is escaped so a title
+ * containing "</script>" can never close the tag early.
+ */
+export function toJsonLd(data: unknown): string {
+	return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/** Where a post's 1200×630 link-preview image is built (see thoughts/og/). */
+export function ogImagePath(post: Thought): string | undefined {
+	return post.data.cover ? `/thoughts/og/${post.id}.jpg` : undefined;
+}

@@ -52,9 +52,12 @@ const testimonials = (rawTestimonials as Testimonial[])
 	.filter((item) => (project ? slugsOf(item.project).includes(project) : true))
 	.slice(0, limit);
 
-const avatarModules = import.meta.glob("../assets/testimonials/*.{png,jpg,jpeg,webp}", {
-	eager: true,
-}) as Record<string, { default: ImageMetadata }>;
+const avatarModules = import.meta.glob(
+	"../assets/testimonials/*.{png,jpg,jpeg,webp}",
+	{
+		eager: true,
+	},
+) as Record<string, { default: ImageMetadata }>;
 
 async function resolveAvatar(filename?: string) {
 	if (!filename) return null;
@@ -160,7 +163,7 @@ const labelClass =
 											!project &&
 											item.showLink !== false && (
 											<a
-												href={`/project/${slugsOf(item.project)[0]}`}
+												href={`/project/${slugsOf(item.project)[0]}/`}
 												class="case-link"
 												tabindex={i >= cards.length ? -1 : undefined}
 											>

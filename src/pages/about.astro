@@ -1,14 +1,14 @@
 ---
 import { getImage } from "astro:assets";
 import Experience from "../components/Experience.astro";
-import Layout from "../layouts/Layout.astro";
 import ProjectGallery from "../components/ProjectGallery";
+import Layout from "../layouts/Layout.astro";
 
-// Import images directly
-import marek_designer from "../assets/marek_designer.png";
 import brokenMirror from "../assets/archive/brokenmirror.png";
 import marek_photography from "../assets/archive/marek_photography.png";
 import portrait from "../assets/archive/portrait.png";
+// Import images directly
+import marek_designer from "../assets/marek_designer.png";
 
 // Optimize images for different sizes with responsive variants
 const optimizeImage = async (src: ImageMetadata) => {

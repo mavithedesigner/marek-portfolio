@@ -3,7 +3,7 @@ import CycleImage from "../components/CycleImage";
 import ProjectBadge from "../components/ProjectBadge.astro";
 import ProjectTags from "../components/ProjectTags.astro";
 import Layout from "../layouts/Layout.astro";
-import { getProjects, getProjectTags } from "../lib/projects";
+import { getProjectTags, getProjects } from "../lib/projects";
 
 const projects = await getProjects();
 const tags = await getProjectTags();
@@ -15,6 +15,8 @@ const tags = await getProjectTags();
 >
   <section class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-[var(--section-gap)]">
     <div class="container mx-auto">
+      <!-- For search engines and screen readers; the grid introduces itself. -->
+      <h1 class="sr-only">Archive</h1>
       <!--
         Twelve projects is enough that someone looking for one discipline has to
         wade through the rest. Filtering is client-side: every project stays in
@@ -51,7 +53,7 @@ const tags = await getProjectTags();
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[var(--card-gutter)] gap-y-[var(--card-gutter-y)] px-4 mt-10" data-archive-grid>
         {projects.map((project, i) => (
           <a
-            href={`/project/${project.slug}`}
+            href={`/project/${project.slug}/`}
             class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
             data-tags={project.tags.join("|")}
           >

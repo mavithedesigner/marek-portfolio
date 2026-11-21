@@ -210,9 +210,12 @@ h6 {
  * CUSTOM CURSOR STYLES
  * ================================================================================ */
 
-/* Hide default cursor globally */
-* {
-	cursor: none !important;
+/* Hide the default cursor only where the crosshair is drawn: the crosshair
+   loads on (hover: hover), so any other device keeps its own cursor. */
+@media (hover: hover) {
+	* {
+		cursor: none !important;
+	}
 }
 
 /*
@@ -558,10 +561,41 @@ html.theme-switching::view-transition-new(root) {
 	color: color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
 }
 
-.prose blockquote {
-	padding-left: var(--space-sm);
-	border-left: 2px solid color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
+/* Underline is for stress, not for links, so it looks like a marker stroke
+   under the words rather than the thin line a link has. */
+.prose u {
 	color: var(--color-palette-brightest-white);
+	text-decoration-line: underline;
+	text-decoration-thickness: 0.4em;
+	text-underline-offset: -0.2em;
+	text-decoration-skip-ink: none;
+	text-decoration-color: color-mix(in srgb, var(--color-palette-brightest-white) 22%, transparent);
+}
+
+/* A quote is a pause in the text: bigger, brighter and with room around it,
+   so a reader skimming the page still catches the main points. */
+.prose blockquote {
+	margin-top: var(--space-xl);
+	margin-bottom: var(--space-xl);
+	padding-left: var(--space-md);
+	border-left: 2px solid var(--color-palette-brightest-white);
+	color: var(--color-palette-brightest-white);
+	font-size: 1.3rem;
+	line-height: 1.45;
+	text-wrap: pretty;
+}
+
+/* A second line is who said it. */
+.prose blockquote p + p {
+	margin-top: var(--space-xs);
+	font-size: 0.875rem;
+	color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+}
+
+@media (min-width: 768px) {
+	.prose blockquote {
+		font-size: 1.5rem;
+	}
 }
 
 /* Images break out of the text measure on wider screens: a screenshot needs the

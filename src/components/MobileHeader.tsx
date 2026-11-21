@@ -73,9 +73,9 @@ export default function MobileHeader() {
 
 	// Contact is rendered separately as a CTA chip, matching the desktop header.
 	const menuLinks = [
-		{ href: "/archive", text: "Archive" },
-		...(SHOW_THOUGHTS ? [{ href: "/thoughts", text: "Thoughts" }] : []),
-		{ href: "/about", text: "About" },
+		{ href: "/archive/", text: "Archive" },
+		...(SHOW_THOUGHTS ? [{ href: "/thoughts/", text: "Thoughts" }] : []),
+		{ href: "/about/", text: "About" },
 	];
 
 	return (
@@ -142,7 +142,7 @@ export default function MobileHeader() {
 							))}
 
 							<motion.a
-								href="/contact"
+								href="/contact/"
 								className="rounded-none bg-palette-brightest-white/15 px-4 py-2 text-xl font-normal text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35"
 								onClick={() => setIsMenuOpen(false)}
 								variants={linkVariants}

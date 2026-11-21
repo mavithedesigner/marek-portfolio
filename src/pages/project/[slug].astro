@@ -3,20 +3,24 @@ import CallToAction from "../../components/CallToAction.astro";
 import ProjectGallery from "../../components/ProjectGallery";
 import Testimonials from "../../components/Testimonials.astro";
 import Layout from "../../layouts/Layout.astro";
-import { getOgImage, getProjects, parseCollaborators } from "../../lib/projects";
+import {
+	getOgImage,
+	getProjects,
+	parseCollaborators,
+} from "../../lib/projects";
 
 export async function getStaticPaths() {
-    const projects = await getProjects();
+	const projects = await getProjects();
 
-    return projects.map((project, index) => ({
-        params: { slug: project.slug },
-        props: {
-            project,
-            index,
-            previous: index > 0 ? projects[index - 1] : null,
-            next: index < projects.length - 1 ? projects[index + 1] : null,
-        },
-    }));
+	return projects.map((project, index) => ({
+		params: { slug: project.slug },
+		props: {
+			project,
+			index,
+			previous: index > 0 ? projects[index - 1] : null,
+			next: index < projects.length - 1 ? projects[index + 1] : null,
+		},
+	}));
 }
 
 const { project, previous, next } = Astro.props;
@@ -28,11 +32,11 @@ const ogImage = await getOgImage(project.thumbnail);
 const hasStrip = project.imageItems.length > 1;
 const collaborators = parseCollaborators(project.collaborators);
 const websiteLabel =
-    project.websiteLabel ??
-    (project.website ?? "")
-        .replace(/^https?:\/\//, "")
-        .replace(/^www\./, "")
-        .replace(/\/$/, "");
+	project.websiteLabel ??
+	(project.website ?? "")
+		.replace(/^https?:\/\//, "")
+		.replace(/^www\./, "")
+		.replace(/\/$/, "");
 ---
 
 <Layout
@@ -103,9 +107,10 @@ const websiteLabel =
                             >
                                 Name
                             </div>
-                            <div class="text-palette-brightest-white">
+                            <!-- The page's h1: styled as the plain value it always was. -->
+                            <h1 class="text-palette-brightest-white">
                                 {project.name}
-                            </div>
+                            </h1>
                         </div>
 
                         {project.website && (
@@ -271,7 +276,7 @@ const websiteLabel =
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
                 {
                     previous ? (
-                        <a href={`/project/${previous.slug}`} class="pager">
+                        <a href={`/project/${previous.slug}/`} class="pager">
                             <span class="pager-label">← previous_project</span>
                             <span class="pager-name">{previous.name}</span>
                             <span class="pager-tagline">{previous.tagline}</span>
@@ -284,7 +289,7 @@ const websiteLabel =
                 {
                     next && (
                         <a
-                            href={`/project/${next.slug}`}
+                            href={`/project/${next.slug}/`}
                             class="pager pager--next md:col-start-2"
                         >
                             <span class="pager-label">next_project →</span>

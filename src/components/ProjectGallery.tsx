@@ -75,10 +75,12 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 		if (!viewport || !strip) return;
 
 		if (!trackRef.current) {
-			trackRef.current = rootRef.current?.closest<HTMLElement>("[data-pin-track]") ?? null;
+			trackRef.current =
+				rootRef.current?.closest<HTMLElement>("[data-pin-track]") ?? null;
 		}
 		if (!stickyRef.current) {
-			stickyRef.current = rootRef.current?.closest<HTMLElement>("[data-pin-sticky]") ?? null;
+			stickyRef.current =
+				rootRef.current?.closest<HTMLElement>("[data-pin-sticky]") ?? null;
 		}
 
 		const overflow = Math.max(0, strip.scrollWidth - viewport.clientWidth);
@@ -92,7 +94,8 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 		const track = trackRef.current;
 		const sticky = stickyRef.current;
 		if (track && sticky) {
-			stickyTopRef.current = Number.parseFloat(getComputedStyle(sticky).top) || 0;
+			stickyTopRef.current =
+				Number.parseFloat(getComputedStyle(sticky).top) || 0;
 			// The track is exactly as tall as the pinned block plus the distance the
 			// strip has to travel. Deriving it from the sticky element's real height
 			// (rather than a flat 100svh) means the strip starts moving the instant
@@ -160,7 +163,8 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 					// Progress is measured from the moment the block sticks, i.e. when
 					// the track's top reaches the sticky offset — not from y = 0.
 					applyRatio(
-						(stickyTopRef.current - track.getBoundingClientRect().top) / overflow,
+						(stickyTopRef.current - track.getBoundingClientRect().top) /
+							overflow,
 					);
 				}
 			}
@@ -323,7 +327,8 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 			{total > 1 && (
 				<div className="mt-4 flex items-center gap-4">
 					<span className="font-body text-[0.8rem] text-palette-brightest-white/70 tabular-nums">
-						{String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+						{String(index + 1).padStart(2, "0")} /{" "}
+						{String(total).padStart(2, "0")}
 					</span>
 					<span className="relative h-px flex-1 bg-white/15">
 						<span

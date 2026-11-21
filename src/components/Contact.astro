@@ -18,13 +18,16 @@ const {
 	// ways to reach me live on the contact page itself.
 	options = true,
 } = Astro.props;
+
+const Heading = options ? "h1" : "h2";
 ---
 
 <section class={`w-full max-w-7xl mx-auto ${spacing}`}>
 	<div class="container mx-auto px-4">
 		<div class="flex flex-col md:flex-row gap-12 items-start md:items-center justify-between">
 			<div class="w-full md:w-auto text-left">
-				<h2 class="text-base font-mono text-secondary-foreground">Contact</h2>
+				<!-- The page's h1 on /contact; a section heading on the home page. -->
+				<Heading class="text-base font-mono text-secondary-foreground">Contact</Heading>
 				<p class="mt-4 max-w-sm text-lg text-palette-brightest-white">
 					{options
 						? "There are three ways to reach me, pick whichever suits you."
@@ -34,7 +37,7 @@ const {
 				{!options && (
 					<!-- Same chip as Contact in the header. -->
 					<a
-						href="/contact"
+						href="/contact/"
 						class="mt-6 inline-block rounded-none bg-palette-brightest-white/15 px-3 py-1.5 text-palette-brightest-white transition-colors hover:bg-palette-brightest-white/35 focus:outline-none focus-visible:bg-palette-brightest-white/35"
 					>
 						Contact

@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import {
+	BLOG_ID,
+	author,
 	coverStyle,
 	formatDate,
 	getThoughtTags,
@@ -14,11 +16,34 @@ const tags = await getThoughtTags();
 
 // The newest post leads the page; everything else sits in the grid below.
 const [featured, ...rest] = posts;
+
+// Marks this page as the blog itself, with its posts, so search engines read
+// the list as one publication by one author rather than a page of links.
+const blogUrl = new URL("/thoughts/", Astro.site ?? Astro.url).href;
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Blog",
+	"@id": BLOG_ID,
+	name: "Thoughts",
+	description: "Notes on design, branding and working with AI, by Marek Vicáň.",
+	url: blogUrl,
+	inLanguage: "en",
+	author,
+	publisher: author,
+	blogPost: posts.map((post) => ({
+		"@type": "BlogPosting",
+		"@id": `${blogUrl}${post.id}/#post`,
+		headline: post.data.title,
+		url: `${blogUrl}${post.id}/`,
+		datePublished: post.data.date.toISOString(),
+	})),
+};
 ---
 
 <Layout
 	title="Thoughts |"
 	description="Notes on design, branding and working with AI, by Marek Vicáň."
+	jsonLd={jsonLd}
 >
 	<!-- Same frame as Archive and About, so the left and right edges line up
 	     across the whole site. -->
@@ -53,7 +78,7 @@ const [featured, ...rest] = posts;
 										src={featured.data.cover}
 										alt={featured.data.coverAlt ?? ""}
 										widths={[480, 800, 1200, 1600]}
-										sizes="(max-width: 1024px) 100vw, 46rem"
+										sizes="(max-width: 1023px) 100vw, (max-width: 1280px) 55vw, 46rem"
 										loading="eager"
 									/>
 								</div>
@@ -104,13 +129,13 @@ const [featured, ...rest] = posts;
 														src={post.data.cover}
 														alt=""
 														widths={[400, 800]}
-														sizes="(max-width: 768px) 100vw, 36rem"
+														sizes="(max-width: 767px) 100vw, (max-width: 1280px) 46vw, 36rem"
 														loading="lazy"
 													/>
 												</div>
 											)}
 
-											<span class="post-title">{post.data.title}</span>
+											<h2 class="post-title">{post.data.title}</h2>
 											<span class="post-summary">{post.data.description}</span>
 
 											<span class="meta">
@@ -305,15 +330,22 @@ const [featured, ...rest] = posts;
 		width: 100%;
 		aspect-ratio: 16 / 10;
 		margin-bottom: var(--space-md);
-		filter: grayscale(1);
-		opacity: 0.75;
 		transition: filter 0.4s ease, opacity 0.4s ease;
 	}
 
-	.post:hover .post-cover,
-	.post:focus-visible .post-cover {
-		filter: grayscale(0);
-		opacity: 1;
+	/* Muted until hovered, but only where hovering exists: on a phone the
+	   covers would otherwise never show their real colours. */
+	@media (hover: hover) {
+		.post-cover {
+			filter: grayscale(1);
+			opacity: 0.75;
+		}
+
+		.post:hover .post-cover,
+		.post:focus-visible .post-cover {
+			filter: grayscale(0);
+			opacity: 1;
+		}
 	}
 
 	.post .meta {
@@ -405,15 +437,24 @@ const [featured, ...rest] = posts;
 		for (const button of buttons) {
 			button.addEventListener("click", (event) => {
 				event.preventDefault();
-				apply(button.dataset.filter ?? "all");
+				const filter = button.dataset.filter ?? "all";
+				apply(filter);
+
+				// Keep the filter in the address, so Back from a post returns to the
+				// same filtered list. replaceState: filtering is not a new page.
+				const url = new URL(window.location.href);
+				if (filter === "all") url.searchParams.delete("tag");
+				else url.searchParams.set("tag", filter);
+				history.replaceState(history.state, "", url);
 			});
 		}
 
 		// A link like /thoughts/?tag=Branding arrives pre-filtered, which is how
-		// the tags under a post get back here.
-		const wanted = new URLSearchParams(window.location.search).get("tag");
-		if (wanted && buttons.some((b) => b.dataset.filter === wanted)) {
-			apply(wanted);
+		// the tags under a post get back here. Case doesn't matter.
+		const wanted = new URLSearchParams(window.location.search).get("tag")?.toLowerCase();
+		const match = buttons.find((b) => b.dataset.filter?.toLowerCase() === wanted);
+		if (wanted && match?.dataset.filter) {
+			apply(match.dataset.filter);
 		}
 	}
 

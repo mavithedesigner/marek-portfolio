@@ -41,7 +41,9 @@ const spokes = Array.from({ length: 12 }, (_, i) => i);
 		}, DELAY);
 	});
 
-	// Hide it once the new page is in, and also if the navigation was abandoned.
+	// Hide it once the new page is in. Only on the swap, not on page-load: on a
+	// slow connection page-load of one page can fire after the next click has
+	// started, and it would cancel that navigation's loader.
 	function hide() {
 		window.clearTimeout(timer);
 		const el = loader();
@@ -49,7 +51,7 @@ const spokes = Array.from({ length: 12 }, (_, i) => i);
 	}
 
 	document.addEventListener("astro:after-swap", hide);
-	document.addEventListener("astro:page-load", hide);
+	// Back/forward from the browser cache skips the swap.
 	window.addEventListener("pageshow", hide);
 </script>
 
