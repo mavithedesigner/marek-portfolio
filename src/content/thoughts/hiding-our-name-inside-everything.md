@@ -1,7 +1,7 @@
 ---
 title: "How we hid our name inside everything we make"
-description: "Artistic Area Club is three words long. Instead of cutting it, we hid AAC inside the name of everything we make."
-date: 2026-11-20
+description: "Artistic Area Club is a really long name for a brand, so instead of making it shorter, we hid the AAC initials inside the name of everything we make."
+date: 2026-11-21
 tags: ["Branding", "Naming"]
 cover: ../../assets/thoughts/aac-naming.png
 coverAlt: "AAClub, AAConcert, AACommunity, AACarabiner and AACompetition stacked in white on black"
@@ -11,7 +11,7 @@ projects: ["artistic-area-club", "aacarabiner"]
 draft: false
 ---
 
-Almost every domain with the words artistic and area in it was already taken when we searched for one, which is how our club ended up with a three-word name, [Artistic Area Club](https://www.artisticareaclub.com/). A name that long is a lot to remember for someone who sees your poster <u>for two seconds on the way to the bus</u>, and for a long time that was our problem.
+Almost every domain with the words artistic and area in it was already taken when we searched for one, which is how our club ended up with a three-word name, [Artistic Area Club](https://www.artisticareaclub.com/). A name that long is a lot to remember for someone who sees your poster for two seconds on the way to the bus, and for a long time that was our problem.
 
 ## The name was taken
 
@@ -23,7 +23,7 @@ So we added Club, since we already knew we didn't want to stay a team of two, an
 
 Instead of fighting the length, we started **hiding the short version inside everything we made**, so our concerts became AAConcert and our competition became AACompetition. Later came AACollaboration and AACommunity, and when we made our first physical product, a 3D-printed carabiner, it became AACarabiner. **If you read the first three letters of any of them, you get AAC.**
 
-The carabiner shows the idea best, because it was made by the club in the artists' space, and its name says <u>both where it comes from and who made it</u>.
+The carabiner shows the idea best, because it was made by the club in the artists' space, and its name says both where it comes from and who made it.
 
 Over time, people stopped using the full name and simply remembered us as **AAC**. Big brands use the same trick on a much bigger scale, like McDonald's with the Mc in front of its products or Apple with the i in front of its devices, and psychologists call the effect behind it [mere exposure](https://en.wikipedia.org/wiki/Mere-exposure_effect): the more often you see something, the more familiar it feels.
 
@@ -37,6 +37,6 @@ We ran into it again when we started planning a running club for the future, bec
 
 ## One poster at a time
 
-If you're naming something, it helps to <u>decide on a system early</u>, because it saves money, nerves and a lot of small decisions later, as long as you let it bend when reality doesn't fit. And if your name feels too long, you don't always have to cut it, since sometimes it's enough to **teach people the short version, one poster at a time**.
+If you're naming something, it helps to decide on a system early, because it saves money, nerves and a lot of small decisions later, as long as you let it bend when reality doesn't fit. And if your name feels too long, you don't always have to cut it, since sometimes it's enough to **teach people the short version, one poster at a time**.
 
 If someone saw your brand for only two seconds, which part of the name would you want them to remember?

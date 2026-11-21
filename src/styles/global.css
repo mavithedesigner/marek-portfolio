@@ -561,17 +561,6 @@ html.theme-switching::view-transition-new(root) {
 	color: color-mix(in srgb, var(--color-palette-brightest-white) 45%, transparent);
 }
 
-/* Underline is for stress, not for links, so it looks like a marker stroke
-   under the words rather than the thin line a link has. */
-.prose u {
-	color: var(--color-palette-brightest-white);
-	text-decoration-line: underline;
-	text-decoration-thickness: 0.4em;
-	text-underline-offset: -0.2em;
-	text-decoration-skip-ink: none;
-	text-decoration-color: color-mix(in srgb, var(--color-palette-brightest-white) 22%, transparent);
-}
-
 /* A quote is a pause in the text: bigger, brighter and with room around it,
    so a reader skimming the page still catches the main points. */
 .prose blockquote {

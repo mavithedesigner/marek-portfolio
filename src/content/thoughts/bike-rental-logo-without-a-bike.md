@@ -1,6 +1,6 @@
 ---
 title: "How I designed a bike rental logo without a bike"
-description: "Every bike rental logo shows the bike. Bicykľáreň's shows the ride instead, in one continuous line."
+description: "Every bike rental logo shows some part of a bike, but when I was making the Bicykľáreň logo, I wanted to show something else."
 date: 2026-11-20
 tags: ["Branding", "Process"]
 cover: ../../assets/thoughts/bicyklaren-wordmark.png
@@ -22,7 +22,7 @@ I usually present three logo concepts. I had two ready, and after a briefing wit
 
 ## Drawing the ride
 
-So I went deeper and looked for a gap, something no other rental was doing. Every logo in the category showed the bike, and none of them showed what people actually come for, which is <u>the afternoon on the trail</u>, a route that keeps going without stops.
+So I went deeper and looked for a gap, something no other rental was doing. Every logo in the category showed the bike, and none of them showed what people actually come for, which is the afternoon on the trail, a route that keeps going without stops.
 
 That became the third concept. The wordmark is written in **one continuous line**, like a route you ride from start to finish without stopping, and it also had the traditional, family-friendly feel the brief asked for. I presented it next to the other two concepts, and **it won**.
 
@@ -30,7 +30,7 @@ I used the same rule for the illustrations, so every drawing in the brand looks 
 
 ## Keeping the promise
 
-**A brand built around an easy ride makes a promise**, and the booking had to keep it, so before I designed the reservation flow I needed to understand how the rental works on the ground: <u>who hands out the bikes, at what time and what can go wrong</u>. Only then did I design the steps from choosing a bike and dates to confirming the booking.
+**A brand built around an easy ride makes a promise**, and the booking had to keep it, so before I designed the reservation flow I needed to understand how the rental works on the ground: who hands out the bikes, at what time and what can go wrong. Only then did I design the steps from choosing a bike and dates to confirming the booking.
 
 The reviews suggest it worked. One customer wrote:
 
@@ -46,6 +46,6 @@ Looking back, the best idea came only after I got stuck and started looking at w
 
 > The question that moved me forward was what customers actually come for, and the answer was a feeling.
 
-I'd also watch two risks next time. **A hidden meaning stays hidden if nobody tells it**, so the story of the line needs a place on the website and in posts, and a handwritten wordmark has to stay readable on a small sticker or a phone screen, which is <u>worth testing early</u>.
+I'd also watch two risks next time. **A hidden meaning stays hidden if nobody tells it**, so the story of the line needs a place on the website and in posts, and a handwritten wordmark has to stay readable on a small sticker or a phone screen, which is worth testing early.
 
 When you get stuck on an idea, what helps you find a way out?
