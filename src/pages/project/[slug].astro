@@ -41,8 +41,9 @@ const websiteLabel =
 
 <Layout
     title={`${project.name} |`}
-    description={`${project.tagline} ${project.name}, ${project.role}, ${project.year}.`}
+    description={`${project.tagline} ${project.outcome ?? ""}`.trim()}
     image={ogImage}
+    imageAlt={`${project.name}, ${project.tagline}`}
 >
     <!--
         `--header-h` keeps the pinned showcase tucked under the sticky header so
@@ -88,15 +89,12 @@ const websiteLabel =
                     class:list={[
                         "flex flex-col gap-6 text-base leading-relaxed max-w-xl lg:pt-2",
                         // Pinning the copy only makes sense while the strip beside it
-                        // is being scrolled through. Most case studies are taller than
-                        // a laptop screen, so the pin offset comes from the script
-                        // below: a tall column scrolls until its last line is in view
-                        // and only then pins, instead of pinning with Client, Year,
-                        // Role and Programs stuck below the fold.
+                        // is being scrolled through. It pins right under the header,
+                        // so the text is read from its first line while the
+                        // images move.
                         hasStrip &&
-                            "lg:sticky lg:top-[min(var(--header-h),calc(100svh-var(--details-h,0px)-2rem))] lg:justify-start",
+                            "lg:sticky lg:top-[var(--header-h)] lg:justify-start",
                     ]}
-                    data-project-details={hasStrip ? "" : undefined}
                 >
                     <!-- min-w-0: a long website name must wrap inside its cell
                          instead of widening the grid past a 320px screen. -->
@@ -277,7 +275,8 @@ const websiteLabel =
                 {
                     previous ? (
                         <a href={`/project/${previous.slug}/`} class="pager">
-                            <span class="pager-label">← previous_project</span>
+                            <span class="pager-label" aria-hidden="true">← previous_project</span>
+                            <span class="sr-only">Previous project:</span>
                             <span class="pager-name">{previous.name}</span>
                             <span class="pager-tagline">{previous.tagline}</span>
                         </a>
@@ -292,7 +291,8 @@ const websiteLabel =
                             href={`/project/${next.slug}/`}
                             class="pager pager--next md:col-start-2"
                         >
-                            <span class="pager-label">next_project →</span>
+                            <span class="pager-label" aria-hidden="true">next_project →</span>
+                            <span class="sr-only">Next project:</span>
                             <span class="pager-name">{next.name}</span>
                             <span class="pager-tagline">{next.tagline}</span>
                         </a>
@@ -311,30 +311,6 @@ const websiteLabel =
 
 </Layout>
 
-
-<script>
-	/*
-	 * Pin offset for the details column. A column that fits under the header
-	 * pins at the header as before. A taller one ends up with a negative `top`
-	 * (see the min() on the element), so it scrolls with the page until its
-	 * bottom is 2rem above the bottom of the screen and pins there: every line stays
-	 * reachable while the strip beside it is still travelling. CSS can't read
-	 * an element's own height, so this only reports it.
-	 */
-	function bindDetailsPin() {
-		const details = document.querySelector<HTMLElement>("[data-project-details]");
-		if (!details || details.dataset.bound === "true") return;
-		details.dataset.bound = "true";
-
-		// Web fonts and the column width both change how tall the copy is.
-		new ResizeObserver(() => {
-			details.style.setProperty("--details-h", `${details.offsetHeight}px`);
-		}).observe(details);
-	}
-
-	bindDetailsPin();
-	document.addEventListener("astro:after-swap", bindDetailsPin);
-</script>
 
 <style>
 	/* No boxes and no thumbnail: type alone carries it. */
@@ -372,7 +348,7 @@ const websiteLabel =
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
 	}
 
 	/* The two sides read outward from the centre of the row. */

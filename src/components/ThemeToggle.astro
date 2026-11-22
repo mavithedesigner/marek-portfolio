@@ -6,7 +6,8 @@
 	set website to <button
 		type="button"
 		data-theme-toggle
-		class="text-palette-brightest-white hover:underline focus:outline-none focus-visible:underline"
+		aria-label="Switch to light mode"
+		class="-my-3 py-3 text-palette-brightest-white hover:underline focus:outline-none focus-visible:underline"
 	>light_mode</button>
 </p>
 
@@ -20,6 +21,8 @@
 		const isLight = document.documentElement.dataset.theme === "light";
 		for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
 			button.textContent = isLight ? "dark_mode" : "light_mode";
+			// Screen readers would spell out the underscore; give them words.
+			button.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
 		}
 	}
 

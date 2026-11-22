@@ -11,32 +11,40 @@ projects: ["artistic-area-club", "aacarabiner"]
 draft: false
 ---
 
-Almost every domain with the words artistic and area in it was already taken when we searched for one, which is how our club ended up with a three-word name, [Artistic Area Club](https://www.artisticareaclub.com/). A name that long is a lot to remember for someone who sees your poster for two seconds on the way to the bus, and for a long time that was our problem.
+When my childhood friend Majo and I started the club, we dreamed of naming it Artistic Area, because we loved the picture behind it. It makes you imagine **a space where artists connect** and create something special together.
 
 ## The name was taken
 
-When my childhood friend Majo and I started the club, we wanted to call it Artistic Area, because we liked the picture behind it, a place where artists make things together. The creative space online is so oversaturated, though, that nearly every name built from words like these is already in use, and ours was no exception.
+Then we ran into a serious problem, because almost every domain with the word artistic or area in it was already taken.
 
-So we added Club, since we already knew we didn't want to stay a team of two, and a club has members, feels a little more premium and tells people there is a group behind the posters. Looking back, the two halves meant different things from the start, with Artistic Area as **the space** and Club as **the people in it**, but the fix also left us with a name three words long, which is a lot to ask from someone on their way to a bus.
+So we took a step closer to our dream and a big risk at the same time, and gave our brand a unique three-word name, [Artistic Area Club](https://www.artisticareaclub.com/).
+
+Where is the risk in that, you might ask? Three words are a lot to remember for someone who has **only two seconds to read our poster** on the way to catch the bus. For a long time this was our biggest challenge, and we kept asking ourselves how to solve it.
 
 ## Hiding the short version
 
-Instead of fighting the length, we started **hiding the short version inside everything we made**, so our concerts became AAConcert and our competition became AACompetition. Later came AACollaboration and AACommunity, and when we made our first physical product, a 3D-printed carabiner, it became AACarabiner. **If you read the first three letters of any of them, you get AAC.**
+Instead of fighting the length of the name, we started **hiding a shorter version of it inside everything we created**. Our concerts became AAConcert, our competition became AACompetition, and later came AACollaboration and AACommunity. When we created our first physical product, an extraordinary 3D-printed carabiner, we named it AACarabiner, and these three letters became a big part of our identity.
 
-The carabiner shows the idea best, because it was made by the club in the artists' space, and its name says both where it comes from and who made it.
+The carabiner shows the idea best, because its name tells the whole story of the object: it was made in our Artistic Area, by the Club, and it's a carabiner.
 
-Over time, people stopped using the full name and simply remembered us as **AAC**. Big brands use the same trick on a much bigger scale, like McDonald's with the Mc in front of its products or Apple with the i in front of its devices, and psychologists call the effect behind it [mere exposure](https://en.wikipedia.org/wiki/Mere-exposure_effect): the more often you see something, the more familiar it feels.
+Over time, people stopped using our full name and simply remembered us as **AAC**. At our concerts the crowd started shouting AAC, the three letters kept showing up in the comments under our posts, and people started talking about us by that name.
 
-## When the C runs out
+Big brands use the same trick on a bigger scale, like McDonald's with the "Mc" or Apple with the well-known "i" in front of its devices. Psychologists call this effect [mere exposure](https://en.wikipedia.org/wiki/Mere-exposure_effect): the more often you see something, the more familiar it feels.
 
-The system has one weak spot, which is **the letter C**. Concert and Competition fit naturally, but some words we had to search for, and a few of those names felt forced.
+## Our problem with the C
 
-We ran into it again when we started planning a running club for the future, because in AA Running Club the R lands between AA and C. We could have dropped the system or hunted for a C word that means running, but instead we plan to write "running" in small lowercase letters between AA and Club, so AAC is still the first thing you see. That decision gave us the rule we follow now:
+Our naming system has one big limitation, because what happens when **the C runs out**? Some words like Competition fit naturally, but sometimes it's hard to find the right word that starts with a C.
 
-> If we wouldn't pick a word without the system, we don't force it, and when a name doesn't fit, we change the typography before we change the meaning.
+We hit the same problem when we started planning our running club, because there is no C in running. Our dilemma was whether to keep our system or sacrifice it for a name that feels right.
+
+We decided to do both at the same time and kept AAC in a way of its own, so let me show you:
+
+> **A**rtistic **A**rea running **C**lub
 
 ## One poster at a time
 
-If you're naming something, it helps to decide on a system early, because it saves money, nerves and a lot of small decisions later, as long as you let it bend when reality doesn't fit. And if your name feels too long, you don't always have to cut it, since sometimes it's enough to **teach people the short version, one poster at a time**.
+If you're naming something, decide on a system early, because it saves you money, nerves and a lot of small decisions later. Leave it room to bend, though, since sooner or later a word like running comes along and doesn't fit.
 
-If someone saw your brand for only two seconds, which part of the name would you want them to remember?
+And if your name feels too long, you don't always have to cut it, because sometimes it's enough to **teach people the short version, one poster at a time**.
+
+If someone saw your brand for only two seconds on the way to the bus, which part of the name would you want them to remember?

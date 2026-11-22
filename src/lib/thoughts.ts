@@ -93,8 +93,8 @@ export const person = {
 	jobTitle: "Designer",
 	address: {
 		"@type": "PostalAddress",
-		addressLocality: "Bratislava",
-		addressCountry: "SK",
+		addressLocality: "Aarhus",
+		addressCountry: "DK",
 	},
 	sameAs: [
 		"https://www.linkedin.com/in/vicandesign/",

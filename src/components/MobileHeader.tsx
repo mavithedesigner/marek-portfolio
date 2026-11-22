@@ -92,8 +92,10 @@ export default function MobileHeader() {
 					isMenuOpen ? "bg-transparent" : "bg-background/85 backdrop-blur-sm"
 				}`}
 			>
-				<a href="/" className="z-50">
-					<img src={logo.src} alt="Logo" className="site-logo w-8 h-8" />
+				{/* Padding with a matching negative margin: a 44px tap area around the
+				    32px logo, without moving it. */}
+				<a href="/" className="z-50 -m-1.5 p-1.5" aria-label="Home">
+					<img src={logo.src} alt="" className="site-logo w-8 h-8" />
 				</a>
 
 				<button
@@ -102,7 +104,7 @@ export default function MobileHeader() {
 					aria-expanded={isMenuOpen}
 					aria-controls="mobile-menu"
 					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-					className="z-50 text-palette-brightest-white focus:outline-none text-base font-normal"
+					className="z-50 -mx-2 -my-2.5 px-2 py-2.5 text-palette-brightest-white focus:outline-none text-base font-normal"
 				>
 					{isMenuOpen ? "X" : "Menu"}
 				</button>
@@ -121,7 +123,7 @@ export default function MobileHeader() {
 						onClick={() => setIsMenuOpen(false)} // Close when clicking overlay
 					>
 						<nav
-							className="flex flex-col items-center justify-center space-y-8 text-white"
+							className="flex flex-col items-center justify-center space-y-4 text-white"
 							onClick={(e) => e.stopPropagation()} // Prevent closing when clicking nav content
 							onKeyDown={(e) => {
 								if (e.key === "Enter" || e.key === " ") {
@@ -133,7 +135,7 @@ export default function MobileHeader() {
 								<motion.a
 									key={link.href}
 									href={link.href}
-									className="text-xl font-normal text-palette-brightest-white"
+									className="px-4 py-2 text-xl font-normal text-palette-brightest-white"
 									onClick={() => setIsMenuOpen(false)}
 									variants={linkVariants}
 								>

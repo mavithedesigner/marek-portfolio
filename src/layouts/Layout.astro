@@ -2,8 +2,16 @@
 import { getImage } from "astro:assets";
 import { ViewTransitions } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
+// The typeface is served from this site instead of Google Fonts: no extra
+// connection to another server before text can show, and no visitor IP
+// address sent to Google.
+import "@fontsource-variable/schibsted-grotesk/wght.css";
+import "@fontsource-variable/schibsted-grotesk/wght-italic.css";
+import fontLatin from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
 import "../styles/global.css";
-import ogSource from "../assets/archive/aac_logo_3d.png";
+// Shared preview for pages without their own image: name, role and city,
+// so a shared link to the home page shows who this is, not one project.
+import ogSource from "../assets/og-default.png";
 import CustomCursor from "../components/CustomCursor";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -22,8 +30,9 @@ const ogFallback = await getImage({
 	format: "jpg",
 });
 
+// Under ~155 characters, so Google shows it whole.
 const defaultDescription =
-	"Marek is a designer based in Bratislava, Slovakia. He creates visual identities, website design, applications, and marketing materials, striving to combine creative solutions that are functional, aesthetically pleasing, and inspiring.";
+	"Marek Vicáň is a brand and UX/UI designer from Slovakia, based in Aarhus, Denmark. Visual identities, websites and digital products.";
 
 const {
 	title,
@@ -36,7 +45,9 @@ const {
 	// downloads. Only known for the fallback unless a page passes its own.
 	imageWidth = image === ogFallback.src ? 1200 : undefined,
 	imageHeight = image === ogFallback.src ? 630 : undefined,
-	imageAlt,
+	imageAlt = image === ogFallback.src
+		? "Marek Vicáň, Brand & UX/UI Designer, Aarhus, Denmark"
+		: undefined,
 	// Posts are "article": LinkedIn and Facebook show the date and author, and
 	// search engines read article:published_time as the publication date.
 	type = "website",
@@ -50,7 +61,11 @@ const {
 // Absolute URLs — social platforms reject relative ones.
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const ogImage = new URL(image, Astro.site ?? Astro.url);
-const fullTitle = `${title ?? ""} Marek Vican`.trim();
+// Inner pages read "About | Marek Vicáň". The home page has no title of its
+// own, so it says what I do and where, which is what people search for.
+const fullTitle = title
+	? `${title} Marek Vicáň`
+	: "Marek Vicáň | Brand & UX/UI Designer in Aarhus";
 
 const site = Astro.site ?? Astro.url;
 
@@ -84,9 +99,10 @@ const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<!-- The upright Latin file covers almost every page; fetch it early. -->
+		<link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 		<script is:inline>
 			// Applied before first paint so switching themes never flashes.
@@ -128,7 +144,7 @@ const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 
 		<!-- Link previews: without these a shared URL shows as bare text. -->
 		<meta property="og:type" content={type} />
-		<meta property="og:site_name" content="Marek Vican" />
+		<meta property="og:site_name" content="Marek Vicáň" />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical.href} />
@@ -184,6 +200,9 @@ const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 		<Analytics />
 	</head>
 	<body>
+		<!-- First stop for keyboard users: jumps past the navigation. Hidden
+		     until it gets focus. -->
+		<a href="#main" class="skip-link">Skip to content</a>
 		<div class="noise-overlay" aria-hidden="true"></div>
 		<!--
 			The cursor and the image counter both follow the mouse, so on touch
@@ -196,7 +215,7 @@ const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 		<Header />
 		<!-- client:load: the menu button has to answer the very first tap. -->
 		<MobileHeader client:load />
-		<main class="flex-grow">
+		<main id="main" tabindex="-1" class="flex-grow focus:outline-none">
 			<slot />
 		</main>
 		<Footer />

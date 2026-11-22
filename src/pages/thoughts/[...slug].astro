@@ -108,7 +108,7 @@ const labelClass =
 					{post.data.description}
 				</p>
 
-				<p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/55">
+				<p class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-palette-brightest-white/60">
 					<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
 					<span aria-hidden="true">·</span>
 					<span>{minutes} min read</span>
@@ -201,7 +201,8 @@ const labelClass =
 						<div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-12">
 							{older ? (
 								<a href={`/thoughts/${older.id}/`} class="pager">
-									<span class="pager-label">← older_post</span>
+									<span class="pager-label" aria-hidden="true">← older_post</span>
+									<span class="sr-only">Older post:</span>
 									<span class="pager-title">{older.data.title}</span>
 								</a>
 							) : (
@@ -210,7 +211,8 @@ const labelClass =
 
 							{newer && (
 								<a href={`/thoughts/${newer.id}/`} class="pager pager--next md:col-start-2">
-									<span class="pager-label">newer_post →</span>
+									<span class="pager-label" aria-hidden="true">newer_post →</span>
+									<span class="sr-only">Newer post:</span>
 									<span class="pager-title">{newer.data.title}</span>
 								</a>
 							)}
@@ -300,7 +302,7 @@ const labelClass =
 		display: block;
 		margin-top: 0.25rem;
 		font-size: 0.875rem;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 55%, transparent);
+		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
 	}
 
 	.pager {

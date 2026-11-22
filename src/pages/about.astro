@@ -84,15 +84,18 @@ const labelClass = "text-base font-mono text-secondary-foreground";
 
 <Layout
 	title="About |"
-	description="Marek Vicáň, multidisciplinary designer from Orava, based in Bratislava. Visual identity, web design and digital products."
+	description="Marek Vicáň, multidisciplinary designer from Orava, based in Aarhus, Denmark. Visual identity, web design and digital products."
 >
 	<!-- Mobile mirrors the project detail: showcase first, copy underneath -->
+	<!-- One h1 for the page. The visible "About" labels are plain text, because
+	     the mobile and desktop layouts each have one and only one is shown. -->
+	<h1 class="sr-only">About Marek Vicáň</h1>
 	<div class="flex flex-col">
 	<div class="order-2 lg:order-1 w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-[var(--section-gap)]">
 		<div class="container mx-auto px-4">
 			<!-- Mobile: every section gets its own label column, including Programs and Contact -->
 			<div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-10 lg:hidden">
-				<h1 class={`${labelClass} whitespace-nowrap self-start`}>About</h1>
+				<p class={`${labelClass} whitespace-nowrap self-start`}>About</p>
 				<div class="space-y-6">
 					{aboutParagraphs.map((text) => <p class="leading-relaxed">{text}</p>)}
 				</div>
@@ -120,7 +123,7 @@ const labelClass = "text-base font-mono text-secondary-foreground";
 			<!-- Desktop: three columns, secondary sections stacked under their siblings -->
 			<div class="hidden lg:grid lg:grid-cols-3 lg:gap-x-16 lg:items-start">
 				<div class="space-y-6">
-					<h1 class={`${labelClass} mb-2`}>About</h1>
+					<p class={`${labelClass} mb-2`}>About</p>
 					{aboutParagraphs.map((text) => <p class="leading-relaxed">{text}</p>)}
 				</div>
 

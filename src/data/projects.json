@@ -2,7 +2,7 @@
 	{
 		"slug": "bicyklaren",
 		"name": "Bicykľáreň",
-		"tagline": "Bike rental brand, naming to art direction.",
+		"tagline": "Bike rental brand drawn in one continuous line.",
 		"website": "https://bicyklaren.sk/",
 		"client": "Bicykľáreň",
 		"year": "2026",
@@ -11,8 +11,8 @@
 			"Visual Identity",
 			"Web"
 		],
-		"outcome": "Launched as a sub-brand of Tilia Resort, from naming through to applied identity.",
-		"about": "I created the Bicykľáreň brand from the ground up, from naming and logo to art direction, as a sub-brand of Tilia Resort that still feels like part of one team. We kept the resort's colors and typeface while giving Bicykľáreň its own, more personal voice.\n\nThe handwritten wordmark drawn in one continuous stroke suggests smooth riding and an easy, straightforward rental process, without extra visual clichés like a bike icon. To keep the brand clear for visitors, we added the functional descriptor Bicykľáreň – Bike Rental as a flexible secondary lockup.\n\nBeyond the identity, I designed and built the entire website from scratch, together with a full reservation system that runs the rental end to end, from browsing available bikes and picking dates to confirming a booking. Mapping that flow meant working out how the rental actually operates on the ground, so the product side stays as effortless as the wordmark promises.",
+		"outcome": "Launched as a sub-brand of Tilia Resort, with online booking that guests mention in their reviews.",
+		"about": "Tilia Resort asked me to create Bicykľáreň, a bike rental under its own brand, and I took it from naming and logo to art direction, the website and the booking system. It became my biggest freelance project so far. I kept the resort's colours and typeface, so the rental still feels like part of the resort, and gave it a voice of its own.\n\nAlmost every bike rental logo around the lakes of Orava shows a wheel, a gear or a bike, so I drew the ride instead. The wordmark is written in one continuous line, like a route you ride from start to finish, and every illustration follows the same rule. To keep it clear for visitors, the descriptor Bicykľáreň – Bike Rental works as a secondary lockup.\n\nBefore I designed the booking, I worked out how the rental runs on the ground: who hands out the bikes, at what time and what can go wrong. I designed and built the website with a reservation system that takes guests from choosing a bike and dates to a confirmed booking, and one review mentions easy ordering with the QR code.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator",
@@ -45,7 +45,7 @@
 			"Product Design"
 		],
 		"outcome": "Live and bootstrapped, running as a working business.",
-		"about": "maturuj.com began as a final school project with an unusual brief: build something worth keeping after graduation, a real product we could sell. Together with Adam Demian we went through the entire cycle, from the first idea and project planning to development, testing, and launch.\n\nThe app prepares students for the Slovak school-leaving exam through personalised AI feedback. It holds digitised SJL and English exam papers, exercises covering the topics students struggle with most, and an assistant that explains why an answer is right instead of only marking it wrong. It answers a problem most students know well, they drown in endless notes while the education system moves slowly, so the exam becomes something to survive rather than learn from.\n\nI led the design side, tone of voice, branding and logo, the UX/UI of the app, and the sales materials. It is live, bootstrapped, and running as a working business.",
+		"about": "maturuj.com started as a final school project with an unusual brief: build something worth keeping after graduation, a real product we could sell. Together with Adam Demian I went through the whole cycle, from the first idea and planning to development, testing and launch.\n\nThe app prepares students for the Slovak school-leaving exam with personalised AI feedback. It holds digitised exam papers in Slovak language and literature and in English, exercises on the topics students struggle with most, and an assistant that explains why an answer is right instead of only marking it wrong. Most students know the problem well, because they drown in endless notes while the school system moves slowly, so the exam becomes something to survive.\n\nI led the design side: the brand, logo and tone of voice, the UX/UI of the app and the sales materials.",
 		"programs": [
 			"Figma",
 			"Notion"
@@ -76,8 +76,8 @@
 			"Web"
 		],
 		"badge": "Used by millions",
-		"outcome": "Shipped inside a continuously optimised national service used by millions.",
-		"about": "eDesk is where Slovak citizens and companies receive and handle official documents from the state. Once the platform became mandatory, every rough edge in it stopped being an inconvenience and became a problem for millions of people at once.\n\nTogether with Lighting Beetle we ran the redesign as an ongoing programme rather than a single handover. Workshops with stakeholders, feedback gathered from real users, prototypes put in front of people and reworked, all held together by one design system so the service stayed consistent while it kept changing.\n\nA large share of that work went into how the service behaves on different screens. People open official mail on a phone while queuing as often as on a desktop at work, so every view had to hold up from a narrow phone to a wide monitor: the same actions reachable, the same information readable, nothing pushed out of sight or left to horizontal scrolling.\n\nI joined the UX side as a junior designer and worked on the redesign inside that process. It was the first time I saw a service of this scale up close, where one unclear label or a step in the wrong place costs thousands of people an afternoon, and where nothing ships on taste alone. A lot of how I work now, research first and decisions you can defend, comes from here.",
+		"outcome": "Shipped inside a national service used by millions, which keeps being optimised.",
+		"about": "eDesk is where Slovak citizens and companies receive and handle official documents from the state. Once the platform became mandatory, every rough edge in it turned into a problem for millions of people at once.\n\nTogether with Lighting Beetle we ran the redesign as an ongoing programme instead of a single handover, with stakeholder workshops, feedback from real users and prototypes that we put in front of people and reworked. One design system kept the service consistent while it kept changing.\n\nA large share of the work went into how the service behaves on different screens. People open official mail on a phone while queuing as often as on a desktop at work, so every view had to hold up from a narrow phone to a wide monitor, with the same actions within reach and nothing pushed out of sight or left to horizontal scrolling.\n\nI joined the UX side as a junior designer and worked on the redesign inside that process. It was the first time I saw a service of this scale up close, where one unclear label or a step in the wrong place costs thousands of people an afternoon. A lot of how I work now comes from here, with research first and decisions I can defend.",
 		"programs": [
 			"Figma"
 		],
@@ -92,10 +92,10 @@
 	},
 	{
 		"slug": "wezeo",
-		"name": "WEZEO Rebranding",
+		"name": "Wezeo Rebrand",
 		"tagline": "Rebrand clarifying what the team stands for.",
 		"website": "https://www.wezeo.com/",
-		"client": "WEZEO",
+		"client": "Wezeo",
 		"year": "2025",
 		"role": "Logo Design, Content Creation, Art Director",
 		"tags": [
@@ -104,7 +104,7 @@
 			"Art Direction"
 		],
 		"outcome": "Adopted as the team’s working brand system across design and communication.",
-		"about": "Led WEZEO's strategic rebrand together with another designer, redefining how the team communicates its purpose and values. The goal was not to create a prettier logo but to clarify what build different truly means.\n\nBy shaping the brand's messaging, visual direction, and internal system, we built a scalable identity that reflects how WEZEO designs, collaborates, and grows as a team. The result is a coherent brand ecosystem that connects design thinking with everyday practice, clear, purposeful, and rooted in craft.",
+		"about": "Together with Dávid Drímal I led the rebrand of Wezeo. Working through the whole brand, we came up with the slogan \"build different\", and later the team changed it to \"beyond technology\" because it fit what Wezeo does better.\n\nWe shaped the messaging, the visual direction and an internal brand system, so the brand describes how Wezeo designs, works together and grows as a team. Today it's the system the team uses across its design and communication.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator",
@@ -136,7 +136,7 @@
 			"Web"
 		],
 		"outcome": "40% increase in returning users after the mobile-first redesign.",
-		"about": "Co-led design direction for ProPodnikavé's platform and app redesign, turning a slow, web-only experience into a mobile-first tool that fits how small entrepreneurs actually work day to day.\n\nI focused on rebuilding the information architecture, simplifying navigation, and refining core flows so users could quickly find key resources on both web and mobile. Together with the product and development teams, we defined a clear design system and interaction patterns that work consistently across devices, driving a 40% increase in returning users and making the app a reliable part of their daily routine.",
+		"about": "Together with Richard Egyed I led the design direction for the Pro podnikavé platform and app redesign. It used to be a slow, web-only experience, and small entrepreneurs needed a mobile-first tool that fits how they actually work.\n\nI focused on the information architecture, simpler navigation and the core flows, so people can find key resources quickly on web and mobile. With the product and development teams we defined a design system and interaction patterns that work the same across devices, and returning users grew by 40% after the redesign.",
 		"programs": [
 			"Figma"
 		],
@@ -153,10 +153,10 @@
 	},
 	{
 		"slug": "stelinhome",
-		"name": "Stelinhome",
-		"tagline": "Guesthouse site built around the owner’s dog.",
+		"name": "Stelin Home",
+		"tagline": "Holiday home brand run by a border collie.",
 		"website": "https://stelinhome.com/",
-		"client": "Stelinhome",
+		"client": "Stelin Home",
 		"year": "2025",
 		"role": "Logo Design, Web, Content Creation",
 		"tags": [
@@ -164,8 +164,8 @@
 			"Web",
 			"Logo"
 		],
-		"outcome": "A template the owner keeps the site and social channels running from.",
-		"about": "I developed a website for a client seeking an appealing online presentation for his guesthouse. The communication approach was built around his beloved dog, which I incorporated into the logo and social media assets to create a personal and memorable brand image.\n\nAdditionally, I designed a versatile template for consistent and systematic brand presentation across all digital platforms. This project focused on building a strong and relatable identity for a local business, engaging its audience through thoughtful storytelling and cohesive visual design.",
+		"outcome": "Around 340 Instagram followers without paid ads, and guests who arrive with their dogs.",
+		"about": "The owner of a small cabin in Oravská Poruba didn't want his own face on the brand, so he offered his dog's. Her name is Stela, she's a border collie, and today she's officially the owner of Stelin Home.\n\nA dog on the logo tells people the place is pet friendly before they read a word, which speaks straight to the guests most likely to book it. I built the character from Stela's real face, with her own markings and a calm, friendly expression, and set her in olive green, cream and dark wood tones that match the cabin.\n\nThe website has its own booking system, so guests can book directly instead of through a big platform, and Stela has her own story there. For Instagram I made templates that the owner fills with his own photos and posts himself.",
 		"programs": [
 			"Adobe Illustrator",
 			"Adobe Photoshop",
@@ -194,7 +194,7 @@
 			"Logo"
 		],
 		"outcome": "Delivered in 24 hours; the logo now runs across all their communication.",
-		"about": "I developed a rebrand for a café that aimed to refresh its visual identity and scale its business by expanding into a bakery. The main challenge was a tight 24-hour deadline to deliver a complete solution, but despite the time pressure, the project was successfully completed and the outcome proved worth the effort.\n\nThe new logo became a core element of their brand and is now used consistently across their communication, with both the client and customers responding positively to the fresh, authentic visual direction.",
+		"about": "A café that was about to expand into a bakery needed an identity that could grow with it, and we had 24 hours to deliver the whole thing.\n\nThe new logo is now the core of their brand and runs across all their communication, and both the client and their customers responded well to the fresh direction.",
 		"programs": [
 			"Adobe Illustrator",
 			"Adobe Photoshop",
@@ -223,7 +223,7 @@
 			"Art Direction"
 		],
 		"outcome": "Shipped as a finished product and sold to the community at AAC events.",
-		"about": "AACarabiner is the first physical product released under Artistic Area Club, designed together with Ján Šefárik. The idea came from a simple observation: the club lived entirely online, and we wanted something people could actually carry, an object for those who are into underground culture but still expect style and function from what they use.\n\nWe shaped it as a carabiner, 3D printed from nylon, with an organic silhouette pulled straight from AAC's visual language. From there it turned into a long loop of prototyping, printing a version, handing it to people, then coming back weeks later to ask what held up, what got in the way, and what they stopped using. Every round of feedback reshaped the geometry until the piece carried keys the way it should and survived everyday wear.\n\nWhat started as an internal experiment ended as a finished product on sale, and a way for the community to carry the brand with them.",
+		"about": "AACarabiner is the first physical product of Artistic Area Club, designed together with Ján Šefárik. The club lived online, and we wanted something people could carry, an object for people into underground culture who still expect style and function from what they use.\n\nWe shaped it as a carabiner 3D-printed from nylon, with an organic silhouette taken from AAC's visual language. Then came a long loop of prototyping, where we printed a version, handed it to people and came back weeks later to ask what held up, what got in the way and what they stopped using. Every round changed the geometry until it carried keys the way it should and survived everyday wear.\n\nWhat started as an internal experiment is now on sale, and like everything the club makes, its name starts with AAC.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator"
@@ -253,7 +253,7 @@
 			"Logo"
 		],
 		"outcome": "Grew into a live event series with its own product line, a public archive and over 100K reach.",
-		"about": "Music, design and art here mostly ran in separate lanes, and the events that did exist rarely treated any of them with much care. Artistic Area Club started to put them in one room and take the result seriously, and it had to stay open, so the brand could not read like a members-only badge. The logo works from that idea: separate liquids poured together until they set into a single shape, the letters AAC running into one another instead of lining up.\n\nThe website carries the same intent. It is a timeline and a portfolio of everything the club has done, so someone arriving cold can see there is real history behind it, and someone who missed a night can see what they missed and show up to the next one. Photos from each event are there to download, so the evening goes home with the people who were in it.\n\nThe visual changes from event to event on purpose. One manual applied to everything would turn the club into a company, and the look belongs to the artists who build each night. A few elements repeat; the rest is made once and stays tied to that one evening.",
+		"about": "Music, design and art here mostly ran in separate lanes, and the events that did exist rarely treated any of them with much care. Artistic Area Club started to put them in one room and take the result seriously, and it had to stay open, so the brand could not read like a members-only badge. The logo works from that idea: separate liquids poured together until they set into a single shape, the letters AAC running into one another instead of lining up.\n\nThe name is three words long, which is a lot for someone who sees a poster for two seconds, so we hid the short version inside everything the club makes, from AAConcert and AACompetition to AACommunity and AACarabiner. Over time people started calling us simply AAC.\n\nThe website carries the same intent. It is a timeline and a portfolio of everything the club has done, so someone arriving cold can see there is real history behind it, and someone who missed a night can see what they missed and show up to the next one. Photos from each event are there to download, so the evening goes home with the people who were in it.\n\nThe visual changes from event to event on purpose. One manual applied to everything would turn the club into a company, and the look belongs to the artists who build each night. A few elements repeat; the rest is made once and stays tied to that one evening.",
 		"programs": [
 			"Adobe Illustrator",
 			"Adobe Photoshop",
@@ -296,7 +296,7 @@
 		"tags": [
 			"Logo"
 		],
-		"about": "This is a logofolio showcasing logos designed for various clients, each tailored to different brand identities and needs.",
+		"about": "A selection of logos I designed for different clients between 2023 and 2025, each one shaped around that brand's own identity and needs.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator"
@@ -328,7 +328,7 @@
 			"Print",
 			"Art Direction"
 		],
-		"about": "This is a poster folio featuring poster designs created for different clients and events, each tailored to unique themes and purposes.",
+		"about": "Posters I designed for different clients and events between 2023 and 2026, each one built around the theme of its own event.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator",
@@ -348,15 +348,15 @@
 	{
 		"slug": "aerv-cover-series",
 		"name": "ÆRv Cover Series",
-		"tagline": "Album artwork anchored by a custom logotype.",
-		"client": "Conceptual Album Cover Series",
+		"tagline": "Playlist covers that show how AAC sounds.",
+		"client": "Artistic Area Club",
 		"year": "2025",
 		"role": "Artwork & Cover Design",
 		"tags": [
 			"Art Direction",
 			"Visual Identity"
 		],
-		"about": "I designed album cover art in a dark style, with a custom logotype as the main symbol. The project also included vinyl design, maintaining strong visual consistency across all assets.",
+		"about": "ÆRv is a playlist for the vibe the AAC brand stands for. We wanted people to know roughly how AAC sounds, so we put together a playlist they could put on and listen to.\n\nI designed the covers in a dark style, with a custom ÆRv logotype as the main symbol, and the series also includes a vinyl design, so every piece looks like it belongs together.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator",
@@ -373,7 +373,7 @@
 	},
 	{
 		"slug": "oravska-kniznica",
-		"name": "Oravska Kniznica",
+		"name": "Oravská knižnica",
 		"tagline": "Digital and print design for a public library.",
 		"client": "Oravská Knižnica Antona Habovštiaka",
 		"year": "2025",
@@ -382,7 +382,7 @@
 			"Content",
 			"Print"
 		],
-		"about": "I was responsible for digital communication and visual content creation for a public library located in Dolný Kubín. My work focused primarily on producing static social media posts that highlighted important events and engaged the local community.\n\nAdditionally, I designed posters, diplomas, and prepared various materials for print, ensuring all assets were consistent with the library's visual identity. Through careful design and planning, I helped the library strengthen its brand, improve audience outreach, and present its activities in a clear and visually appealing way.",
+		"about": "I took care of digital communication and visual content for the public library in Dolný Kubín. Most of the work was social media posts announcing events for the local community.\n\nI also designed posters and diplomas and prepared materials for print, all in line with the library's visual identity.",
 		"programs": [
 			"Figma",
 			"Adobe Illustrator",

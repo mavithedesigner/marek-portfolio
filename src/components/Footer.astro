@@ -90,11 +90,14 @@ const labelClass = "text-secondary-foreground mb-1";
 			<!-- A feed, not a way to contact me, so it belongs down here. Without it
 			     the slot stays as an empty spacer on wide screens. -->
 			{SHOW_THOUGHTS ? (
-				<div class="order-3 sm:order-none sm:justify-self-start">
+				<div class="order-3 flex gap-5 sm:order-none sm:justify-self-start">
 					<a href="/rss.xml" class="text-secondary-foreground hover:underline">RSS feed</a>
+					<a href="/privacy/" class="text-secondary-foreground hover:underline">Privacy</a>
 				</div>
 			) : (
-				<div class="hidden sm:block" aria-hidden="true"></div>
+				<div class="order-3 sm:order-none sm:justify-self-start">
+					<a href="/privacy/" class="text-secondary-foreground hover:underline">Privacy</a>
+				</div>
 			)}
 			<p class="order-2 text-center sm:order-none">Marek Vicáň © {year} All Rights Reserved</p>
 			<div class="order-1 sm:order-none sm:justify-self-end">

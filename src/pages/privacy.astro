@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+/*
+ * Privacy notice. It describes only what this site actually runs: Vercel
+ * hosting and Web Analytics, the theme choice in
+ * localStorage, and the email / Cal.com / LinkedIn ways to get in touch. When
+ * any of those change, update the
+ * matching section and the date.
+ */
+const updated = "22 November 2026";
+const email = "contact@vican.design";
+---
+
+<Layout
+	title="Privacy |"
+	description="What happens with your data when you visit vican.design: hosting, visitor statistics, fonts and getting in touch."
+>
+	<article class="w-full max-w-7xl mx-auto py-[var(--section-gap)]">
+		<div class="container mx-auto px-4">
+			<div class="mx-auto w-full max-w-[66ch]">
+				<h1 class="text-3xl md:text-4xl text-palette-brightest-white">Privacy</h1>
+				<p class="mt-3 text-sm text-secondary-foreground">Last updated {updated}</p>
+
+				<div class="prose mt-10">
+					<p>
+						This website is my portfolio. It has no accounts, no forms and no ads, and it
+						doesn't set any cookies. This page explains the little that does happen with
+						your data when you visit.
+					</p>
+
+					<h2>Who is responsible</h2>
+					<p>
+						Marek Vicáň, reachable at <a href={`mailto:${email}`}>{email}</a>. Write to
+						this address with any question about your data.
+					</p>
+
+					<h2>Hosting</h2>
+					<p>
+						The site runs on Vercel. Like every web server, theirs receives your IP address,
+						your browser type and the time of your visit, which it needs to deliver the page
+						and keep the site secure. Vercel may process this data outside the EU, under the
+						safeguards the GDPR requires.
+					</p>
+
+					<h2>Visitor statistics</h2>
+					<p>
+						I use Vercel Web Analytics to see which pages people read. It works without
+						cookies and doesn't follow you across other websites. I only see totals, such as
+						page views, the site you came from, your country and the type of device. The legal
+						basis is my legitimate interest in knowing which parts of the site are useful
+						(Article 6(1)(f) GDPR).
+					</p>
+
+					<h2>Getting in touch</h2>
+					<p>
+						If you email me, I use your address and message only to reply and to keep our
+						conversation. If you book a call, the booking runs through Cal.com, which shares
+						your name, email and anything you write with me, under
+						<a href="https://cal.com/privacy" target="_blank" rel="noreferrer noopener">Cal.com's privacy policy</a>.
+						The LinkedIn link takes you to LinkedIn, where their own rules apply.
+					</p>
+
+					<h2>Saved in your browser</h2>
+					<p>
+						If you switch between light and dark mode, the choice is saved in your browser's
+						local storage so the site remembers it next time. It never leaves your device.
+					</p>
+
+					<h2>Your rights</h2>
+					<p>
+						You can ask me what data I have about you, and ask me to correct or delete it or
+						to stop using it. Just email me. You can also complain to the data protection
+						authority in your country.
+					</p>
+				</div>
+			</div>
+		</div>
+	</article>
+</Layout>
