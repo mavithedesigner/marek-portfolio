@@ -2,7 +2,6 @@
 import ArchivePreview from "../components/ArchivePreview.astro";
 import Contact from "../components/Contact.astro";
 import Experience from "../components/Experience.astro";
-import Logos from "../components/Logos.astro";
 import Testimonials from "../components/Testimonials.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import WritingHeading from "../components/WritingHeading.astro";
@@ -11,15 +10,16 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout>
 	<!-- svh, not vh: on iOS 100vh includes the hidden browser chrome, so the
-	     theme toggle sat under the toolbar. Matches contact and about. -->
-	<div class="relative flex flex-col items-center justify-center min-h-[calc(100svh-5rem)]">
+	     theme toggle sat under the toolbar. A little shorter than the screen
+	     on purpose: the top of the first projects shows at the bottom, so it's
+	     clear there is more below. -->
+	<div class="relative flex flex-col items-center justify-center min-h-[calc(100svh-10rem)] md:min-h-[calc(100svh-11rem)]">
 		<WritingHeading />
 		<div class="absolute bottom-8 left-0 right-0 flex justify-center">
 			<ThemeToggle />
 		</div>
 	</div>
 	<ArchivePreview />
-	<Logos />
 	<!-- Proof from other people, right after the work. Hidden until quotes exist. -->
 	<!-- Its own breathing room on both sides, so the quotes don't bleed into
 	     Experience. With no quotes the section vanishes and spacing is unchanged. -->

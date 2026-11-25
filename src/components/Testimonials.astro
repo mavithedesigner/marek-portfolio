@@ -142,7 +142,17 @@ const labelClass =
 					{rendered.map((item, i) => (
 						<li class="slide" aria-hidden={i >= cards.length ? "true" : undefined}>
 							<figure>
-								<blockquote>“{item.quote}”</blockquote>
+								<blockquote>
+									{/* Paragraphs come from blank lines in the quote, so a long
+									    recommendation reads in parts instead of one block. */}
+									{item.quote.split(/\n{2,}/).map((paragraph, p, all) => (
+										<p>
+											{p === 0 && "“"}
+											{paragraph}
+											{p === all.length - 1 && "”"}
+										</p>
+									))}
+								</blockquote>
 
 								<figcaption>
 									<span class="avatar">
@@ -285,6 +295,10 @@ const labelClass =
 			color-mix(in srgb, var(--color-palette-brightest-white) 35%, transparent);
 		color: color-mix(in srgb, var(--color-palette-brightest-white) 90%, transparent);
 		line-height: 1.6;
+	}
+
+	.slide blockquote p + p {
+		margin-top: 0.75rem;
 	}
 
 	.slide figcaption {

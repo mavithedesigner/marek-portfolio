@@ -221,6 +221,10 @@ const structuredData = [...homeJsonLd, ...(jsonLd ? [jsonLd].flat() : [])];
 		<Footer />
 		<script>
 			import Lenis from "@studio-freight/lenis";
+			import { updateOneMore } from "../lib/one-more";
+
+			// The changing question at the end of each case study.
+			document.addEventListener("astro:page-load", updateOneMore);
 
 			/*
 			 * Smooth scrolling, set up exactly once per visit.

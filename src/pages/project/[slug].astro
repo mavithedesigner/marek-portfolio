@@ -1,8 +1,9 @@
 ---
-import CallToAction from "../../components/CallToAction.astro";
-import ProjectGallery from "../../components/ProjectGallery";
+import Contact from "../../components/Contact.astro";
+import ProjectGrid from "../../components/ProjectGrid.astro";
 import Testimonials from "../../components/Testimonials.astro";
 import Layout from "../../layouts/Layout.astro";
+import { ONE_MORE_LINES } from "../../lib/one-more";
 import {
 	getOgImage,
 	getProjects,
@@ -17,19 +18,20 @@ export async function getStaticPaths() {
 		props: {
 			project,
 			index,
-			previous: index > 0 ? projects[index - 1] : null,
-			next: index < projects.length - 1 ? projects[index + 1] : null,
+			// The project suggested at the end: the next one, and after the
+			// last project the first one again, so every page has one.
+			next: projects[(index + 1) % projects.length],
 		},
 	}));
 }
 
-const { project, previous, next } = Astro.props;
+const { project, next } = Astro.props;
 
 const ogImage = await getOgImage(project.thumbnail);
 
-// With a single image there is no strip to pin or scroll, so the whole
-// scroll-driven layout is skipped for that project.
-const hasStrip = project.imageItems.length > 1;
+// The images take the wider right column, so they are requested at about
+// two thirds of the screen on desktop.
+const imageSizes = "(max-width: 1023px) 100vw, 780px";
 const collaborators = parseCollaborators(project.collaborators);
 const websiteLabel =
 	project.websiteLabel ??
@@ -46,55 +48,21 @@ const websiteLabel =
     imageAlt={`${project.name}, ${project.tagline}`}
 >
     <!--
-        `--header-h` keeps the pinned showcase tucked under the sticky header so
-        the navigation stays visible for the whole scroll.
+        Text on the left, pinned under the header so it reads from its first
+        line; the images stack on the right, each one scaled to fit a single
+        screen, so no picture ever needs two scrolls and the page shows the
+        whole project in order. On a phone the text comes first.
     -->
     <section
         class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white pt-6 pb-6 md:pt-2 md:pb-8 [--header-h:4rem] md:[--header-h:5.5rem]"
     >
-        <!-- px-4 everywhere so the header's logo and CTA line up with the content -->
         <div class="px-4">
             <div
-                class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-10 lg:gap-16 xl:gap-24 items-start"
+                class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] gap-10 lg:gap-12 xl:gap-16 items-start"
             >
-                <!--
-                    Left: scroll-driven showcase.
-                    The track is stretched by ProjectGallery to `100svh + strip overflow`,
-                    so the pinned strip travels sideways for exactly as long as it needs
-                    before the page resumes scrolling.
-                -->
-                {
-                    hasStrip ? (
-                        <div data-pin-track class="relative min-w-0">
-                            {/* No forced height on mobile: the block hugs the strip so the
-                                project copy follows straight after instead of a blank screen. */}
-                            <div
-                                data-pin-sticky
-                                class="sticky top-[var(--header-h)] flex flex-col justify-start pt-2 "
-                            >
-                                <ProjectGallery client:load images={project.imageItems} />
-                            </div>
-                        </div>
-                    ) : (
-                        /* One image: nothing to pin or scroll through, so it just sits
-                           at the top of the column at full width. */
-                        <div class="min-w-0 pt-2">
-                            <ProjectGallery client:load images={project.imageItems} />
-                        </div>
-                    )
-                }
-
-                <!-- Right: Project details — pinned alongside so nothing shifts on desktop -->
+                <!-- Left: project details -->
                 <div
-                    class:list={[
-                        "flex flex-col gap-6 text-base leading-relaxed max-w-xl lg:pt-2",
-                        // Pinning the copy only makes sense while the strip beside it
-                        // is being scrolled through. It pins right under the header,
-                        // so the text is read from its first line while the
-                        // images move.
-                        hasStrip &&
-                            "lg:sticky lg:top-[var(--header-h)] lg:justify-start",
-                    ]}
+                    class="flex flex-col gap-6 text-base leading-relaxed max-w-xl lg:pt-2 lg:sticky lg:top-[var(--header-h)]"
                 >
                     <!-- min-w-0: a long website name must wrap inside its cell
                          instead of widening the grid past a 320px screen. -->
@@ -253,6 +221,26 @@ const websiteLabel =
                         </ul>
                     </div>
                 </div>
+
+                <!-- Right: every image, one under another, each fitting the screen -->
+                <div class="project-images">
+                    {project.imageItems.map((image, i) => (
+                        <figure>
+                            <img
+                                src={image.src}
+                                srcset={image.srcSet}
+                                sizes={imageSizes}
+                                alt={image.alt ?? image.title}
+                                width={image.width}
+                                height={image.height}
+                                loading={i < 2 ? "eager" : "lazy"}
+                                fetchpriority={i === 0 ? "high" : undefined}
+                                decoding="async"
+                            />
+                            <figcaption>{image.title}</figcaption>
+                        </figure>
+                    ))}
+                </div>
             </div>
         </div>
     </section>
@@ -264,97 +252,81 @@ const websiteLabel =
     <Testimonials project={project.slug} limit={1} class="section-gap" />
 
 
-    <!-- Where you'd go next, in words: the label, the name and what it is.
-         No thumbnail, so it stays quiet next to the contact block below. -->
-    <nav
-        class="w-full max-w-7xl mx-auto mt-[var(--space-3xl)]"
-        aria-label="Other projects"
-    >
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-                {
-                    previous ? (
-                        <a href={`/project/${previous.slug}/`} class="pager">
-                            <span class="pager-label" aria-hidden="true">← previous_project</span>
-                            <span class="sr-only">Previous project:</span>
-                            <span class="pager-name">{previous.name}</span>
-                            <span class="pager-tagline">{previous.tagline}</span>
-                        </a>
-                    ) : (
-                        <span />
-                    )
-                }
-
-                {
-                    next && (
-                        <a
-                            href={`/project/${next.slug}/`}
-                            class="pager pager--next md:col-start-2"
-                        >
-                            <span class="pager-label" aria-hidden="true">next_project →</span>
-                            <span class="sr-only">Next project:</span>
-                            <span class="pager-name">{next.name}</span>
-                            <span class="pager-tagline">{next.tagline}</span>
-                        </a>
-                    )
-                }
-            </div>
-        </div>
-    </nav>
-
     <!--
-        The ask comes last, after the case and after the quote: by then someone
-        has everything they need to decide. The pager sits above it so "keep
-        browsing" stays available without competing with it.
+        One more project, shown the same way as on the home page, with a
+        question instead of a "next" label: an invitation to keep looking,
+        not navigation.
     -->
-    <CallToAction />
+    <section
+        class="w-full max-w-7xl mx-auto px-4 mt-[var(--space-3xl)]"
+        aria-labelledby="one-more-heading"
+    >
+        <!-- The first line; a script swaps it for the next one each time
+             another project is opened in a row (src/lib/one-more.ts). -->
+        <h2 id="one-more-heading" class="one-more text-lg md:text-xl text-palette-brightest-white">
+            {ONE_MORE_LINES[0]}
+        </h2>
+        <ProjectGrid projects={[next]} priority={0} columns={2} class="mt-6" />
+    </section>
+
+    <!-- The same short ask as on the home page: one button to the contact page. -->
+    <Contact options={false} />
 
 </Layout>
 
 
 <style>
-	/* No boxes and no thumbnail: type alone carries it. */
-	.pager {
-		display: block;
-	}
+    /* Past the tenth project in a row the question gets louder and won't sit still. */
+    .one-more {
+        transform-origin: left center;
+    }
 
-	.pager-label {
-		display: block;
-		font-size: 0.7rem;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
-	}
+    :global(.one-more--crazy) {
+        display: inline-block;
+        font-size: clamp(1.5rem, 4vw, 2.75rem);
+        line-height: 1.15;
+        animation: one-more-wobble 1.6s ease-in-out infinite;
+    }
 
-	.pager-name {
-		display: block;
-		margin-top: var(--space-xs);
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: var(--color-palette-brightest-white);
-		text-underline-offset: 4px;
-	}
+    @keyframes one-more-wobble {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        20% { transform: rotate(-2deg) scale(1.03); }
+        40% { transform: rotate(1.5deg) scale(0.99); }
+        60% { transform: rotate(-1deg) scale(1.02); }
+        80% { transform: rotate(1deg) scale(1); }
+    }
 
-	.pager:hover .pager-name,
-	.pager:focus-visible .pager-name {
-		text-decoration: underline;
-	}
+    @media (prefers-reduced-motion: reduce) {
+        :global(.one-more--crazy) {
+            animation: none;
+        }
+    }
 
-	.pager-tagline {
-		display: block;
-		margin-top: 0.15rem;
-		font-size: 0.8rem;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: color-mix(in srgb, var(--color-palette-brightest-white) 60%, transparent);
-	}
+    .project-images {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        min-width: 0;
+    }
 
-	/* The two sides read outward from the centre of the row. */
-	@media (min-width: 768px) {
-		.pager--next {
-			text-align: right;
-		}
-	}
+    .project-images figure {
+        margin: 0;
+    }
+
+    /* Never taller than the space under the header, minus the caption: the
+       whole picture is always on screen at once. */
+    .project-images img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: calc(100svh - var(--header-h) - 2.5rem);
+        object-fit: contain;
+    }
+
+    .project-images figcaption {
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+        color: var(--color-palette-brightest-white);
+    }
 </style>

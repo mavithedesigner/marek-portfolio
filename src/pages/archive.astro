@@ -1,7 +1,5 @@
 ---
-import CycleImage from "../components/CycleImage";
-import ProjectBadge from "../components/ProjectBadge.astro";
-import ProjectTags from "../components/ProjectTags.astro";
+import ProjectGrid from "../components/ProjectGrid.astro";
 import Layout from "../layouts/Layout.astro";
 import { getProjectTags, getProjects } from "../lib/projects";
 
@@ -13,8 +11,8 @@ const tags = await getProjectTags();
   title="Archive |"
   description="Selected work by Marek Vicáň: visual identity, UX/UI, web and art direction for brands, products and local initiatives."
 >
-  <section class="w-full max-w-7xl mx-auto bg-background text-palette-brightest-white py-[var(--section-gap)]">
-    <div class="container mx-auto">
+  <section class="w-full bg-background text-palette-brightest-white py-[var(--section-gap)]">
+    <div class="max-w-7xl mx-auto">
       <!-- For search engines and screen readers; the grid introduces itself. -->
       <h1 class="sr-only">Archive</h1>
       <!--
@@ -50,37 +48,11 @@ const tags = await getProjectTags();
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-[var(--card-gutter)] gap-y-[var(--card-gutter-y)] px-4 mt-10" data-archive-grid>
-        {projects.map((project, i) => (
-          <a
-            href={`/project/${project.slug}/`}
-            class="project-preview project-card relative group max-w-2xl mx-auto w-full block"
-            data-tags={project.tags.join("|")}
-          >
-            <div class="relative">
-              <CycleImage
-                client:load
-                images={project.imageItems}
-                startIndex={0}
-                className="w-full h-auto select-none object-contain"
-                disableClick={true}
-                priority={i < 2}
-              />
-              <ProjectBadge label={project.badge} />
-            </div>
-
-            <!-- relative: the chips hang off the bottom of this row -->
-            <div class="relative">
-              <div class="mt-1 flex items-baseline justify-between gap-3 text-[0.8rem] text-secondary-foreground">
-                <span class="truncate">{project.tagline}</span>
-                <span class="shrink-0">{project.year}</span>
-              </div>
-              <ProjectTags tags={project.tags} />
-            </div>
-          </a>
-        ))}
-      </div>
-
+    </div>
+    <div class="w-full max-w-7xl mx-auto px-4 mt-8">
+      <ProjectGrid projects={projects} data-archive-grid />
+    </div>
+    <div class="max-w-7xl mx-auto">
       <p class="px-4 mt-10 text-secondary-foreground" data-archive-empty hidden>
         Nothing in this discipline yet.
       </p>
@@ -89,12 +61,6 @@ const tags = await getProjectTags();
 </Layout>
 
 <style>
-	/* Prevent layout shift and improve image cycling */
-	.cycle-image-container {
-		contain: layout style paint;
-		will-change: contents;
-	}
-
 	/* Smooth image transitions */
 	img {
 		transition: opacity 0.2s ease-in-out;
@@ -137,9 +103,6 @@ const tags = await getProjectTags();
 		color: var(--color-background);
 	}
 
-	.project-card[hidden] {
-		display: none;
-	}
 </style>
 
 <script>
@@ -188,6 +151,7 @@ const tags = await getProjectTags();
 			}
 
 			if (empty) empty.hidden = visible > 0;
+			grid.dispatchEvent(new CustomEvent("masonry:layout"));
 
 			requestAnimationFrame(() => {
 				lenis?.resize?.();
